@@ -4,11 +4,11 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:framework/controllers/auth/auth.dart';
-import 'package:framework/controllers/brightness_mode/brightness_mode.dart';
-import 'package:framework/controllers/dev_stage/dev_stage.dart';
-import 'package:framework/controllers/dictionary/dictionary.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/controllers/auth/auth.dart';
+import 'package:flowter/controllers/brightness_mode/brightness_mode.dart';
+import 'package:flowter/controllers/dev_stage/dev_stage.dart';
+import 'package:flowter/controllers/dictionary/dictionary.dart';
+import 'package:flowter/flowter.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'dart:io';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -27,8 +27,6 @@ part '_environment.dart';
 part '_app_init.dart';
 part '_logs.dart';
 part '_base_widget.dart';
-
-
 
 /// AppFramework is the main entry point for the app by use of [AppFramework.appInitializer] function,
 /// which uses a group of basic internal [made by AQeeL] & external libraries of the framework to use
@@ -61,18 +59,15 @@ part '_base_widget.dart';
 ///
 ///
 ///
-class AppFramework{
-
+class AppFramework {
   static late AppCustomization appCustomization;
 
   static void appInitializer({
     required AppCustomization customization,
     Future<void> Function(AppCustomization environment)? onAppStartInitializing,
     Future<void> Function(AppCustomization environment)? onAppInitialized,
-  })async{
-
+  }) async {
     runZonedGuarded(() async {
-
       appCustomization = customization;
 
       await onAppStartInitializing?.call(customization);
@@ -82,18 +77,10 @@ class AppFramework{
       await onAppInitialized?.call(customization);
 
       runApp(AppBaseWidget(appCustomization: appCustomization));
-
-    },(Object e,StackTrace s){
-
-      if(customization.onErrorThrown!=null){
-        customization.onErrorThrown!(e,s);
+    }, (Object e, StackTrace s) {
+      if (customization.onErrorThrown != null) {
+        customization.onErrorThrown!(e, s);
       }
-
     });
-
   }
-
-
 }
-
-

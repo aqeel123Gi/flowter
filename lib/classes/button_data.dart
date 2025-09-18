@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
-class ButtonData<T>{
+class ButtonData<T> {
   ButtonData({
     this.id,
     this.color,
@@ -30,10 +30,9 @@ class ButtonData<T>{
   void Function()? onPressed;
   void Function()? onLongPress;
 
-  static int? getIndexOfFocused(List<ButtonData> buttons){
-
-    for(int i=0;i<buttons.length;i++){
-      if(buttons[i].focused==true){
+  static int? getIndexOfFocused(List<ButtonData> buttons) {
+    for (int i = 0; i < buttons.length; i++) {
+      if (buttons[i].focused == true) {
         return i;
       }
     }
@@ -41,29 +40,25 @@ class ButtonData<T>{
   }
 }
 
-
-
-extension ButtonDataExtension<T> on List<ButtonData<T>>{
-
-  void forTabsController(InteractiveTabsController controller){
-    for(int i=0;i<length;i++){
-      this[i].onPressed = (){
+extension ButtonDataExtension<T> on List<ButtonData<T>> {
+  void forTabsController(InteractiveTabsController controller) {
+    for (int i = 0; i < length; i++) {
+      this[i].onPressed = () {
         controller.toTab(i);
       };
     }
-    controller.addListenerOnStartTabChanging((i){
+    controller.addListenerOnStartTabChanging((i) {
       setFocusedOne(i);
     });
   }
 
-  void setFocusedOne(int index){
-    for(int i=0;i<length;i++){
-      if(i==index){
+  void setFocusedOne(int index) {
+    for (int i = 0; i < length; i++) {
+      if (i == index) {
         this[i].focused = true;
-      }else{
+      } else {
         this[i].focused = false;
       }
     }
   }
-
 }

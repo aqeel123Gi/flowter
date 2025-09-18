@@ -1,4 +1,4 @@
-import 'package:framework/classes/window.dart';
+import 'package:flowter/classes/window.dart';
 import 'package:flutter/widgets.dart';
 
 class KeyboardVisibility extends StatefulWidget {
@@ -10,12 +10,10 @@ class KeyboardVisibility extends StatefulWidget {
   createState() => _KeyboardVisibilityState();
 }
 
-class _KeyboardVisibilityState extends State<KeyboardVisibility>{
-
-
+class _KeyboardVisibilityState extends State<KeyboardVisibility> {
   @override
   Widget build(BuildContext context) {
-    bool visibleKeyboard = Window.insetsBottom(context)>0;
+    bool visibleKeyboard = Window.insetsBottom(context) > 0;
     return widget.builder(context, visibleKeyboard);
   }
 }

@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
 class AnimatedOpenClose extends StatefulWidget {
-  const AnimatedOpenClose({
-    super.key,
-    this.axis = Axis.vertical,
-    required this.duration,
-    required this.curve,
-    required this.open,
-    required this.child
-  });
-
+  const AnimatedOpenClose(
+      {super.key,
+      this.axis = Axis.vertical,
+      required this.duration,
+      required this.curve,
+      required this.open,
+      required this.child});
 
   final Axis axis;
   final Duration duration;
@@ -23,7 +21,6 @@ class AnimatedOpenClose extends StatefulWidget {
 }
 
 class _AnimatedOpenCloseState extends State<AnimatedOpenClose> {
-
   bool _init = false;
   double _size = 0;
 
@@ -36,28 +33,36 @@ class _AnimatedOpenCloseState extends State<AnimatedOpenClose> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: widget.axis == Axis.vertical?widget.open?_size:0:null,
-      width: widget.axis == Axis.horizontal?widget.open?_size:0:null,
-      duration: _init?widget.duration:Duration.zero,curve: widget.curve,child: ChildSizeDetector(
-      flexibleAxis: widget.axis,
-        onChange: (size){
-          setState(() {
+      height: widget.axis == Axis.vertical
+          ? widget.open
+              ? _size
+              : 0
+          : null,
+      width: widget.axis == Axis.horizontal
+          ? widget.open
+              ? _size
+              : 0
+          : null,
+      duration: _init ? widget.duration : Duration.zero,
+      curve: widget.curve,
+      child: ChildSizeDetector(
+          flexibleAxis: widget.axis,
+          onChange: (size) {
+            setState(() {
+              if (widget.axis == Axis.vertical) {
+                _size = size.height;
+              } else {
+                _size = size.width;
+              }
 
-            if(widget.axis == Axis.vertical){
-              _size = size.height;
-            }else{
-              _size = size.width;
-            }
-
-            addPostFrameCallback((){
-              setState(() {
-                _init = true;
+              addPostFrameCallback(() {
+                setState(() {
+                  _init = true;
+                });
               });
             });
-          });
-        },
-        child: widget.child
-    ),);
+          },
+          child: widget.child),
+    );
   }
-
 }

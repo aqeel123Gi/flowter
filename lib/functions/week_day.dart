@@ -1,10 +1,8 @@
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
-
-
-String weekdayToText(int weekday,dynamic languageCode){
-  if(languageCode == LanguageCode.ar || languageCode == "ar") {
-    switch(weekday){
+String weekdayToText(int weekday, dynamic languageCode) {
+  if (languageCode == LanguageCode.ar || languageCode == "ar") {
+    switch (weekday) {
       case 7:
         return 'الأحد';
       case 1:
@@ -20,8 +18,8 @@ String weekdayToText(int weekday,dynamic languageCode){
       case 6:
         return "السبت";
     }
-  }else{
-    switch(weekday){
+  } else {
+    switch (weekday) {
       case 7:
         return "sunday";
       case 1:
@@ -41,11 +39,9 @@ String weekdayToText(int weekday,dynamic languageCode){
   return "<?>";
 }
 
-
-
-String fromWeekDayToString(WeekDay weekday,LanguageCode languageCode){
-  if(languageCode == LanguageCode.ar) {
-    switch(weekday){
+String fromWeekDayToString(WeekDay weekday, LanguageCode languageCode) {
+  if (languageCode == LanguageCode.ar) {
+    switch (weekday) {
       case WeekDay.sunday:
         return 'الأحد';
       case WeekDay.monday:
@@ -61,15 +57,14 @@ String fromWeekDayToString(WeekDay weekday,LanguageCode languageCode){
       case WeekDay.saturday:
         return "السبت";
     }
-  }else{
+  } else {
     return weekday.name;
   }
 }
 
-
-String fromWeekDayToStringX(WeekDay weekday,String languageCode){
-  if(languageCode == 'ar') {
-    switch(weekday){
+String fromWeekDayToStringX(WeekDay weekday, String languageCode) {
+  if (languageCode == 'ar') {
+    switch (weekday) {
       case WeekDay.sunday:
         return 'الأحد';
       case WeekDay.monday:
@@ -85,53 +80,43 @@ String fromWeekDayToStringX(WeekDay weekday,String languageCode){
       case WeekDay.saturday:
         return "السبت";
     }
-  }else{
+  } else {
     return weekday.name;
   }
 }
 
-
-
-
-WeekDay parseWeekDay(dynamic weekday){
-  if(weekday is int){
+WeekDay parseWeekDay(dynamic weekday) {
+  if (weekday is int) {
     return {
-      7:WeekDay.sunday,
-      1:WeekDay.monday,
-      2:WeekDay.tuesday,
-      3:WeekDay.wednesday,
-      4:WeekDay.thursday,
-      5:WeekDay.friday,
-      6:WeekDay.saturday
-    }
-    [weekday]!;
-  }
-
-  else if (weekday is String){
+      7: WeekDay.sunday,
+      1: WeekDay.monday,
+      2: WeekDay.tuesday,
+      3: WeekDay.wednesday,
+      4: WeekDay.thursday,
+      5: WeekDay.friday,
+      6: WeekDay.saturday
+    }[weekday]!;
+  } else if (weekday is String) {
     return {
-      "sunday":WeekDay.sunday,
-      "monday":WeekDay.monday,
-      "tuesday":WeekDay.tuesday,
-      "wednesday":WeekDay.wednesday,
-      "thursday":WeekDay.thursday,
-      "friday":WeekDay.friday,
-      "saturday":WeekDay.saturday
-    }
-    [weekday.toLowerCase()]!;
+      "sunday": WeekDay.sunday,
+      "monday": WeekDay.monday,
+      "tuesday": WeekDay.tuesday,
+      "wednesday": WeekDay.wednesday,
+      "thursday": WeekDay.thursday,
+      "friday": WeekDay.friday,
+      "saturday": WeekDay.saturday
+    }[weekday.toLowerCase()]!;
   }
 
   throw Exception("Not implemented for $weekday");
 }
-
 
 int fromWeekDayToIndex(WeekDay weekday, [WeekDay startDay = WeekDay.sunday]) {
   int index = (weekday.index - startDay.index) % 7;
   return index;
 }
 
-
 WeekDay fromIndexToWeekDay(int index, [WeekDay startDay = WeekDay.sunday]) {
   int finalIndex = (startDay.index + index) % 7;
   return WeekDay.values[finalIndex];
 }
-

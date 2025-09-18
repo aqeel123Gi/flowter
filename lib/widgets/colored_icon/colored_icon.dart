@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
 class ColoredIcon extends StatelessWidget {
-  const ColoredIcon({
-    required this.iconSize, required this.color, super.key, this.expandingTappingSensitivity = 0, required this.containerSize, this.borderRadius, required this.icon, this.onPressed});
+  const ColoredIcon(
+      {required this.iconSize,
+      required this.color,
+      super.key,
+      this.expandingTappingSensitivity = 0,
+      required this.containerSize,
+      this.borderRadius,
+      required this.icon,
+      this.onPressed});
 
   final void Function()? onPressed;
   final double expandingTappingSensitivity;
@@ -22,10 +29,11 @@ class ColoredIcon extends StatelessWidget {
       height: containerSize,
       width: containerSize,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius??containerSize),
+        borderRadius: BorderRadius.circular(borderRadius ?? containerSize),
         color: color.withOpacityMultiply(0.1),
       ),
-      contentBuilder: (context,focused)=>Center(child: icon.withParams(color: color, size: iconSize)),
+      contentBuilder: (context, focused) =>
+          Center(child: icon.withParams(color: color, size: iconSize)),
     );
   }
 }

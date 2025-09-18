@@ -1,62 +1,54 @@
-import 'package:framework/classes/window.dart';
+import 'package:flowter/classes/window.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 class GlobalScaling extends StatefulWidget {
-
   static double _currentScale = 0;
   static double _currentHeight = 0;
   static double _currentWidth = 0;
 
-
   static double get currentScale => _currentScale;
   static double get currentHeight => _currentHeight;
   static double get currentWidth => _currentWidth;
-  static Size get currentSize => Size(_currentWidth,_currentHeight);
-
+  static Size get currentSize => Size(_currentWidth, _currentHeight);
 
   // static double currentScale = 1;
   // static double currentScale = 1;
 
-
-  static void _onChanged(){
+  static void _onChanged() {
     for (var onChanged in _onChangedList) {
       onChanged();
     }
   }
 
-
-  static void setScale(BuildContext context, double scale){
+  static void setScale(BuildContext context, double scale) {
     GlobalScaling._currentScale = scale;
     rescale(context);
   }
 
-  static void rescale(BuildContext context){
-    GlobalScaling._currentHeight = MediaQuery.of(context).size.height / GlobalScaling._currentScale;
-    GlobalScaling._currentWidth = MediaQuery.of(context).size.width / GlobalScaling._currentScale;
+  static void rescale(BuildContext context) {
+    GlobalScaling._currentHeight =
+        MediaQuery.of(context).size.height / GlobalScaling._currentScale;
+    GlobalScaling._currentWidth =
+        MediaQuery.of(context).size.width / GlobalScaling._currentScale;
     _onChanged();
   }
 
   static final List<void Function()> _onChangedList = [];
-  static void addListener(void Function() onChanged)=>_onChangedList.add(onChanged);
-  static void removeListener(void Function() onChanged)=>_onChangedList.remove(onChanged);
+  static void addListener(void Function() onChanged) =>
+      _onChangedList.add(onChanged);
+  static void removeListener(void Function() onChanged) =>
+      _onChangedList.remove(onChanged);
 
-  const GlobalScaling({
-    super.key,
-    required this.child
-  });
+  const GlobalScaling({super.key, required this.child});
 
   final Widget child;
-
-
 
   @override
   State<GlobalScaling> createState() => _GlobalScalingState();
 }
 
-class _GlobalScalingState extends State<GlobalScaling> with WindowListener{
-
-
+class _GlobalScalingState extends State<GlobalScaling> with WindowListener {
   @override
   void onWindowEvent(String eventName) {
     GlobalScaling.rescale(context);
@@ -107,14 +99,13 @@ class _GlobalScalingState extends State<GlobalScaling> with WindowListener{
 
   @override
   void initState() {
-
     windowManager.addListener(this);
 
-    WidgetsBinding.instance.addPostFrameCallback((_)=>GlobalScaling.setScale(context, 0.5));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => GlobalScaling.setScale(context, 0.5));
 
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -122,16 +113,15 @@ class _GlobalScalingState extends State<GlobalScaling> with WindowListener{
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    double verticalPadding =
+        -Window.height(context) * .5 * (1 / GlobalScaling.currentScale);
+    double horizontalPadding =
+        -Window.width(context) * .5 * (1 / GlobalScaling.currentScale);
 
-    double verticalPadding = - Window.height(context) * .5 * (1/GlobalScaling.currentScale);
-    double horizontalPadding = - Window.width(context) * .5 * (1/GlobalScaling.currentScale);
-
-    return Stack(children:[
-        Positioned(
+    return Stack(children: [
+      Positioned(
           top: verticalPadding,
           bottom: verticalPadding,
           left: horizontalPadding,
@@ -140,14 +130,10 @@ class _GlobalScalingState extends State<GlobalScaling> with WindowListener{
             alignment: Alignment.center,
             transform: Matrix4.identity().scaled(GlobalScaling.currentScale),
             child: widget.child,
-          )
-        )
-      ]
-    );
+          ))
+    ]);
   }
-
 }
-
 
 class Scaling extends StatefulWidget {
   const Scaling({super.key, required this.scaleFrom, required this.child});
@@ -160,18 +146,17 @@ class Scaling extends StatefulWidget {
 }
 
 class _ScalingState extends State<Scaling> {
-
   @override
   Widget build(BuildContext context) {
-
-
     return LayoutBuilder(
-
       builder: (context, constraints) {
-
-
-        double verticalPadding =  ((constraints.maxHeight/widget.scaleFrom())-constraints.maxHeight) * 0.5;
-        double horizontalPadding =  ((constraints.maxWidth/widget.scaleFrom())-constraints.maxWidth) * 0.5;
+        double verticalPadding = ((constraints.maxHeight / widget.scaleFrom()) -
+                constraints.maxHeight) *
+            0.5;
+        double horizontalPadding =
+            ((constraints.maxWidth / widget.scaleFrom()) -
+                    constraints.maxWidth) *
+                0.5;
 
         return Stack(children: [
           Positioned(
@@ -183,12 +168,9 @@ class _ScalingState extends State<Scaling> {
                 alignment: Alignment.center,
                 transform: Matrix4.identity().scaled(widget.scaleFrom()),
                 child: widget.child,
-              )
-          )
-        ]
-        );
+              ))
+        ]);
       },
     );
   }
 }
-

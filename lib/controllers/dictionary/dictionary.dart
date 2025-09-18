@@ -1,9 +1,9 @@
 library dictionary;
 
-import 'package:framework/io/memory/memory.dart';
+import 'package:flowter/io/memory/memory.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 import 'package:spreadsheet_decoder/spreadsheet_decoder.dart';
 import '../../functions/transform_map.dart';
 

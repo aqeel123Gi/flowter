@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:framework/functions/functions.dart';
+import 'package:flowter/functions/functions.dart';
 
-class AppError{
+class AppError {
   AppError({
     required this.datetime,
     required this.version,
@@ -15,17 +15,17 @@ class AppError{
   String version;
   String exception;
   String stackTrace;
-  Map<dynamic,dynamic> variables;
+  Map<dynamic, dynamic> variables;
   String currentPage;
 
-  static AppError parseFromMemory(DateTime datetime, dynamic record){
+  static AppError parseFromMemory(DateTime datetime, dynamic record) {
     return AppError(
-      datetime: datetime,
-      version: tryGet(()=>record['version'],"Not Specified")!,
-      exception: record['exception'],
-      stackTrace: record['stacktrace'],
-      currentPage: tryGet(()=>record['currentPage'],"Not Specified")!,
-      variables: tryGet(()=>json.decode(record['variables']),{})! as Map<dynamic,dynamic>
-    );
+        datetime: datetime,
+        version: tryGet(() => record['version'], "Not Specified")!,
+        exception: record['exception'],
+        stackTrace: record['stacktrace'],
+        currentPage: tryGet(() => record['currentPage'], "Not Specified")!,
+        variables: tryGet(() => json.decode(record['variables']), {})!
+            as Map<dynamic, dynamic>);
   }
 }

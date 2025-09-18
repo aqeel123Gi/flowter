@@ -1,67 +1,65 @@
 import 'dart:convert';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 import 'package:hive/hive.dart';
 import '../../services/api/api.dart';
 import '../app_version/app_version.dart';
 import 'model.dart';
 
-
-class DebuggingController{
-
-  static final List<MapEntry<String,dynamic>> _variables = [];
+class DebuggingController {
+  static final List<MapEntry<String, dynamic>> _variables = [];
   static late List<String> _keysForSensitiveData;
   static late List<AppError> _errors;
   static List<AppError> get errors => _errors.copy;
 
-
-  static Future<void> initialize({required List<String> keysForSensitiveData}) async {
-
+  static Future<void> initialize(
+      {required List<String> keysForSensitiveData}) async {
     _keysForSensitiveData = keysForSensitiveData;
     Box errorsBox = await Hive.openBox("errors");
     _errors = [];
     for (String key in errorsBox.keys) {
-      _errors.add(AppError.parseFromMemory(DateTime.parse(key),errorsBox.get(key)));
+      _errors.add(
+          AppError.parseFromMemory(DateTime.parse(key), errorsBox.get(key)));
     }
-
   }
 
-  static void addVariable(String id, dynamic data, [Duration durationToRemove = const Duration(minutes: 1)])async{
-
+  static void addVariable(String id, dynamic data,
+      [Duration durationToRemove = const Duration(minutes: 1)]) async {
     dynamic newData = dynamicClone(data);
-    replaceValueForKey(newData,_keysForSensitiveData.toMap(keyFrom:(_,e) => e, valueFrom: (_,e) => "<SensitiveData>"));
+    replaceValueForKey(
+        newData,
+        _keysForSensitiveData.toMap(
+            keyFrom: (_, e) => e, valueFrom: (_, e) => "<SensitiveData>"));
 
-    MapEntry<String,dynamic> variable = MapEntry<String,dynamic>(id,newData);
+    MapEntry<String, dynamic> variable = MapEntry<String, dynamic>(id, newData);
 
     _variables.add(variable);
 
-    Future.delayed(durationToRemove,(){
+    Future.delayed(durationToRemove, () {
       _variables.remove(variable);
     });
 
-    par("${(_parseVariablesToJsonString().length/1024).toStringAsFixed(2)} KB","Current Debugging Variables' size");
+    par("${(_parseVariablesToJsonString().length / 1024).toStringAsFixed(2)} KB",
+        "Current Debugging Variables' size");
   }
 
   static Future<void> addError(
-      {
-        required Object exception,
-        required StackTrace stackTrace,
-        required String currentPage,
-        required List<String> filterErrorsOnSubtexts,
-        required void Function(AppError error)? onNewTodayError
-      })async{
-
-
-    if(
-      filterErrorsOnSubtexts.any((element) => exception.toString().contains(element)) ||
-      filterErrorsOnSubtexts.any((element) => stackTrace.toString().contains(element))
-    ){
+      {required Object exception,
+      required StackTrace stackTrace,
+      required String currentPage,
+      required List<String> filterErrorsOnSubtexts,
+      required void Function(AppError error)? onNewTodayError}) async {
+    if (filterErrorsOnSubtexts
+            .any((element) => exception.toString().contains(element)) ||
+        filterErrorsOnSubtexts
+            .any((element) => stackTrace.toString().contains(element))) {
       return;
     }
 
     DateTime now = DateTime.now();
 
     for (AppError error in _errors) {
-      if(isSameDay(error.datetime,now) && stackTrace.toString()==error.stackTrace){
+      if (isSameDay(error.datetime, now) &&
+          stackTrace.toString() == error.stackTrace) {
         return;
       }
     }
@@ -76,36 +74,28 @@ class DebuggingController{
     });
 
     AppError error = AppError(
-      datetime: now,
-      currentPage: currentPage,
-      version: AppInfo.version,
-      exception: exception.toString(),
-      stackTrace: stackTrace.toString(),
-      variables: {}..addEntries(_variables)
-    );
+        datetime: now,
+        currentPage: currentPage,
+        version: AppInfo.version,
+        exception: exception.toString(),
+        stackTrace: stackTrace.toString(),
+        variables: {}..addEntries(_variables));
 
     _errors.add(error);
-    if(onNewTodayError!=null){
+    if (onNewTodayError != null) {
       onNewTodayError(error);
     }
-
   }
 
-  static Future<void> clear()async{
+  static Future<void> clear() async {
     _errors = [];
     await (await Hive.openBox("errors")).clear();
   }
 
-
-
-  static String _parseVariablesToJsonString(){
+  static String _parseVariablesToJsonString() {
     for (var element in _variables) {
       json.encode(element.value);
     }
-    return  json.encode({}..addEntries(_variables));
+    return json.encode({}..addEntries(_variables));
   }
-
 }
-
-
-

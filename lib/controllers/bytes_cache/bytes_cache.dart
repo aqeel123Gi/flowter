@@ -1,9 +1,8 @@
 import 'dart:typed_data';
-import 'package:framework/functions/functions.dart';
+import 'package:flowter/functions/functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-
 
 class BytesCache {
   static Database? _db;
@@ -46,7 +45,8 @@ class BytesCache {
     // Fetch data from server
     final response = await http.get(Uri.parse(uri));
     if (response.statusCode != 200) {
-      throw Exception('Failed to load data from server: ${response.statusCode}');
+      throw Exception(
+          'Failed to load data from server: ${response.statusCode}');
     }
     final data = response.bodyBytes;
 
@@ -56,13 +56,13 @@ class BytesCache {
       {
         'uri': uri,
         'data': data,
-        'timestamp': parseDateTimeToString(DateTime.now(), 'yyyy-MM-dd HH:mm:ss'),
+        'timestamp':
+            parseDateTimeToString(DateTime.now(), 'yyyy-MM-dd HH:mm:ss'),
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return data;
   }
-
 
   /// Get image from cache or server
   static Future<Uint8List> getAsImage(String uri) async {
@@ -82,11 +82,12 @@ class BytesCache {
     // Fetch data from server
     final response = await http.get(Uri.parse(uri));
     if (response.statusCode != 200) {
-      throw Exception('Failed to load data from server: ${response.statusCode}');
+      throw Exception(
+          'Failed to load data from server: ${response.statusCode}');
     }
     final data = response.bodyBytes;
 
-    if(!await _isImageData(data)){
+    if (!await _isImageData(data)) {
       throw Exception('Invalid image data');
     }
 
@@ -96,7 +97,8 @@ class BytesCache {
       {
         'uri': uri,
         'data': data,
-        'timestamp': parseDateTimeToString(DateTime.now(), 'yyyy-MM-dd HH:mm:ss'),
+        'timestamp':
+            parseDateTimeToString(DateTime.now(), 'yyyy-MM-dd HH:mm:ss'),
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -104,7 +106,7 @@ class BytesCache {
   }
 
   /// Check if data is a valid image
-  static Future<bool> _isImageData(Uint8List data) async{
+  static Future<bool> _isImageData(Uint8List data) async {
     try {
       // Check the minimum header length
       if (data.length < 8) {
@@ -115,11 +117,22 @@ class BytesCache {
       final headerBytes = data.take(8).toList();
 
       // Check for JPEG, PNG, GIF, BMP, WebP
-      if ((headerBytes[0] == 0xFF && headerBytes[1] == 0xD8 && headerBytes[2] == 0xFF) || // JPEG
-          (headerBytes[0] == 0x89 && headerBytes[1] == 0x50 && headerBytes[2] == 0x4E && headerBytes[3] == 0x47) || // PNG
-          (headerBytes[0] == 0x47 && headerBytes[1] == 0x49 && headerBytes[2] == 0x46) || // GIF
+      if ((headerBytes[0] == 0xFF &&
+              headerBytes[1] == 0xD8 &&
+              headerBytes[2] == 0xFF) || // JPEG
+          (headerBytes[0] == 0x89 &&
+              headerBytes[1] == 0x50 &&
+              headerBytes[2] == 0x4E &&
+              headerBytes[3] == 0x47) || // PNG
+          (headerBytes[0] == 0x47 &&
+              headerBytes[1] == 0x49 &&
+              headerBytes[2] == 0x46) || // GIF
           (headerBytes[0] == 0x42 && headerBytes[1] == 0x4D) || // BMP
-          (headerBytes[0] == 0x52 && headerBytes[1] == 0x49 && headerBytes[2] == 0x46 && headerBytes[3] == 0x46)) { // WebP
+          (headerBytes[0] == 0x52 &&
+              headerBytes[1] == 0x49 &&
+              headerBytes[2] == 0x46 &&
+              headerBytes[3] == 0x46)) {
+        // WebP
         // Attempt to decode image
         return true;
       }
@@ -136,16 +149,10 @@ class BytesCache {
     }
   }
 
-
-
   static Future<void> clear() async {
     if (_db == null) {
       throw Exception('Database is not initialized. Call init() first.');
     }
     await _db!.delete('cache');
   }
-
-
 }
-
-

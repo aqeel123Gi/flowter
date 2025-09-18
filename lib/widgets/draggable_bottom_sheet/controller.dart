@@ -1,11 +1,10 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:framework/framework.dart';
-import 'package:framework/widgets/partial_state_builder/partial_state_builder.dart';
+import 'package:flowter/flowter.dart';
+import 'package:flowter/widgets/partial_state_builder/partial_state_builder.dart';
 
-
-class DraggableBottomSheetController extends WidgetController<DraggableBottomSheet>{
-
+class DraggableBottomSheetController
+    extends WidgetController<DraggableBottomSheet> {
   final layoutStatePoint = PartialStatePoint();
   final childrenStatePoint = PartialStatePoint();
 
@@ -13,7 +12,6 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
 
   late double maxLayoutHeight;
   late double maxHeight;
-
 
   late double currentHeight;
   double dTouchY = 0;
@@ -24,19 +22,17 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
 
   double contentHeight = 0;
 
-
-  double shrinkHeight (double maxLayoutHeight) => min(widget.shrinkHeight!=null?widget.shrinkHeight!(maxLayoutHeight):contentHeight,maxLayoutHeight);
-
-
-
+  double shrinkHeight(double maxLayoutHeight) => min(
+      widget.shrinkHeight != null
+          ? widget.shrinkHeight!(maxLayoutHeight)
+          : contentHeight,
+      maxLayoutHeight);
 
   @override
   void onInit() {
     currentHeight = 0;
     duration = Duration.zero;
   }
-
-
 
   @override
   void onPostInit() {
@@ -45,21 +41,17 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
     updateState();
   }
 
-
-
-  double dyTouch (double currentYTouch)=> sYTouch - currentYTouch;
-
+  double dyTouch(double currentYTouch) => sYTouch - currentYTouch;
 
   bool canNotDraggingWithScrollController = false;
 
-
-
   void verticalDragStart(PointerDownEvent details) {
-
-    if(scrollController.positions.isNotEmpty && ((scrollController.offset!=0 && expanded) || (scrollController.offset!=0 && !expanded))){
+    if (scrollController.positions.isNotEmpty &&
+        ((scrollController.offset != 0 && expanded) ||
+            (scrollController.offset != 0 && !expanded))) {
       canNotDraggingWithScrollController = true;
       return;
-    }else{
+    } else {
       canNotDraggingWithScrollController = false;
     }
 
@@ -67,30 +59,25 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
 
     widget.onDraggingStateChanged?.call(true);
 
-    DebuggerConsole.setPinnedLine("DraggableBottomSheet:START TOUCH","START TOUCH: $sYTouch");
+    DebuggerConsole.setPinnedLine(
+        "DraggableBottomSheet:START TOUCH", "START TOUCH: $sYTouch");
   }
 
-
-
-
-
   void verticalDragUpdate(PointerMoveEvent details) {
-
-
-    if(canNotDraggingWithScrollController){
+    if (canNotDraggingWithScrollController) {
       return;
     }
 
-
     double d = dyTouch(details.position.dy);
-    DebuggerConsole.setPinnedLine("DraggableBottomSheet:D TOUCH","D TOUCH: $d");
+    DebuggerConsole.setPinnedLine(
+        "DraggableBottomSheet:D TOUCH", "D TOUCH: $d");
 
-    if(expanded) {
-      currentHeight = max(min(maxHeight+d, maxHeight), shrinkHeight(maxLayoutHeight));
-
-    }
-    else{
-      currentHeight = max(min(shrinkHeight(maxLayoutHeight)+d, maxHeight), shrinkHeight(maxLayoutHeight));
+    if (expanded) {
+      currentHeight =
+          max(min(maxHeight + d, maxHeight), shrinkHeight(maxLayoutHeight));
+    } else {
+      currentHeight = max(min(shrinkHeight(maxLayoutHeight) + d, maxHeight),
+          shrinkHeight(maxLayoutHeight));
       scrollController.jumpTo(0);
     }
 
@@ -98,32 +85,27 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
     updateState();
   }
 
-
   void verticalDragEnd(PointerUpEvent details) {
-
-
-    if(canNotDraggingWithScrollController){
+    if (canNotDraggingWithScrollController) {
       return;
     }
 
-
-    if (expanded){
-      if(maxHeight-30>currentHeight && maxHeight>currentHeight){
+    if (expanded) {
+      if (maxHeight - 30 > currentHeight && maxHeight > currentHeight) {
         expanded = false;
         currentHeight = shrinkHeight(maxLayoutHeight);
         updateState();
-      }else{
+      } else {
         currentHeight = maxHeight;
         updateState();
       }
-    }
-
-    else {
-      if (shrinkHeight(maxLayoutHeight)+30<currentHeight && shrinkHeight(maxLayoutHeight)<currentHeight){
+    } else {
+      if (shrinkHeight(maxLayoutHeight) + 30 < currentHeight &&
+          shrinkHeight(maxLayoutHeight) < currentHeight) {
         expanded = true;
         currentHeight = maxHeight;
         updateState();
-      }else{
+      } else {
         currentHeight = shrinkHeight(maxLayoutHeight);
         updateState();
       }
@@ -131,9 +113,9 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
 
     widget.onDraggingStateChanged?.call(false);
 
-    DebuggerConsole.setPinnedLine("DraggableBottomSheet:EXPANDED","EXPANDED: ${expanded.yesOrNo}");
+    DebuggerConsole.setPinnedLine(
+        "DraggableBottomSheet:EXPANDED", "EXPANDED: ${expanded.yesOrNo}");
   }
-
 
   @override
   void onStateUpdatedAfterDisposed() {
@@ -142,9 +124,4 @@ class DraggableBottomSheetController extends WidgetController<DraggableBottomShe
     DebuggerConsole.removePinnedLines("DraggableBottomSheet:D TOUCH");
     DebuggerConsole.removePinnedLines("DraggableBottomSheet:START TOUCH");
   }
-
-
-
-
-
 }

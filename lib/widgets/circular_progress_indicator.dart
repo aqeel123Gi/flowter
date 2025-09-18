@@ -1,4 +1,4 @@
-import 'package:framework/functions/post_state.dart';
+import 'package:flowter/functions/post_state.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'center_regardless_layout/center_regardless_size.dart';
@@ -29,7 +29,6 @@ class CircularCounter extends StatefulWidget {
     required this.textStyle,
     required this.numberVerticalShift,
     this.clockwise = true, // القيمة الافتراضية هي true
-
   });
 
   @override
@@ -55,11 +54,9 @@ class _CircularCounterState extends State<CircularCounter>
       curve: widget.curve,
     );
 
-    addPostFrameCallback((){
+    addPostFrameCallback(() {
       _controller.forward();
     });
-
-
   }
 
   @override
@@ -90,7 +87,10 @@ class _CircularCounterState extends State<CircularCounter>
               baseColor: widget.baseColor,
               color: widget.color,
               width: widget.width,
-              progress: widget.currentCount == 0 ? 0 : _animation.value * (widget.currentCount / widget.totalCount),
+              progress: widget.currentCount == 0
+                  ? 0
+                  : _animation.value *
+                      (widget.currentCount / widget.totalCount),
               clockwise: widget.clockwise, // تمرير خاصية clockwise
             ),
             child: CenterRegardlessLayout(
@@ -139,7 +139,6 @@ class CircularPainter extends CustomPainter {
     double radius = (size.width - width) / 2;
     Offset center = Offset(size.width / 2, size.height / 2);
 
-
     canvas.drawCircle(center, radius, baseCircle);
 
     double sweepAngle = 2 * pi * progress;
@@ -148,8 +147,7 @@ class CircularPainter extends CustomPainter {
       sweepAngle = -sweepAngle;
     }
 
-
-    for(int i = 0; i < 2; i++){
+    for (int i = 0; i < 2; i++) {
       canvas.drawArc(
         Rect.fromCircle(center: center, radius: radius),
         -pi / 2,
@@ -158,7 +156,6 @@ class CircularPainter extends CustomPainter {
         progressCircle,
       );
     }
-
   }
 
   @override

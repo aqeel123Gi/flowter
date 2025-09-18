@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
 class ExpandedGrid extends StatelessWidget {
-  const ExpandedGrid({
-    super.key,
-    required this.children
-  });
+  const ExpandedGrid({super.key, required this.children});
 
   final List<List<Widget>> children;
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: children.map((e) => Row(children: e.expandedBuild())).toList().expandedBuild());
+    return Column(
+        children: children
+            .map((e) => Row(children: e.expandedBuild()))
+            .toList()
+            .expandedBuild());
   }
 }

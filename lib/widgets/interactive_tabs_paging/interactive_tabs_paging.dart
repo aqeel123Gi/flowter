@@ -1,19 +1,17 @@
 library interactive_tabs_paging;
 
-
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
 part 'controller.dart';
 
-class InteractiveTabsPaging extends StatefulWidget{
-  const InteractiveTabsPaging({
-    super.key,
-    this.initTitle,
-    required this.initPage,
-    required this.controller,
-    this.onChanged
-  });
+class InteractiveTabsPaging extends StatefulWidget {
+  const InteractiveTabsPaging(
+      {super.key,
+      this.initTitle,
+      required this.initPage,
+      required this.controller,
+      this.onChanged});
 
   @override
   State<InteractiveTabsPaging> createState() => _InteractiveTabsPagingState();
@@ -23,11 +21,9 @@ class InteractiveTabsPaging extends StatefulWidget{
 
   final InteractiveTabsPagingController controller;
   final void Function(int index, String? title)? onChanged;
-
 }
 
 class _InteractiveTabsPagingState extends State<InteractiveTabsPaging> {
-
   @override
   void initState() {
     widget.controller._tabsController = controller;
@@ -40,30 +36,13 @@ class _InteractiveTabsPagingState extends State<InteractiveTabsPaging> {
 
   @override
   Widget build(BuildContext context) {
-
     return InteractiveTabs(
       parentHeight: true,
       scrollable: false,
       controller: controller,
-      onChanged: (i)=>widget.onChanged?.call(i, widget.controller._titles.last),
+      onChanged: (i) =>
+          widget.onChanged?.call(i, widget.controller._titles.last),
       children: widget.controller._pages,
     );
-
-
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

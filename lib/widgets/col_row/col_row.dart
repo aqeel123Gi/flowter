@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 import 'controller.dart';
 
-
-
-class ColRow extends StatefulWidget{
+class ColRow extends StatefulWidget {
   const ColRow({
     super.key,
     required this.widthSeparation,
@@ -22,13 +20,11 @@ class ColRow extends StatefulWidget{
   final Widget Function(BuildContext context, Widget child)? onRowBuilder;
   final List<Widget> children;
 
-
   @override
   State<ColRow> createState() => _ColRowState();
 }
 
 class _ColRowState extends State<ColRow> {
-
   final CoRoController _controller = CoRoController();
 
   @override
@@ -37,44 +33,25 @@ class _ColRowState extends State<ColRow> {
         widget: widget,
         controller: _controller,
         builder: (context, c) {
-
-
-          return LayoutBuilder(builder: (context,constraints){
-
-            if(constraints.maxWidth<widget.widthSeparation){
+          return LayoutBuilder(builder: (context, constraints) {
+            if (constraints.maxWidth < widget.widthSeparation) {
               return Column(
                 crossAxisAlignment: widget.onColumnCrossAxisAlignment,
-                children: widget.onColumnBuilder==null?widget.children:widget.children.build((_,e)=>widget.onColumnBuilder!(context,e)),
+                children: widget.onColumnBuilder == null
+                    ? widget.children
+                    : widget.children
+                        .build((_, e) => widget.onColumnBuilder!(context, e)),
               );
-            }
-
-            else{
+            } else {
               return Row(
                 crossAxisAlignment: widget.onRowCrossAxisAlignment,
-                children: widget.onRowBuilder==null?widget.children:widget.children.build((_,e)=>widget.onRowBuilder!(context,e)),
+                children: widget.onRowBuilder == null
+                    ? widget.children
+                    : widget.children
+                        .build((_, e) => widget.onRowBuilder!(context, e)),
               );
             }
-
           });
-
-
-
-        }
-    );
+        });
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

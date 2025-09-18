@@ -1,31 +1,29 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
-double angleFromTwoOffsets(Offset origin, Offset distance, [bool inDegrees = true]) {
-  double t = atan2(distance.dy-origin.dy,distance.dx-origin.dx);
-  return inDegrees?(t*180/pi + 360) % 360:t;
+double angleFromTwoOffsets(Offset origin, Offset distance,
+    [bool inDegrees = true]) {
+  double t = atan2(distance.dy - origin.dy, distance.dx - origin.dx);
+  return inDegrees ? (t * 180 / pi + 360) % 360 : t;
 }
 
-bool isInAngleArea(Side side, Offset origin, Offset distance){
-
-  double angle = angleFromTwoOffsets(origin,distance);
-  switch(side){
+bool isInAngleArea(Side side, Offset origin, Offset distance) {
+  double angle = angleFromTwoOffsets(origin, distance);
+  switch (side) {
     case Side.right:
-      return isBetween(angle,315,360) || isBetween(angle,0,45);
+      return isBetween(angle, 315, 360) || isBetween(angle, 0, 45);
     case Side.left:
-      return isBetween(angle,135,225);
+      return isBetween(angle, 135, 225);
     case Side.top:
-      return isBetween(angle,225,315);
+      return isBetween(angle, 225, 315);
     case Side.bottom:
-      return isBetween(angle,45,135);
+      return isBetween(angle, 45, 135);
   }
 }
 
-
-bool isInSideArea(Side side, Offset origin, Offset distance){
-
-  switch(side){
+bool isInSideArea(Side side, Offset origin, Offset distance) {
+  switch (side) {
     case Side.right:
       return origin.dx < distance.dx;
     case Side.left:
@@ -36,4 +34,3 @@ bool isInSideArea(Side side, Offset origin, Offset distance){
       return origin.dy < distance.dy;
   }
 }
-

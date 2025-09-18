@@ -1,7 +1,4 @@
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 import 'page.dart';
 
-
-class XPageController extends WidgetController<XPage>{
-
-}
+class XPageController extends WidgetController<XPage> {}

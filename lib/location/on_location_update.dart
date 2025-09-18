@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:framework/classes/classes.dart';
+import 'package:flowter/classes/classes.dart';
 import 'package:geolocator/geolocator.dart';
 import '../widgets/screen_debugger/screen_debugger.dart';
 import 'latlong_distance.dart';

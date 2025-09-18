@@ -3,20 +3,18 @@ library auto_scale_builder;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 part '_controller.dart';
 
-
-class AutoScaleBuilder extends StatefulWidget{
-  const AutoScaleBuilder({
-    super.key,
-    required this.contentSize,
-    this.maxScale = double.infinity,
-    this.maxHeightConstraint = double.infinity,
-    this.maxWidthConstraint = double.infinity,
-    this.alignment = Alignment.center,
-    required this.builder
-  });
+class AutoScaleBuilder extends StatefulWidget {
+  const AutoScaleBuilder(
+      {super.key,
+      required this.contentSize,
+      this.maxScale = double.infinity,
+      this.maxHeightConstraint = double.infinity,
+      this.maxWidthConstraint = double.infinity,
+      this.alignment = Alignment.center,
+      required this.builder});
 
   final Size contentSize;
   final double maxScale;
@@ -30,7 +28,6 @@ class AutoScaleBuilder extends StatefulWidget{
 }
 
 class _AutoScaleBuilderState extends State<AutoScaleBuilder> {
-
   final AutoScaleBuilderController _controller = AutoScaleBuilderController();
 
   @override
@@ -39,79 +36,60 @@ class _AutoScaleBuilderState extends State<AutoScaleBuilder> {
         widget: widget,
         controller: _controller,
         builder: (context, c) {
-          return LayoutBuilder(
-              builder: (context,constraints){
-                _controller.shouldBeFiniteLayoutBox(constraints);
-                return _builder(context,constraints);
-            }
-          );
-        }
-    );
+          return LayoutBuilder(builder: (context, constraints) {
+            _controller.shouldBeFiniteLayoutBox(constraints);
+            return _builder(context, constraints);
+          });
+        });
   }
 
+  Widget _builder(BuildContext context, BoxConstraints layoutConstraints) {
+    double heightConstraint =
+        min(layoutConstraints.maxHeight, widget.maxHeightConstraint);
+    double widthConstraint =
+        min(layoutConstraints.maxWidth, widget.maxWidthConstraint);
 
-
-
-  Widget _builder(BuildContext context, BoxConstraints layoutConstraints){
-
-    double heightConstraint = min(layoutConstraints.maxHeight,widget.maxHeightConstraint);
-    double widthConstraint = min(layoutConstraints.maxWidth,widget.maxWidthConstraint);
-
-    double scale = _controller.maxScaleCalculation(heightConstraint,widthConstraint);
-
+    double scale =
+        _controller.maxScaleCalculation(heightConstraint, widthConstraint);
 
     return SizedBox(
-      height: layoutHeight(layoutConstraints,scale),
-      width: layoutWidth(layoutConstraints,scale),
+      height: layoutHeight(layoutConstraints, scale),
+      width: layoutWidth(layoutConstraints, scale),
       child: Stack(
-          children: [
-            Positioned(
-              top: layoutHeight(layoutConstraints,scale)/(1/_changeRange(widget.alignment.y))-(_changeRange(widget.alignment.y)*widget.contentSize.height),
-              left: layoutWidth(layoutConstraints,scale)/(1/_changeRange(widget.alignment.x))-(_changeRange(widget.alignment.x)*widget.contentSize.width),
-              height: widget.contentSize.height,
-              width: widget.contentSize.width,
-              child: Container(
+        children: [
+          Positioned(
+            top: layoutHeight(layoutConstraints, scale) /
+                    (1 / _changeRange(widget.alignment.y)) -
+                (_changeRange(widget.alignment.y) * widget.contentSize.height),
+            left: layoutWidth(layoutConstraints, scale) /
+                    (1 / _changeRange(widget.alignment.x)) -
+                (_changeRange(widget.alignment.x) * widget.contentSize.width),
+            height: widget.contentSize.height,
+            width: widget.contentSize.width,
+            child: Container(
                 transformAlignment: widget.alignment,
                 transform: Matrix4.identity().scaled(scale),
                 alignment: widget.alignment,
-                child: widget.builder(context,scale)
-              ),
-            ),
-          ],
-
+                child: widget.builder(context, scale)),
+          ),
+        ],
       ),
     );
-
   }
 
-
-  double _changeRange(double alignment){
-
-    return (alignment + 1)/2;
-
+  double _changeRange(double alignment) {
+    return (alignment + 1) / 2;
   }
 
-
-  double layoutHeight(BoxConstraints layoutConstraints, double scale){
-    return _controller.finiteHeightLayoutBox(layoutConstraints)?layoutConstraints.maxHeight:scale*widget.contentSize.height;
+  double layoutHeight(BoxConstraints layoutConstraints, double scale) {
+    return _controller.finiteHeightLayoutBox(layoutConstraints)
+        ? layoutConstraints.maxHeight
+        : scale * widget.contentSize.height;
   }
 
-  double layoutWidth(BoxConstraints layoutConstraints, double scale){
-    return _controller.finiteWidthLayoutBox(layoutConstraints)?layoutConstraints.maxWidth:scale*widget.contentSize.width;
+  double layoutWidth(BoxConstraints layoutConstraints, double scale) {
+    return _controller.finiteWidthLayoutBox(layoutConstraints)
+        ? layoutConstraints.maxWidth
+        : scale * widget.contentSize.width;
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

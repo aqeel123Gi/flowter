@@ -1,6 +1,3 @@
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
-
-class CoRoController extends WidgetController<ColRow>{
-
-}
+class CoRoController extends WidgetController<ColRow> {}

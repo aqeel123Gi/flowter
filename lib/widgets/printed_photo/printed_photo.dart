@@ -1,14 +1,11 @@
 import 'dart:math';
-import 'package:framework/classes/circular_offset/circular_offset.dart';
-import 'package:framework/classes/transform_data/transform_data.dart';
+import 'package:flowter/classes/circular_offset/circular_offset.dart';
+import 'package:flowter/classes/transform_data/transform_data.dart';
 import 'package:flutter/material.dart';
 import '../animated_transform/animated_transform.dart';
 import '../buttons/full_stacked_button.dart';
 
-
 class PrintedPhoto extends StatefulWidget {
-
-
   const PrintedPhoto({
     super.key,
     this.rotation,
@@ -21,7 +18,6 @@ class PrintedPhoto extends StatefulWidget {
     this.onPressed,
     required this.child,
   });
-
 
   final double? rotation;
   final void Function()? onPressed;
@@ -38,42 +34,31 @@ class PrintedPhoto extends StatefulWidget {
 }
 
 class _PrintedPhotoState extends State<PrintedPhoto> {
-
   late double _rotation;
 
   @override
   void initState() {
-    _rotation = widget.rotation??((Random().nextDouble()-0.5)*pi*0.3);
+    _rotation = widget.rotation ?? ((Random().nextDouble() - 0.5) * pi * 0.3);
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return
-      AnimatedTransform(
-      data: TransformData(rotation: _rotation,opacity: 1.0),
-      child:
-        Stack(children:[
+    return AnimatedTransform(
+        data: TransformData(rotation: _rotation, opacity: 1.0),
+        child: Stack(children: [
           Container(
-        decoration: BoxDecoration(
-          color: widget.borderColor,
-          boxShadow: [BoxShadow(
-            color: widget.shadowColor,
-            offset: CircularOffset(-_rotation+pi/2,10).xyOffset,
-            blurRadius: widget.shadowBlur
-          )]
-        ),
-        padding: EdgeInsets.all(widget.borderWidth),
-        child: Container(
-          color: widget.centerColor,
-          child: widget.child
-      )),
-        FilledStackedButton(
-            foregroundColor: widget.overlayColor??widget.borderColor,
-            onPressed: widget.onPressed)
-        ])
-      
-    );
+              decoration: BoxDecoration(color: widget.borderColor, boxShadow: [
+                BoxShadow(
+                    color: widget.shadowColor,
+                    offset: CircularOffset(-_rotation + pi / 2, 10).xyOffset,
+                    blurRadius: widget.shadowBlur)
+              ]),
+              padding: EdgeInsets.all(widget.borderWidth),
+              child: Container(color: widget.centerColor, child: widget.child)),
+          FilledStackedButton(
+              foregroundColor: widget.overlayColor ?? widget.borderColor,
+              onPressed: widget.onPressed)
+        ]));
   }
 }

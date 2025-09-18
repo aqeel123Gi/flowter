@@ -1,51 +1,49 @@
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 
-class OnOff{
-
+class OnOff {
   OnOff(this.value);
 
   bool value;
 
-  void change(){
+  void change() {
     value = !value;
   }
-
 
   Future<void> pendingState({
     required void Function() updateState,
     required Future<void> Function() process,
-  }) async{
-
-    if(value) throw Exception("The OnOff is already on.");
+  }) async {
+    if (value) throw Exception("The OnOff is already on.");
 
     value = true;
 
-    bool currentBackButtonVisibility = TemplateController.currentTemplateData.shownBackButton;
-    bool Function() currentBackFunction = TemplateController.currentTemplateData.onBackButtonPressed;
+    bool currentBackButtonVisibility =
+        TemplateController.currentTemplateData.shownBackButton;
+    bool Function() currentBackFunction =
+        TemplateController.currentTemplateData.onBackButtonPressed;
 
-    TemplateController.updateCurrentTemplateData((data)=>data
-      ..onBackButtonPressed = (){return false;} ..shownBackButton = false
-    );
+    TemplateController.updateCurrentTemplateData((data) => data
+      ..onBackButtonPressed = () {
+        return false;
+      }
+      ..shownBackButton = false);
 
-    void returnBackFunction() => TemplateController.updateCurrentTemplateData((data)=>data
-      ..onBackButtonPressed = currentBackFunction ..shownBackButton = currentBackButtonVisibility
-    );
-
+    void returnBackFunction() =>
+        TemplateController.updateCurrentTemplateData((data) => data
+          ..onBackButtonPressed = currentBackFunction
+          ..shownBackButton = currentBackButtonVisibility);
 
     updateState();
-    try{
+    try {
       await process();
       value = false;
       returnBackFunction();
       updateState();
-    }catch(e){
+    } catch (e) {
       value = false;
       returnBackFunction();
       updateState();
       rethrow;
     }
-
   }
-
-
 }

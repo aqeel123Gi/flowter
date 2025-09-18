@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:framework/framework.dart';
+import 'package:flowter/flowter.dart';
 import 'controller.dart';
 
+TemplateData xTD() => TemplateData(
+      id: "PLACE HOLDER",
+      bottomPadding_: false,
+      body: const XPage(),
+    );
 
-TemplateData xTD()=>TemplateData(
-  id: "PLACE HOLDER",
-  bottomPadding_: false,
-    body: const XPage(),
-);
-
-
-
-class XPage extends StatefulWidget{
-  const XPage({
-    super.key
-  });
+class XPage extends StatefulWidget {
+  const XPage({super.key});
 
   @override
   State<XPage> createState() => _XPageState();
 }
 
 class _XPageState extends State<XPage> {
-
   final XPageController _controller = XPageController();
 
   @override
@@ -31,22 +25,6 @@ class _XPageState extends State<XPage> {
         controller: _controller,
         builder: (context, c) {
           return const Placeholder();
-        }
-    );
+        });
   }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
