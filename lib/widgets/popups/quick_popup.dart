@@ -1,0 +1,182 @@
+import 'package:framework/framework.dart';
+import 'package:flutter/material.dart';
+import '../../_trash/show_transparent_page.dart';
+
+class QuickPopup extends StatefulWidget {
+
+  static List<void Function()> hidesList = [];
+  static void hide(){
+    hidesList.removeLast()();
+  }
+
+  @override
+  createState() => _QuickPopupState();
+
+
+  const QuickPopup({
+    super.key,
+    required this.child,
+    required this.xPosition,
+    required this.yPosition,
+    required this.minHorizontalPadding,
+    required this.minVerticalPadding,
+    required this.backgroundColor,
+    required this.decoration,
+    required this.blurred,
+
+  });
+
+  final double xPosition;
+  final double yPosition;
+  final double minHorizontalPadding;
+  final double minVerticalPadding;
+  final Widget child;
+  final Color backgroundColor;
+  final BoxDecoration decoration;
+  final bool blurred;
+
+}
+
+class _QuickPopupState extends State<QuickPopup> {
+
+  final Curve _curve = Curves.easeOutExpo;
+
+  double _opacity = 0.0;
+  bool initialized = false;
+  int _durationSeconds = 0;
+  late double _y ;
+  double _height = 0;
+  //double _height0 = 0;
+  double _width = 0;
+
+
+  _hide(){
+      setState(() {
+        _height = 0;
+        _opacity = 0;
+      });
+      Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _y = widget.yPosition;
+    QuickPopup.hidesList.add(_hide);
+  }
+
+
+  _updateY(){
+
+    // if(_y<(_height*0.5)+widget.minVerticalPadding) {
+    //   _y = _height * 0.5 + widget.minVerticalPadding;
+    // }
+    // else if(_y>MediaQuery.of(context).size.height-((_height*0.5)+widget.minVerticalPadding)){
+    //   _y = MediaQuery.of(context).size.height-((_height*0.5)+widget.minVerticalPadding);
+    // }
+  }
+
+  double _left(){
+    double left = widget.xPosition-(_width*0.5);
+    return
+      left<widget.minHorizontalPadding?widget.minHorizontalPadding:
+      left>MediaQuery.of(context).size.width-widget.minHorizontalPadding-(_width)?MediaQuery.of(context).size.width-widget.minHorizontalPadding-(_width):
+      left;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Material(
+          color: Colors.transparent,
+          child: PopScope(onPopInvokedWithResult: (_,__){_hide();},
+       canPop: false, child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Stack(
+          children: [
+            GestureDetector(onTap: ()async{
+              _hide();
+            },child: AnimatedContainer(
+                curve: _curve,
+                duration: Duration(milliseconds: _durationSeconds),
+                color:widget.backgroundColor.withOpacityMultiply(_opacity),
+            child:Stack(children:[
+              Positioned(
+                  top: 0,bottom: 0,left: 0,right: 0,
+                  child:Blur(
+                curve: Curves.easeOutCirc,
+                duration: const Duration(seconds: 2),
+                opacity: _opacity==0?0:1,
+              )),
+              AnimatedPositioned(
+                curve: _curve,
+                duration: Duration(milliseconds: _durationSeconds),
+                top: widget.yPosition<MediaQuery.of(context).size.height/2?_y:null,
+                bottom: widget.yPosition>=MediaQuery.of(context).size.height/2?MediaQuery.of(context).size.height-_y:null,
+                left: _left(),
+                child: Blur(
+                    strength: 25,
+                    radius: 20,
+                    child:AnimatedContainer(
+                  clipBehavior: Clip.antiAlias,
+                  duration: Duration(milliseconds: _durationSeconds),
+                  height: _height==0?0:_height+4,
+                  curve: _curve,
+                    decoration:widget.decoration,
+                    child:ChildSizeDetector(reversed: widget.yPosition>=MediaQuery.of(context).size.height/2, onChange: (Size size) {
+                      if(!initialized){
+                        initialized=true;
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _updateY();
+                          setState(() {
+                            _width = size.width;
+                            //_height0 = size.height*0.5;
+                          });
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            setState(() {
+                              _opacity = 1.0;
+                              _height = size.height;
+                              _durationSeconds = 500;
+                            });
+                          });
+                        });
+                      }else{
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          setState((){
+                            _height = size.height;
+                            _width = size.width;
+                          });
+                        });
+                      }
+                    },child:widget.child))))])
+                ))]))));
+  }
+}
+
+
+showQuickPopup(
+    BuildContext context,
+    Widget child,
+    double xPosition,
+    double yPosition,
+    double minHorizontalPadding,
+    double minVerticalPadding,
+    Color backgroundColor,
+    BoxDecoration decoration,
+    bool blurred
+    ){
+  showTransparentPage(
+      context,
+      QuickPopup(
+        minHorizontalPadding:minHorizontalPadding,
+        minVerticalPadding:minVerticalPadding,
+        decoration:decoration,
+        backgroundColor: backgroundColor,
+        xPosition:xPosition,yPosition:yPosition,
+        blurred: blurred,
+        child: child,
+      )
+  );
+}

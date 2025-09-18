@@ -1,0 +1,1 @@
+In this folder, there are codes that are customizable for any app, created by AQeeL.

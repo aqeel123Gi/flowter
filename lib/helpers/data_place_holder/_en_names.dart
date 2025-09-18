@@ -1,0 +1,32 @@
+part of 'data_place_holder.dart';
+
+List<String> _englishNames = [
+  "James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael",
+  "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan",
+  "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen", "Christopher",
+  "Nancy", "Daniel", "Lisa", "Matthew", "Betty", "Anthony", "Margaret",
+  "Mark", "Sandra", "Paul", "Ashley", "Steven", "Dorothy", "Andrew", "Kimberly",
+  "Kenneth", "Emily", "Joshua", "Donna", "Kevin", "Michelle", "Brian", "Carol",
+  "George", "Amanda", "Edward", "Melissa", "Ronald", "Deborah", "Timothy",
+  "Stephanie", "Jason", "Rebecca", "Jeffrey", "Sharon", "Ryan", "Laura",
+  "Jacob", "Cynthia", "Gary", "Kathleen", "Nicholas", "Amy", "Eric", "Shirley",
+  "Jonathan", "Angela", "Stephen", "Helen", "Larry", "Anna", "Justin",
+  "Brenda", "Scott", "Pamela", "Brandon", "Nicole", "Benjamin", "Emma",
+  "Samuel", "Samantha", "Gregory", "Katherine", "Frank", "Christine",
+  "Alexander", "Debra", "Raymond", "Rachel", "Patrick", "Catherine", "Jack",
+  "Carolyn", "Dennis", "Janet", "Jerry", "Ruth", "Tyler", "Maria", "Aaron",
+  "Heather", "Henry", "Diane", "Douglas", "Virginia", "Jose", "Julie",
+  "Peter", "Joyce", "Adam", "Victoria", "Zachary", "Olivia", "Nathan",
+  "Kelly", "Walter", "Christina", "Harold", "Lauren", "Kyle", "Joan",
+  "Carl", "Evelyn", "Arthur", "Judith", "Gerald", "Megan", "Roger",
+  "Andrea", "Keith", "Cheryl", "Jeremy", "Hannah", "Terry", "Jacqueline",
+  "Lawrence", "Martha", "Sean", "Gloria", "Christian", "Teresa", "Albert",
+  "Ann", "Joe", "Sara", "Ethan", "Madison", "Austin", "Frances", "Jesse",
+  "Kathryn", "Willie", "Janice", "Billy", "Jean", "Bryan", "Abigail",
+  "Bruce", "Alice", "Jordan", "Julia", "Ralph", "Judy", "Roy", "Sophia",
+  "Noah", "Grace", "Dylan", "Denise", "Eugene", "Amber", "Wayne", "Doris",
+  "Alan", "Marilyn", "Juan", "Danielle", "Louis", "Rose", "Russell", "Beverly",
+  "Gabriel", "Theresa", "Randy", "Natalie", "Philip", "Diana", "Harry",
+  "Brittany", "Vincent", "Charlotte", "Bobby", "Marie", "Johnny", "Kayla",
+  "Logan", "Alexis", "Alan", "Victoria"
+];

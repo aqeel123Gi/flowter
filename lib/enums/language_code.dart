@@ -1,0 +1,4 @@
+enum LanguageCode{
+  en,
+  ar
+}
