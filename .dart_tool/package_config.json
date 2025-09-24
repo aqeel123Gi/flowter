@@ -573,7 +573,7 @@
     },
     {
       "name": "nfc_manager",
-      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/nfc_manager-3.5.0",
+      "rootUri": "../packages/nfc_manager",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },

@@ -1,7 +1,7 @@
 name: flowter
 description: "A comprehensive Flutter framework package providing UI widgets, extensions, utilities, controllers, and I/O capabilities for rapid app development with advanced features like NFC, Bluetooth, serial communication, and device management."
-version: 0.0.2
-homepage:
+version: 0.0.3
+publish_to: none
 
 environment:
   sdk: ^3.5.3
@@ -37,7 +37,10 @@ dependencies:
 
   # io
   flutter_nfc_kit: 3.6.0
-  nfc_manager: ^3.5.0
+
+  nfc_manager:
+    path: packages/nfc_manager
+
   flutter_libserialport: 0.6.0
   serial_port_win32: ^2.1.12
   flutter_blue_plus: 1.34.4
