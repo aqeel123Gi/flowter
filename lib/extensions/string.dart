@@ -237,6 +237,23 @@ extension StringFunctions on String {
     return list.where((element) => element == char).length;
   }
 
+  Color get hexToColor {
+
+    String tmp = toUpperCase().replaceAll("#", "");
+    if (tmp.length == 6) {
+      tmp = "FF$tmp";
+    }
+
+    final hexNum = int.parse(tmp, radix: 16);
+
+    if (hexNum == 0) {
+      return const Color(0xff000000);
+    }
+
+    return Color(hexNum);
+  }
+
+
 
 }
 
