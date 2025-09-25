@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "flowter",
-      "version": "0.0.5",
+      "version": "0.0.6",
       "dependencies": [
         "audioplayers",
         "audioplayers_windows",
