@@ -48,6 +48,7 @@ class TemplateData<T extends Widget>{
   };
   bool topPadding_;
   bool bottomPadding_;
+  bool hasHeader;
 
   String? subtitle;
 
@@ -81,6 +82,7 @@ class TemplateData<T extends Widget>{
     this.shiftOnInsetsBottomRatio = 0,
     this.tabs,
     this.onChoicesLongPress,
+    this.hasHeader = true,
     TransformData? showTransformData,
     TransformData? hideTransformData,
     this.showAfter = Duration.zero,

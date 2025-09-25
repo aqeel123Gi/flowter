@@ -27,8 +27,8 @@ class Button extends StatefulWidget {
   });
 
   final Widget Function(BuildContext context, bool focused) contentBuilder;
-  final BoxDecoration decoration;
-  final BoxDecoration? decorationOnFocused;
+  final Decoration decoration;
+  final Decoration? decorationOnFocused;
   final Color foregroundColor;
   final bool focusedUiKey;
   final bool fixed;

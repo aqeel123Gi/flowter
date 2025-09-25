@@ -142,14 +142,7 @@ extension ListFunctions<T> on List<T> {
 
   T getFromLast(int from) => this[length-1-from];
 
-  T? tryFirstWhere(bool Function(T) where){
-    try{
-      T e = firstWhere((element) => where(element));
-      return e;
-    }catch(_){
-      return null;
-    }
-  }
+
 
   //
   //
@@ -371,6 +364,20 @@ extension ListFunctions<T> on List<T> {
 
 
   T get getRandomElement => this[Random().nextInt(length)];
+
+
+  T nextOf(T element, [bool returnToFirst = false]){
+    int index = indexOf(element);
+    if(index==length-1){
+      if(returnToFirst){
+        return this[0];
+      }else{
+        throw Exception("There is no next element.");
+      }
+    }
+    return this[index+1];
+  }
+
 
 
 }

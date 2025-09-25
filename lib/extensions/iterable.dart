@@ -27,6 +27,15 @@ extension IterableFunctions<T> on Iterable<T>{
     return widgets;
   }
 
+  T? tryFirstWhere(bool Function(T) where){
+    try{
+      T e = firstWhere((element) => where(element));
+      return e;
+    }catch(_){
+      return null;
+    }
+  }
+
 
 
 }

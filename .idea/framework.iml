@@ -9,6 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/io/flowter_bluetooth/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/io/flowter_bluetooth/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/io/flowter_bluetooth/build" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/empty_app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/empty_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/empty_app/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

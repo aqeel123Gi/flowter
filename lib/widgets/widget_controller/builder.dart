@@ -5,11 +5,13 @@ class WidgetControllerBuilder<T extends WidgetController> extends StatefulWidget
   const WidgetControllerBuilder({
     super.key,
     required this.widget,
+    this.state,
     required this.controller,
     required this.builder,
     this.fakeData = false,
   });
 
+  final State? state;
   final Widget widget;
   final Widget Function(BuildContext context, T controller) builder;
   final T controller;
@@ -35,6 +37,7 @@ class _WidgetControllerBuilderState<T extends WidgetController> extends State<Wi
     WidgetController._addController(_controller);
 
     _controller.widget = widget.widget;
+    _controller.state = widget.state;
     _controller.updateState = (){
       if(mounted){
         setState(() {});
@@ -85,6 +88,7 @@ class _WidgetControllerBuilderState<T extends WidgetController> extends State<Wi
   @override
   Widget build(BuildContext context) {
     _controller.widget = widget.widget;
+    _controller.state = widget.state;
     _controller.onStateStartUpdating();
     addPostFrameCallback((){
       _controller.onStateUpdated();

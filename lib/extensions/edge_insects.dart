@@ -11,4 +11,26 @@ extension EdgeInsectsFunctions on EdgeInsets {
     );
   }
 
+
+  EdgeInsets withWindowTopPadding(BuildContext context) {
+    return EdgeInsets.only(
+        top: top + Window.topPadding(context),
+        left: left,
+        right: right,
+        bottom: bottom
+    );
+  }
+
+
+  EdgeInsets withTopBottomWindowPadding(BuildContext context) {
+    return EdgeInsets.only(
+        top: top + Window.topPadding(context),
+        left: left,
+        right: right,
+        bottom: bottom + Window.bottomPadding(context)
+    );
+  }
+
+
+
 }

@@ -5,11 +5,13 @@ part of 'dev_stage.dart';
 class DevStageBuilder extends StatefulWidget {
   const DevStageBuilder({
     super.key,
+    this.comment,
     this.onDev,
     this.onStaging,
     this.onProduction
   });
 
+  final String? comment;
   final Widget Function(BuildContext context)? onDev;
   final Widget Function(BuildContext context)? onStaging;
   final Widget Function(BuildContext context)? onProduction;
@@ -36,7 +38,7 @@ class _DevStageBuilderState extends State<DevStageBuilder> {
 
   void _toNextStage(){
     setState(() {
-      _stage = _stages.getAfterElement(_stage,true);
+      _stage = _stages.nextOf(_stage,true);
     });
   }
 
@@ -57,7 +59,7 @@ class _DevStageBuilderState extends State<DevStageBuilder> {
   Widget build(BuildContext context) {
 
     if(DevStageController.stage==DevStage.production){
-      return widget.onProduction!(context);
+      return widget.onProduction != null?widget.onProduction!(context):const SizedBox();
     }
 
     switch (_stage) {
@@ -103,7 +105,7 @@ class _DevStageBuilderState extends State<DevStageBuilder> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 4.0, right:4, top: 0),
-                child: Text(_letters,style: const TextStyle(color: Colors.black, fontSize: 12, fontFamily: '')),
+                child: Text(_letters + (widget.comment!=null?' : ${widget.comment}':''),style: const TextStyle(color: Colors.black, fontSize: 12, fontFamily: '', fontWeight: FontWeight.w500),),
               ),
             ),
           ),

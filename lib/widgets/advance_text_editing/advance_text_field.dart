@@ -44,6 +44,8 @@ class AdvancedTextField extends StatefulWidget {
     this.onValidatedFuture,
     this.visibleValidationMessage = true,
     this.hideHintTextOnTyping = true,
+    this.hintTextAlign = TextAlign.start,
+    this.valueTextAlign = TextAlign.start,
   });
 
   final bool fixed;
@@ -79,6 +81,8 @@ class AdvancedTextField extends StatefulWidget {
   final void Function(String text)? onChanged;
   final bool hideHintTextOnTyping;
   final void Function()? onPressed;
+  final TextAlign hintTextAlign;
+  final TextAlign valueTextAlign;
 
   @override
   createState() => _AdvancedTextFieldState();
@@ -270,7 +274,7 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                               focusNode: _focusNode,
                               enabled: widget.editable,
                               style: widget.textStyle,
-                              textAlign: TextAlign.center,
+                              textAlign: widget.valueTextAlign,
                               textDirection: widget.textDirection,
                               cursorColor: widget.cursorColor,
                               cursorWidth: 2,
@@ -365,7 +369,7 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                             child: IgnorePointer(
                                 child: Center(
                                     child: Text(widget.hintText,
-                                        style: widget.hintTextStyle)))),
+                                        style: widget.hintTextStyle, textAlign: widget.hintTextAlign)))),
                       )
                     : AnimatedPositionedDirectional(
                         start: 0,
@@ -379,7 +383,7 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                         child: IgnorePointer(
                             child: Center(
                                 child: Text(widget.hintText,
-                                    style: widget.hintTextStyle)))),
+                                    style: widget.hintTextStyle, textAlign: widget.hintTextAlign)))),
                 PositionedDirectional(
                     top: 0,
                     bottom: 0,

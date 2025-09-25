@@ -5,7 +5,7 @@ abstract class WidgetController<W> {
   late bool fakeData;
   bool completedPostInit = false;
   late W widget;
-  late State state;
+  late State? state;
   late BuildContext context;
   void Function() updateState = (){};
   late bool Function() mounted;
