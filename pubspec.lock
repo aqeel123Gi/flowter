@@ -329,13 +329,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  flowter_bluetooth:
+    dependency: "direct main"
+    description:
+      path: "packages/io/flowter_bluetooth"
+      relative: true
+    source: path
+    version: "0.0.2"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
   flutter_blue_plus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_blue_plus
       sha256: "160ddacb839b244f86e96fbee7e9a823e5caf1b046ccf1f0a7901f9d5aa39eb9"
@@ -1285,7 +1292,7 @@ packages:
     source: hosted
     version: "1.1.5"
   win_ble:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: win_ble
       sha256: "2a867e13c4b355b101fc2c6e2ac85eeebf965db34eca46856f8b478e93b41e96"

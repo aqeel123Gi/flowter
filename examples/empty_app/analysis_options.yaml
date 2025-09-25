@@ -1,0 +1,8 @@
+include: ../../analysis_options.yaml
+
+linter:
+  rules:
+    # Allow unused imports in example files
+    unused_import: false
+    # Allow unused elements in example files
+    unused_element: false

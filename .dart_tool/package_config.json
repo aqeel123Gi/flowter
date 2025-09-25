@@ -248,6 +248,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flowter_bluetooth",
+      "rootUri": "../packages/io/flowter_bluetooth",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///D:/src/flutter/packages/flutter",
       "packageUri": "lib/",
