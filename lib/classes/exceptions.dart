@@ -36,3 +36,18 @@ class ServerErrorException implements Exception{
   }
 
 }
+
+class ServerMessageException implements Exception{
+
+  ServerMessageException({
+    required this.message
+  });
+
+  String message;
+
+  @override
+  String toString() {
+    return 'ServerMessageException: message: $message';
+  }
+
+}

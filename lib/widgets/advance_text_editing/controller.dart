@@ -49,6 +49,17 @@ class AdvancedTextFieldController{
   }
 
 
+  static Future<String?> validateAndReturnNonValidatedMessage(List<AdvancedTextFieldController> controllers)async{
+    for(var c in controllers){
+      await c.validate();
+      if(c.validated==false){
+        return c.validationMessage;
+      }
+    }
+    return null;
+  }
+
+
   static Map<String,String> _globalCharConversion = const {};
   static void setGlobalCharConversion(Map<String,String> map){
     _globalCharConversion = map;

@@ -14,6 +14,7 @@ class ImageCacheBuilder extends StatefulWidget {
     required this.onNullWidget,
     required this.errorBuilder,
     required this.color,
+    this.imageColor,
     required this.decoration,
     required this.decorationOnFocused,
     required this.duration,
@@ -32,6 +33,7 @@ class ImageCacheBuilder extends StatefulWidget {
       errorBuilder;
 
   final Color color;
+  final Color? imageColor;
 
   final BoxDecoration decoration;
   final BoxDecoration decorationOnFocused;
@@ -106,12 +108,14 @@ class _ImageCacheState extends State<ImageCacheBuilder> {
                                                   height: widget.height,
                                                   width: widget.width,
                                                   fit: BoxFit.fill,
+                                                  color: widget.imageColor,
                                                 )
                                               : Image.memory(
                                                   snapshot.data!,
                                                   height: widget.height,
                                                   width: widget.width,
                                                   fit: BoxFit.fill,
+                                                  color: widget.imageColor,
                                                 )),
                                       if (widget.builderOnImage != null)
                                         Positioned.fill(

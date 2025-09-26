@@ -28,6 +28,7 @@ class AdvancedTextField extends StatefulWidget {
     required this.nonValidatedTextMessageFontSize,
     required this.nonValidatedTextMessageDirection,
     required this.textDirection,
+    this.headingIcon,
     this.textInputType = TextInputType.text,
     this.showHintTextOnTyping = false,
     this.onValidateChanged,
@@ -83,6 +84,7 @@ class AdvancedTextField extends StatefulWidget {
   final void Function()? onPressed;
   final TextAlign hintTextAlign;
   final TextAlign valueTextAlign;
+  final SDIcon? headingIcon;
 
   @override
   createState() => _AdvancedTextFieldState();
@@ -256,203 +258,214 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
             decoration: _inFocus || focused
                 ? widget.decorationOnFocus
                 : widget.decoration,
-            child: LayoutBuilder(
-              builder: (_, c) => Stack(children: [
-                CenterRegardlessLayout(
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Focus(
-                          onFocusChange: (inFocus) {
-                            setState(() {
-                              _inFocus = inFocus;
-                            });
-                            if (!_inFocus) {
-                              _validateText();
-                            }
-                          },
-                          child: TextField(
-                              focusNode: _focusNode,
-                              enabled: widget.editable,
-                              style: widget.textStyle,
-                              textAlign: widget.valueTextAlign,
-                              textDirection: widget.textDirection,
-                              cursorColor: widget.cursorColor,
-                              cursorWidth: 2,
-                              obscureText: _obscured,
-                              keyboardType: widget.textInputType,
-                              onChanged: (text) async {
-                                int startSelection = widget
-                                    .controller.textEditing.selection.start;
-
-                                // Chars conversion
-                                List<String> textChars =
-                                    text.characters.toList();
-                                textChars.forIndexedEach((index, element) {
-                                  if (AdvancedTextFieldController
-                                      ._globalCharConversion
-                                      .containsKey(element)) {
-                                    textChars[index] =
-                                        AdvancedTextFieldController
-                                            ._globalCharConversion[element]!;
-                                  }
-                                });
-                                text = textChars.join();
-                                widget.controller.textEditing.text = text;
-                                widget.controller.textEditing.selection =
-                                    TextSelection(
-                                        baseOffset: startSelection,
-                                        extentOffset: startSelection);
-
-                                // Remove not allowed characters
-                                if (widget.allowedCharacters != null) {
-                                  int startSelection = widget
-                                      .controller.textEditing.selection.start;
-                                  String tmp = "";
-                                  int erased = 0;
-                                  for (var c in text.characters) {
-                                    if (widget.allowedCharacters!.contains(c)) {
-                                      tmp += c;
-                                    } else {
-                                      erased++;
-                                    }
-                                  }
-                                  if (text.length != tmp.length) {
-                                    widget.controller.textEditing.text = tmp;
-                                    widget.controller.textEditing.selection =
-                                        TextSelection(
-                                            baseOffset: startSelection - erased,
-                                            extentOffset:
-                                                startSelection - erased);
-                                  }
-                                }
-
-                                // Additional user defined
-                                if (widget.onChanged != null) {
-                                  widget.onChanged!(text);
-                                }
-
-                                if (widget.validateAfterChangeDuration !=
-                                    null) {
-                                  _changeDateTime = DateTime.now();
-                                  await Future.delayed(
-                                      widget.validateAfterChangeDuration!);
-                                  if (DateTime.now()
-                                          .difference(_changeDateTime)
-                                          .inMilliseconds >=
-                                      widget.validateAfterChangeDuration!
-                                          .inMilliseconds) {
+            child: Row(
+              children: [
+                if(widget.headingIcon!=null)
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 16.0),
+                    child: widget.headingIcon!,
+                  ),
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (_, c) => Stack(children: [
+                      CenterRegardlessLayout(
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Focus(
+                                onFocusChange: (inFocus) {
+                                  setState(() {
+                                    _inFocus = inFocus;
+                                  });
+                                  if (!_inFocus) {
                                     _validateText();
                                   }
-                                }
+                                },
+                                child: TextField(
+                                    focusNode: _focusNode,
+                                    enabled: widget.editable,
+                                    style: widget.textStyle,
+                                    textAlign: widget.valueTextAlign,
+                                    textDirection: widget.textDirection,
+                                    cursorColor: widget.cursorColor,
+                                    cursorWidth: 2,
+                                    obscureText: _obscured,
+                                    keyboardType: widget.textInputType,
+                                    onChanged: (text) async {
+                                      int startSelection = widget
+                                          .controller.textEditing.selection.start;
 
-                                if (mounted) {
-                                  setState(() {});
-                                }
-                              },
-                              controller: widget.controller.textEditing,
-                              maxLines: widget.lines,
-                              decoration: InputDecoration(
-                                focusColor: widget.cursorColor,
-                                // hintStyle: widget.hintTextStyle,
-                                // hintText: widget.hintText,
-                                border: InputBorder.none,
-                              )))),
+                                      // Chars conversion
+                                      List<String> textChars =
+                                          text.characters.toList();
+                                      textChars.forIndexedEach((index, element) {
+                                        if (AdvancedTextFieldController
+                                            ._globalCharConversion
+                                            .containsKey(element)) {
+                                          textChars[index] =
+                                              AdvancedTextFieldController
+                                                  ._globalCharConversion[element]!;
+                                        }
+                                      });
+                                      text = textChars.join();
+                                      widget.controller.textEditing.text = text;
+                                      widget.controller.textEditing.selection =
+                                          TextSelection(
+                                              baseOffset: startSelection,
+                                              extentOffset: startSelection);
+
+                                      // Remove not allowed characters
+                                      if (widget.allowedCharacters != null) {
+                                        int startSelection = widget
+                                            .controller.textEditing.selection.start;
+                                        String tmp = "";
+                                        int erased = 0;
+                                        for (var c in text.characters) {
+                                          if (widget.allowedCharacters!.contains(c)) {
+                                            tmp += c;
+                                          } else {
+                                            erased++;
+                                          }
+                                        }
+                                        if (text.length != tmp.length) {
+                                          widget.controller.textEditing.text = tmp;
+                                          widget.controller.textEditing.selection =
+                                              TextSelection(
+                                                  baseOffset: startSelection - erased,
+                                                  extentOffset:
+                                                      startSelection - erased);
+                                        }
+                                      }
+
+                                      // Additional user defined
+                                      if (widget.onChanged != null) {
+                                        widget.onChanged!(text);
+                                      }
+
+                                      if (widget.validateAfterChangeDuration !=
+                                          null) {
+                                        _changeDateTime = DateTime.now();
+                                        await Future.delayed(
+                                            widget.validateAfterChangeDuration!);
+                                        if (DateTime.now()
+                                                .difference(_changeDateTime)
+                                                .inMilliseconds >=
+                                            widget.validateAfterChangeDuration!
+                                                .inMilliseconds) {
+                                          _validateText();
+                                        }
+                                      }
+
+                                      if (mounted) {
+                                        setState(() {});
+                                      }
+                                    },
+                                    controller: widget.controller.textEditing,
+                                    maxLines: widget.lines,
+                                    decoration: InputDecoration(
+                                      focusColor: widget.cursorColor,
+                                      // hintStyle: widget.hintTextStyle,
+                                      // hintText: widget.hintText,
+                                      border: InputBorder.none,
+                                    )))),
+                      ),
+                      widget.hideHintTextOnTyping
+                          ? Center(
+                              child: AnimatedOpacity(
+                                  opacity: widget.controller.textEditing.text.isEmpty
+                                      ? 1
+                                      : 0,
+                                  duration: const Duration(seconds: 1),
+                                  curve: Curves.easeOutCirc,
+                                  child: IgnorePointer(
+                                      child: Center(
+                                          child: Text(widget.hintText,
+                                              style: widget.hintTextStyle, textAlign: widget.hintTextAlign)))),
+                            )
+                          : AnimatedPositionedDirectional(
+                              start: 0,
+                              end: widget.controller.textEditing.text.isEmpty
+                                  ? 0
+                                  : c.maxWidth * (2 / 3),
+                              top: 0,
+                              bottom: 0,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeOutCirc,
+                              child: IgnorePointer(
+                                  child: Center(
+                                      child: Text(widget.hintText,
+                                          style: widget.hintTextStyle, textAlign: widget.hintTextAlign)))),
+                      PositionedDirectional(
+                          top: 0,
+                          bottom: 0,
+                          end: 3,
+                          child: Center(
+                              child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: AnimatedTransformingSwitcher(
+                                      switcher: _waiting
+                                          ? 1
+                                          : _errorOnValidation
+                                              ? 2
+                                              : 0,
+                                      duration: const Duration(milliseconds: 200),
+                                      builder: (context, switcherKey) => _waiting
+                                          ? SizedBox(
+                                              height: 16,
+                                              width: 16,
+                                              child: CircularProgressIndicator(
+                                                  color: widget.waitingColor,
+                                                  strokeWidth: 3))
+                                          : _errorOnValidation
+                                              ? Center(
+                                                  child: CircularTapEffect(
+                                                      color: widget.waitingColor,
+                                                      onPressed: () {
+                                                        _validateText();
+                                                      },
+                                                      child:
+                                                          const Icon(Icons.refresh)))
+                                              : const SizedBox())))),
+                      widget.obscure
+                          ? Positioned(
+                              top: 0,
+                              bottom: 0,
+                              left: 6,
+                              child: CircularTapEffect(
+                                  uiKey: _obscureButtonKey,
+                                  keyActions: {
+                                    LogicalKeyboardKey.arrowRight: () {
+                                      UiKeyController.changeFocusedGlobalKey(_uiKey);
+                                    }
+                                  },
+                                  color: widget.waitingColor.withOpacityMultiply(0.3),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscured = !_obscured;
+                                    });
+                                  },
+                                  child: AnimatedTransformingSwitcher(
+                                      switcher: _obscured,
+                                      duration: const Duration(milliseconds: 200),
+                                      builder: (context, switcherKey) => (_obscured
+                                              ? widget.noObscureTextIcon
+                                              : widget.obscureTextIcon)
+                                          .withParams(
+                                              size: 24, color: widget.waitingColor))))
+                          : const SizedBox(),
+                      // PositionedDirectional(
+                      //     top: -2,
+                      //     start: 3,
+                      //     child: AnimatedOpacity(
+                      //         opacity: widget.controller.textEditing.text==""?0:1,
+                      //         duration: const Duration(milliseconds: 300),
+                      //         child:Padding(
+                      //             padding: const EdgeInsets.symmetric(horizontal:5),
+                      //             child:Text(widget.hintText,style: widget.hintTextStyle))))
+                    ]),
+                  ),
                 ),
-                widget.hideHintTextOnTyping
-                    ? Center(
-                        child: AnimatedOpacity(
-                            opacity: widget.controller.textEditing.text.isEmpty
-                                ? 1
-                                : 0,
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeOutCirc,
-                            child: IgnorePointer(
-                                child: Center(
-                                    child: Text(widget.hintText,
-                                        style: widget.hintTextStyle, textAlign: widget.hintTextAlign)))),
-                      )
-                    : AnimatedPositionedDirectional(
-                        start: 0,
-                        end: widget.controller.textEditing.text.isEmpty
-                            ? 0
-                            : c.maxWidth * (2 / 3),
-                        top: 0,
-                        bottom: 0,
-                        duration: const Duration(seconds: 1),
-                        curve: Curves.easeOutCirc,
-                        child: IgnorePointer(
-                            child: Center(
-                                child: Text(widget.hintText,
-                                    style: widget.hintTextStyle, textAlign: widget.hintTextAlign)))),
-                PositionedDirectional(
-                    top: 0,
-                    bottom: 0,
-                    end: 3,
-                    child: Center(
-                        child: SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: AnimatedTransformingSwitcher(
-                                switcher: _waiting
-                                    ? 1
-                                    : _errorOnValidation
-                                        ? 2
-                                        : 0,
-                                duration: const Duration(milliseconds: 200),
-                                builder: (context, switcherKey) => _waiting
-                                    ? SizedBox(
-                                        height: 16,
-                                        width: 16,
-                                        child: CircularProgressIndicator(
-                                            color: widget.waitingColor,
-                                            strokeWidth: 3))
-                                    : _errorOnValidation
-                                        ? Center(
-                                            child: CircularTapEffect(
-                                                color: widget.waitingColor,
-                                                onPressed: () {
-                                                  _validateText();
-                                                },
-                                                child:
-                                                    const Icon(Icons.refresh)))
-                                        : const SizedBox())))),
-                widget.obscure
-                    ? Positioned(
-                        top: 0,
-                        bottom: 0,
-                        left: 6,
-                        child: CircularTapEffect(
-                            uiKey: _obscureButtonKey,
-                            keyActions: {
-                              LogicalKeyboardKey.arrowRight: () {
-                                UiKeyController.changeFocusedGlobalKey(_uiKey);
-                              }
-                            },
-                            color: widget.waitingColor.withOpacityMultiply(0.3),
-                            onPressed: () {
-                              setState(() {
-                                _obscured = !_obscured;
-                              });
-                            },
-                            child: AnimatedTransformingSwitcher(
-                                switcher: _obscured,
-                                duration: const Duration(milliseconds: 200),
-                                builder: (context, switcherKey) => (_obscured
-                                        ? widget.noObscureTextIcon
-                                        : widget.obscureTextIcon)
-                                    .withParams(
-                                        size: 24, color: widget.waitingColor))))
-                    : const SizedBox(),
-                // PositionedDirectional(
-                //     top: -2,
-                //     start: 3,
-                //     child: AnimatedOpacity(
-                //         opacity: widget.controller.textEditing.text==""?0:1,
-                //         duration: const Duration(milliseconds: 300),
-                //         child:Padding(
-                //             padding: const EdgeInsets.symmetric(horizontal:5),
-                //             child:Text(widget.hintText,style: widget.hintTextStyle))))
-              ]),
+              ],
             ),
           ),
         ),

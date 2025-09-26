@@ -84,4 +84,27 @@ class XBluetoothCharacteristic{
         throw Exception("Unsupported platform: ${Platform.operatingSystem}");
     }
   }
+
+
+  Future<void> write(List<int> data, bool withResponse) async {
+    switch(Platform.operatingSystem){
+      case "android":
+      case "ios":
+      case "macos":
+        await characteristic.write(data,withoutResponse: !withResponse);
+        break;
+      case "windows":
+        await WinBle.write(
+            address: service.device.id,
+            service: service.id,
+            characteristic: characteristic2.uuid,
+            data: Uint8List.fromList(data),
+            writeWithResponse: withResponse
+        );
+        break;
+      default:
+        throw Exception("Unsupported platform: ${Platform.operatingSystem}");
+    }
+  }
+
 }

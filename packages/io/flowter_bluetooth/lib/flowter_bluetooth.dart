@@ -328,7 +328,7 @@ class FlowterBluetooth {
     }
   }
 
-  static Future<bool> disconnectAndRemoveFromAutoConnectionList(
+  static Future<bool> disconnectAllSavedDevicesAndRemoveFromAutoConnectionList(
       SavedDevice savedDevice) async {
     if (!isSavedDeviceConnected(savedDevice) ||
         await disconnect(pairedIds.firstWhere((id) => id == savedDevice.id))) {

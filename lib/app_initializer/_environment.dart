@@ -16,6 +16,7 @@ class AppCustomization{
 
 
     this.onErrorThrown,
+    this.onInitializingErrorThrown,
     this.errorWidgetBuilder,
 
 
@@ -64,6 +65,7 @@ class AppCustomization{
 
   /// Errors Handler
   final void Function(Object exception, StackTrace stacktrace)? onErrorThrown;
+  final void Function(Object exception, StackTrace stacktrace)? onInitializingErrorThrown;
   final Widget Function(FlutterErrorDetails details)? errorWidgetBuilder;
 
 

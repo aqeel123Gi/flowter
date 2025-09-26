@@ -46,4 +46,16 @@ class OnOff {
       rethrow;
     }
   }
+
+
+
+  final Set<void Function(bool value)> _onChangedListeners = {};
+  void addOnChangedListener(void Function(bool value) listener){
+    _onChangedListeners.add(listener);
+  }
+  void removeOnChangedListener(void Function(bool value) listener){
+    _onChangedListeners.remove(listener);
+  }
+
+
 }

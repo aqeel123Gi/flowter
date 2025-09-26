@@ -1,6 +1,7 @@
 import 'package:flowter/widgets/advance_text_editing/advance_text_field.dart';
 
 class CustomTextValidationGroup {
+
   static void setNonValidatedMessages({
     String Function(String)? isNotEmptyNotValidatedMessage,
     String Function(String)? isIntegerNumberNotValidatedMessage,

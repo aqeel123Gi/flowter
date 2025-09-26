@@ -219,14 +219,23 @@ extension MapFunctions<K, V> on Map<K, V> {
   }
 
 
-
-
-  List<T> toList<T> (T Function(K key, V value) builder) {
-    List<T> list = [];
+  MapEntry<K, V>? tryFirstWhere(bool Function(K key, V value) condition) {
     for (var key in keys) {
-      list.add(builder(key, this[key] as V));
+      if (condition(key, this[key] as V)) {
+        return MapEntry(key, this[key] as V);
+      }
     }
-    return list;
+    return null;
+  }
+
+  Map<K,V> withRemovedWhere(bool Function(K key, V value) condition) {
+    Map<K,V> map = {};
+    for (var key in keys) {
+      if(!condition(key, this[key] as V)){
+        map[key] = this[key] as V;
+      }
+    }
+    return map;
   }
 
 
@@ -251,6 +260,30 @@ extension MapFunctions<K, V> on Map<K, V> {
     }
     return values;
   }
+
+
+
+
+  List<T> toList<T> (T Function(K key, V value) builder) {
+    List<T> list = [];
+    for (var key in keys) {
+      list.add(builder(key, this[key] as V));
+    }
+    return list;
+  }
+
+
+
+  MapEntry<K,V>? tryEntryWhere(bool Function(K key, V value) condition){
+    for (var key in keys) {
+      if(condition(key, this[key] as V)){
+        return MapEntry(key, this[key] as V);
+      }
+    }
+    return null;
+  }
+
+
 
 
 

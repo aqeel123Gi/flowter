@@ -379,5 +379,22 @@ extension ListFunctions<T> on List<T> {
   }
 
 
+  bool applied(List<T> list){
+
+    if(list.length != length){
+      return false;
+    }
+
+    for(int i=0;i<length;i++){
+      if(list[i] != this[i]){
+        return false;
+      }
+    }
+
+    return true;
+
+  }
+
+
 
 }
