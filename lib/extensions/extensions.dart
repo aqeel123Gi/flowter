@@ -27,3 +27,4 @@ part 'edge_insects.dart';
 part 'uint8list.dart';
 part 'text_direction.dart';
 part 'generic.dart';
+part 'int.dart';
