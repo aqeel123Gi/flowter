@@ -10,8 +10,8 @@ extension GenericFunctions<T> on T {
     return !list.contains(this);
   }
 
-  V execute<V>(V Function(T) function){
-    return function(this);
+  V on<V>(V Function(T value) callback) {
+    return callback(this);
   }
 
 }
