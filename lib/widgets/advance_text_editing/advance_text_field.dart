@@ -362,9 +362,10 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                                     controller: widget.controller.textEditing,
                                     maxLines: widget.lines,
                                     decoration: InputDecoration(
+                                      filled: false,
+                                      fillColor: Colors.transparent,
                                       focusColor: widget.cursorColor,
-                                      // hintStyle: widget.hintTextStyle,
-                                      // hintText: widget.hintText,
+                                      hoverColor: Colors.transparent,
                                       border: InputBorder.none,
                                     )))),
                       ),

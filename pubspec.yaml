@@ -30,7 +30,7 @@ dependencies:
 
   # cross_webview:
   flutter_inappwebview: 6.1.5
-  webview_windows: ^0.4.0
+#  webview_windows: ^0.4.0
   webview_flutter: 4.8.0
 
 

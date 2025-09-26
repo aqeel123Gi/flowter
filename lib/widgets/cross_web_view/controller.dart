@@ -6,7 +6,7 @@ class CrossWebViewController extends WidgetController<CrossWebView> {
 
   late InAppWebViewController inAppWebViewController;
   late WebViewController webViewController;
-  late WebviewController webViewController2;
+  // late WebviewController webViewController2;
 
 
   @override
@@ -60,19 +60,19 @@ class CrossWebViewController extends WidgetController<CrossWebView> {
 
 
 
-  void webViewController2Initialize(){
-    webViewController2 = WebviewController();
-    webViewController2.url.listen((url){
-      if(widget.onUrlChanged!=null){
-        widget.onUrlChanged!(url);
-      }
-    });
-    ()async{
-      await webViewController2.initialize();
-      await webViewController2.loadUrl(widget.startUrl);
-      updateState();
-    }();
-  }
+  // void webViewController2Initialize(){
+  //   webViewController2 = WebviewController();
+  //   webViewController2.url.listen((url){
+  //     if(widget.onUrlChanged!=null){
+  //       widget.onUrlChanged!(url);
+  //     }
+  //   });
+  //   ()async{
+  //     await webViewController2.initialize();
+  //     await webViewController2.loadUrl(widget.startUrl);
+  //     updateState();
+  //   }();
+  // }
 
 
 

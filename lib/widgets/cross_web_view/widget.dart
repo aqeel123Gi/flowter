@@ -67,7 +67,7 @@ class _CrossWebViewState extends State<CrossWebView> {
                   },
                   onUpdateVisitedHistory: (controller, url, _){
                     if(url!=null) {
-                      widget.onUrlChanged?.call(url.origin+url.host+url.path+(url.query.isNotEmpty?"?"+url.query:""));
+                      widget.onUrlChanged?.call(url.origin+url.host+url.path+(url.query.isNotEmpty?"?${url.query}":""));
                     }
                   },
                 ),
