@@ -67,125 +67,119 @@ class _CircularTapEffectState extends State<CircularTapEffect> {
 
   @override
   Widget build(BuildContext context) {
-    return UiKey(
-      keyActions: widget.keyActions,
-      key: widget.uiKey ?? _uiKey,
-      fixed: widget.fixed,
-      focusable: widget.onPressed != null,
-      builder: (context, focused) => Listener(
-          onPointerDown: (p) {
-            _up = false;
-            pressNumber++;
-            if (widget.onLongPressedWithinDuration != null) {
-              int tmp = pressNumber;
-              Future.delayed(widget.onLongPressedWithinDuration!.key, () {
-                if (!_up && tmp == pressNumber) {
-                  widget.onLongPressedWithinDuration!.value();
-                }
-              });
-            }
-            _clickedOn = p.position;
-            setState(() {
-              _duration = const Duration(seconds: 0);
-              _color = widget.color;
-              _scale = 1.0;
-              _opacity = 1.0;
-              _curve = Curves.easeOutCirc;
+    return Listener(
+        onPointerDown: (p) {
+          _up = false;
+          pressNumber++;
+          if (widget.onLongPressedWithinDuration != null) {
+            int tmp = pressNumber;
+            Future.delayed(widget.onLongPressedWithinDuration!.key, () {
+              if (!_up && tmp == pressNumber) {
+                widget.onLongPressedWithinDuration!.value();
+              }
             });
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              setState(() {
-                _duration = Duration(milliseconds: 500 * _slowBySize());
-                _scale = _maxScale();
-              });
-            });
-          },
-          onPointerUp: (p) {
-            _up = true;
+          }
+          _clickedOn = p.position;
+          setState(() {
+            _duration = const Duration(seconds: 0);
+            _color = widget.color;
+            _scale = 1.0;
+            _opacity = 1.0;
+            _curve = Curves.easeOutCirc;
+          });
+          WidgetsBinding.instance.addPostFrameCallback((_) {
             setState(() {
               _duration = Duration(milliseconds: 500 * _slowBySize());
               _scale = _maxScale();
             });
-            Future.delayed(const Duration(milliseconds: 200), () {
-              if (_up) {
-                if (mounted) {
-                  setState(() {
-                    _duration = const Duration(milliseconds: 500);
-                    _opacity = 0.0;
-                  });
-                }
+          });
+        },
+        onPointerUp: (p) {
+          _up = true;
+          setState(() {
+            _duration = Duration(milliseconds: 500 * _slowBySize());
+            _scale = _maxScale();
+          });
+          Future.delayed(const Duration(milliseconds: 200), () {
+            if (_up) {
+              if (mounted) {
+                setState(() {
+                  _duration = const Duration(milliseconds: 500);
+                  _opacity = 0.0;
+                });
               }
-            });
-            if (_distanceBetweenOffsets(_clickedOn, p.position) < 10 &&
-                widget.onPressed != null) {
-              widget.onPressed!();
             }
-          },
-          onPointerCancel: (p) {
+          });
+          if (_distanceBetweenOffsets(_clickedOn, p.position) < 10 &&
+              widget.onPressed != null) {
+            widget.onPressed!();
+          }
+        },
+        onPointerCancel: (p) {
+          _up = true;
+          setState(() {
+            _scale = _maxScale();
+            _duration = const Duration(milliseconds: 100);
+            _opacity = 0.0;
+          });
+        },
+        onPointerMove: (p) {
+          if (_distanceBetweenOffsets(_clickedOn, p.position) > 10) {
             _up = true;
-            setState(() {
-              _scale = _maxScale();
-              _duration = const Duration(milliseconds: 100);
-              _opacity = 0.0;
-            });
-          },
-          onPointerMove: (p) {
-            if (_distanceBetweenOffsets(_clickedOn, p.position) > 10) {
-              _up = true;
-            }
-            setState(() {
-              _scale = _maxScale();
-              _duration = const Duration(milliseconds: 100);
-              _opacity = 0.0;
-            });
-          },
-          child: Stack(children: [
-            Positioned(
-                left: 0,
-                top: 0,
-                right: 0,
-                bottom: 0,
-                child: Center(
-                    child: AnimatedOpacity(
-                        duration: _duration * 3,
-                        opacity: _opacity,
+          }
+          setState(() {
+            _scale = _maxScale();
+            _duration = const Duration(milliseconds: 100);
+            _opacity = 0.0;
+          });
+        },
+        child: Stack(children: [
+          Positioned(
+              left: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+              child: Center(
+                  child: AnimatedOpacity(
+                      duration: _duration * 3,
+                      opacity: _opacity,
+                      curve: _curve,
+                      child: AnimatedContainer(
+                        height: 1,
+                        width: 1,
                         curve: _curve,
-                        child: AnimatedContainer(
-                          height: 1,
-                          width: 1,
-                          curve: _curve,
-                          duration: _duration,
-                          transformAlignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: _color,
-                              borderRadius: BorderRadius.circular(1)),
-                          transform: Matrix4.identity().scaled(_scale),
-                        )))),
-            Positioned(
-                left: 0,
-                top: 0,
-                right: 0,
-                bottom: 0,
-                child: Center(
-                    child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 1000),
-                        opacity: focused ? 1.0 : 0.0,
-                        curve: Curves.easeOutCirc,
-                        child: Container(
-                          height: 1,
-                          width: 1,
-                          transformAlignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: _color,
-                              borderRadius: BorderRadius.circular(1)),
-                          transform: Matrix4.identity().scaled(_maxScale()),
-                        )))),
-            Center(
-                child: ChildSizeDetector(
-                    onChange: (size) {
-                      _size = max(size.height, size.width);
-                    },
-                    child: widget.child))
-          ])),
-    );
+                        duration: _duration,
+                        transformAlignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: _color,
+                            borderRadius: BorderRadius.circular(1)),
+                        transform: Matrix4.identity().scaled(_scale),
+                      )))),
+          Positioned(
+              left: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+              child: Center(
+                  child: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 1000),
+                      opacity: 0.0,
+                      curve: Curves.easeOutCirc,
+                      child: Container(
+                        height: 1,
+                        width: 1,
+                        transformAlignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: _color,
+                            borderRadius: BorderRadius.circular(1)),
+                        transform: Matrix4.identity().scaled(_maxScale()),
+                      )))),
+          Center(
+              child: ChildSizeDetector(
+                  onChange: (size) {
+                    _size = max(size.height, size.width);
+                  },
+                  child: widget.child))
+        ]));
   }
 }

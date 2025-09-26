@@ -3,6 +3,7 @@ import 'package:flowter/flowter.dart';
 import 'features_demo.dart';
 import 'optional_features_example.dart';
 import 'advanced_usage_example.dart';
+import 'advanced_textfield_example.dart';
 
 void main() {
   runApp(const MyApp());
@@ -121,6 +122,19 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               icon: const Icon(Icons.code),
               label: const Text('Advanced Usage Guide'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AdvancedTextFieldExample(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.text_fields),
+              label: const Text('AdvancedTextField Examples'),
             ),
           ],
         ),
