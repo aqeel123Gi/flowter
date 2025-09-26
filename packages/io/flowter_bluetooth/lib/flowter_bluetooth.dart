@@ -390,11 +390,11 @@ class BluetoothScanningRequirements {
 
   static Future<BluetoothScanningRequirements> _check() async {
     return BluetoothScanningRequirements._(
-      // hasNearDevicesAccessPermission: await Permission.bluetooth,
-      hasLocationAccessPermission: (await Geolocator.checkPermission()).execute(
-          (permission) =>
-              permission != LocationPermission.denied &&
-              permission != LocationPermission.deniedForever),
+      hasLocationAccessPermission: (await Geolocator.checkPermission()).on(
+        (permission) {
+          return permission != LocationPermission.denied && permission != LocationPermission.deniedForever;
+        }
+      ),
       isBluetoothAuthorized: FlowterBluetooth.authorizedScanningAndConnection,
       isBluetoothOn: FlowterBluetooth.adapterState == XBluetoothAdapterState.on,
       isLocationOn: await Geolocator.isLocationServiceEnabled(),
