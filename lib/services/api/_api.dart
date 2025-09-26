@@ -211,7 +211,7 @@ class API {
         int? version,
         Map<String,String> headers = const {},
         Map<String,File> files = const {},
-        Map<String,String> fields = const {},
+        Map<String,dynamic> fields = const {},
         int timeout = 60,
         dynamic virtualBody,
         List<String>? keysToFilter,

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
-import '../../functions/contains_substring_for_map.dart';
+import '../../functions/functions.dart';
 
 
 class ThisDevice{
@@ -39,6 +39,18 @@ class ThisDevice{
     // }
 
     return value;
+  }
+
+
+  static String get deviceName {
+    return tryGet((){
+      switch (Platform.operatingSystem) {
+        case 'windows':
+          return info!['computerName'];
+        default:
+          return throw Exception("Unsupported platform: ${Platform.operatingSystem}");
+      }
+    },'<ERROR IN COM.NAME GET>')!;
   }
 
 }

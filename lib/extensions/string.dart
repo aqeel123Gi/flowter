@@ -253,6 +253,16 @@ extension StringFunctions on String {
     return Color(hexNum);
   }
 
+  String onlyChars(Set<String> chars){
+    String newString = "";
+    for(String char in characters){
+      if(chars.contains(char)){
+        newString = newString+char;
+      }
+    }
+    return newString;
+  }
+
 
 
 }
