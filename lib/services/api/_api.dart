@@ -22,6 +22,8 @@ class API {
 
   static late String _baseURL;
 
+  static late Map<String,String Function()> _additionalHeaders;
+
 
   static late int _apiDefaultVersion;
 
@@ -31,12 +33,14 @@ class API {
     String? Function()? getToken,
     String? Function()? getAcceptLanguage,
     String? Function()? getUserType,
+    Map<String,String Function()> additionalHeaders = const {},
   }){
     _baseURL = baseURL;
     _apiDefaultVersion = apiDefaultVersion;
     _getToken = getToken;
     _getAcceptLanguage = getAcceptLanguage;
     _getUserType = getUserType;
+    _additionalHeaders = additionalHeaders;
   }
 
 
@@ -107,6 +111,8 @@ class API {
         'Content-type': 'application/json',
         'Accept': 'application/json'
       }..addAll(headers);
+
+      modifiedHeaders.addAll(_additionalHeaders.map((key, value) => MapEntry(key, value())));
 
       if(_getAcceptLanguage!=null && _getAcceptLanguage!() != null){
         modifiedHeaders['Accept-Language'] = _getAcceptLanguage!()!;
@@ -232,6 +238,8 @@ class API {
         // 'Content-type': 'application/json',
         // 'Accept': 'application/json'
       }..addAll(headers);
+
+      modifiedHeaders.addAll(_additionalHeaders.map((key, value) => MapEntry(key, value())));
 
       if(_getAcceptLanguage!=null && _getAcceptLanguage!() != null){
         modifiedHeaders['Accept-Language'] = _getAcceptLanguage!()!;
