@@ -264,6 +264,7 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                                     }
                                   },
                                   child: TextField(
+
                                       focusNode: _focusNode,
                                       enabled: widget.editable,
                                       style: widget.textStyle,
@@ -350,6 +351,12 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                                         focusColor: widget.cursorColor,
                                         hoverColor: Colors.transparent,
                                         border: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        focusedErrorBorder: InputBorder.none,
+
                                       )))),
                         ),
                         widget.hideHintTextOnTyping
