@@ -224,8 +224,8 @@
       "languageVersion": "3.1"
     },
     {
-      "name": "flowter",
-      "rootUri": "../../../core",
+      "name": "flowter_core",
+      "rootUri": "../../../flowter_core",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },

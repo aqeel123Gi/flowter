@@ -7,7 +7,7 @@
       "name": "flowter_bluetooth",
       "version": "0.0.2",
       "dependencies": [
-        "flowter",
+        "flowter_core",
         "flutter",
         "flutter_blue_plus",
         "win_ble"
@@ -60,8 +60,8 @@
       ]
     },
     {
-      "name": "flowter",
-      "version": "0.0.6",
+      "name": "flowter_core",
+      "version": "0.0.7",
       "dependencies": [
         "audioplayers",
         "audioplayers_windows",

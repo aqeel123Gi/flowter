@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flowter:
-    path: ../../core
+  flowter_core:
+    path: ../../flowter_core
 
   flutter_inappwebview: 6.1.5
   webview_flutter: 4.8.0

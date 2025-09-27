@@ -542,10 +542,10 @@ nfc_manager
 2.18
 file:///D:/Projects/flowter/assets/nfc_manager/
 file:///D:/Projects/flowter/assets/nfc_manager/lib/
-flowter
+flowter_core
 3.5
-file:///D:/Projects/flowter/core/
-file:///D:/Projects/flowter/core/lib/
+file:///D:/Projects/flowter/flowter_core/
+file:///D:/Projects/flowter/flowter_core/lib/
 flowter_bluetooth
 2.18
 file:///D:/Projects/flowter/io/flowter_bluetooth/

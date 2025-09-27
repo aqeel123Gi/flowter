@@ -8,7 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:win_ble/win_ble.dart';
 import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flowter/flowter.dart';
+import 'package:flowter_core/flowter_core.dart';
 import 'package:win_ble/win_file.dart';
 
 part '_android_ios_macos.dart';
