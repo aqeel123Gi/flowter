@@ -1,4 +1,4 @@
-part of 'cross_web_view.dart';
+part of 'flowter_web_view.dart';
 
 class CrossWebView extends StatefulWidget{
 

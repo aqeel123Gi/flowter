@@ -28,12 +28,6 @@ dependencies:
   sqflite_common_ffi:
 
 
-  # cross_webview:
-  flutter_inappwebview: 6.1.5
-#  webview_windows: ^0.4.0
-  webview_flutter: 4.8.0
-
-
 
   # io
   flutter_nfc_kit: 3.6.0
@@ -89,6 +83,9 @@ dependencies:
 
   flowter_bluetooth:
     path: packages/io/flowter_bluetooth
+
+  flowter_web_view:
+    path: packages/io/flowter_web_view
 
 
 

@@ -1,0 +1,22 @@
+name: flowter_web_view
+description: ...
+version: 0.0.2
+publish_to: none
+
+environment:
+  sdk: '>=2.18.1 <4.0.0'
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flowter:
+    path: ../../../
+
+  flutter_inappwebview: 6.1.5
+  webview_flutter: 4.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

@@ -1,5 +1,4 @@
 export 'widget_controller/widget_controller.dart';
-export 'cross_web_view/cross_web_view.dart';
 export 'button/button.dart';
 export 'dot/dot.dart';
 export 'draggable_bottom_sheet/draggable_bottom_sheet.dart';
