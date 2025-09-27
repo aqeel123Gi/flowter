@@ -84,8 +84,8 @@ dependencies:
   flowter_bluetooth:
     path: packages/io/flowter_bluetooth
 
-  flowter_web_view:
-    path: packages/io/flowter_web_view
+#  flowter_web_view:
+#    path: packages/io/flowter_web_view
 
 
 

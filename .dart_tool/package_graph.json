@@ -16,7 +16,6 @@
         "firebase_core",
         "firebase_messaging",
         "flowter_bluetooth",
-        "flowter_web_view",
         "flutter",
         "flutter_libserialport",
         "flutter_nfc_kit",
@@ -88,16 +87,6 @@
         "test_api",
         "vector_math",
         "vm_service"
-      ]
-    },
-    {
-      "name": "flowter_web_view",
-      "version": "0.0.2",
-      "dependencies": [
-        "flowter",
-        "flutter",
-        "flutter_inappwebview",
-        "webview_flutter"
       ]
     },
     {
@@ -630,29 +619,6 @@
         "stream_channel",
         "string_scanner",
         "term_glyph"
-      ]
-    },
-    {
-      "name": "webview_flutter",
-      "version": "4.8.0",
-      "dependencies": [
-        "flutter",
-        "webview_flutter_android",
-        "webview_flutter_platform_interface",
-        "webview_flutter_wkwebview"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview",
-      "version": "6.1.5",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_android",
-        "flutter_inappwebview_ios",
-        "flutter_inappwebview_macos",
-        "flutter_inappwebview_platform_interface",
-        "flutter_inappwebview_web",
-        "flutter_inappwebview_windows"
       ]
     },
     {
@@ -1274,83 +1240,6 @@
       ]
     },
     {
-      "name": "webview_flutter_wkwebview",
-      "version": "3.16.3",
-      "dependencies": [
-        "flutter",
-        "path",
-        "webview_flutter_platform_interface"
-      ]
-    },
-    {
-      "name": "webview_flutter_platform_interface",
-      "version": "2.10.0",
-      "dependencies": [
-        "flutter",
-        "meta",
-        "plugin_platform_interface"
-      ]
-    },
-    {
-      "name": "webview_flutter_android",
-      "version": "3.16.9",
-      "dependencies": [
-        "flutter",
-        "webview_flutter_platform_interface"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview_windows",
-      "version": "0.6.0",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_platform_interface"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview_web",
-      "version": "1.1.2",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_platform_interface",
-        "flutter_web_plugins",
-        "web"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview_macos",
-      "version": "1.1.2",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_platform_interface"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview_ios",
-      "version": "1.1.2",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_platform_interface"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview_android",
-      "version": "1.1.3",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_platform_interface"
-      ]
-    },
-    {
-      "name": "flutter_inappwebview_platform_interface",
-      "version": "1.3.0+1",
-      "dependencies": [
-        "flutter",
-        "flutter_inappwebview_internal_annotations",
-        "plugin_platform_interface"
-      ]
-    },
-    {
       "name": "petitparser",
       "version": "6.0.2",
       "dependencies": [
@@ -1535,11 +1424,6 @@
         "flutter",
         "meta"
       ]
-    },
-    {
-      "name": "flutter_inappwebview_internal_annotations",
-      "version": "1.2.0",
-      "dependencies": []
     },
     {
       "name": "xdg_directories",
