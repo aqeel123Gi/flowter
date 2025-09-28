@@ -1,0 +1,23 @@
+name: flowter_nfc
+description: ...
+version: 0.0.2
+publish_to: none
+
+environment:
+  sdk: '>=2.18.1 <4.0.0'
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flowter_core:
+    path: ../../flowter_core
+
+  flutter_nfc_kit: 3.6.0
+  nfc_manager:
+    path: packages/nfc_manager
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

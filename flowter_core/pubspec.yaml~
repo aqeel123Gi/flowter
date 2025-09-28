@@ -28,6 +28,12 @@ dependencies:
   sqflite_common_ffi:
 
 
+
+  # io
+  flutter_nfc_kit: 3.6.0
+  nfc_manager:
+    path: ../assets/nfc_manager
+
   flutter_libserialport: 0.6.0
   serial_port_win32: ^2.1.12
 

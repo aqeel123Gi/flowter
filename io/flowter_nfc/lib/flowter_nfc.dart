@@ -3,7 +3,7 @@ import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
 
-class EmbeddedMobileNFC{
+class FlowterNFC{
 
   static bool _runningNFC = false;
 
