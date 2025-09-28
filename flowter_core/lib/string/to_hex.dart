@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flowter_core/flowter_core.dart';
+import 'package:flowter_core/functions/functions.dart';
 
 String charToHex(String input) {
   List<int> charCodes = input.runes.toList();

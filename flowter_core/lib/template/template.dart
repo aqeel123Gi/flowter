@@ -1,5 +1,10 @@
 library template;
 
+import 'package:flowter_core/classes/button_data.dart';
+import 'package:flowter_core/classes/transform_data/transform_data.dart';
+import 'package:flowter_core/extensions/extensions.dart';
+import 'package:flowter_core/widgets/animate/animate.dart';
+import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

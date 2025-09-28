@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 import 'package:flowter_core/flowter_core.dart';
+import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 
 import '../../controllers/bytes_cache/bytes_cache.dart';
+import 'image_cache_builder.dart';
 
 class ImageCacheController extends WidgetController<ImageCacheBuilder> {
   late Future<Uint8List>? data;

@@ -1,4 +1,5 @@
 import 'package:flowter_core/flowter_core.dart';
+import 'package:flowter_core/template/template.dart';
 
 class OnOff {
   OnOff(this.value);

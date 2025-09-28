@@ -1,4 +1,7 @@
 import 'dart:math';
+import 'package:flowter_core/extensions/extensions.dart';
+import 'package:flowter_core/functions/functions.dart';
+import 'package:flowter_core/widgets/animated_transform_switcher/animated_transform_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flowter_core/flowter_core.dart';
 import '../buttons/full_stacked_button.dart';

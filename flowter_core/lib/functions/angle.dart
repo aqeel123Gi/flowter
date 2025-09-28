@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flowter_core/enums/enums.dart';
 import 'package:flowter_core/flowter_core.dart';
+
+import 'functions.dart';
 
 double angleFromTwoOffsets(Offset origin, Offset distance,
     [bool inDegrees = true]) {

@@ -1,3 +1,5 @@
+import 'package:flowter_core/enums/language_code.dart';
+import 'package:flowter_core/enums/week_day.dart';
 import 'package:flowter_core/flowter_core.dart';
 
 String weekdayToText(int weekday, dynamic languageCode) {

@@ -1,5 +1,7 @@
 library dictionary;
 
+import 'package:flowter_core/classes/language.dart';
+import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/io/memory/memory.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';

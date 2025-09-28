@@ -2,6 +2,12 @@ library app_initializer;
 
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flowter_core/extensions/extensions.dart';
+import 'package:flowter_core/functions/post_state.dart';
+import 'package:flowter_core/template/template.dart';
+import 'package:flowter_core/widgets/preferred_screen/preferred_screen.dart';
+import 'package:flowter_core/widgets/public_listener/public_listener.dart';
+import 'package:flowter_core/widgets/screen_debugger/screen_debugger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flowter_core/controllers/auth/auth.dart';
@@ -20,6 +26,7 @@ import '../controllers/logs/logs.dart';
 import '../controllers/ui_key/ui_key.dart';
 import '../services/api/api.dart';
 import '../services/notifications/notifications.dart';
+import '../widgets/advance_text_editing/advance_text_field.dart';
 import '../widgets/auto_scale.dart';
 import '../widgets/no_scroller/no_scroller.dart';
 

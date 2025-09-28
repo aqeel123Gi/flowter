@@ -1,3 +1,4 @@
+import 'package:flowter_core/enums/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flowter_core/flowter_core.dart';
 

@@ -2,6 +2,9 @@ library io_bluetooth;
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flowter_core/enums/enums.dart';
+import 'package:flowter_core/extensions/extensions.dart';
+import 'package:flowter_core/functions/functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';

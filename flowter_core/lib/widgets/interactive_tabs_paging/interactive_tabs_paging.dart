@@ -1,5 +1,6 @@
 library interactive_tabs_paging;
 
+import 'package:flowter_core/widgets/interactive_tabs/interactive_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flowter_core/flowter_core.dart';
 

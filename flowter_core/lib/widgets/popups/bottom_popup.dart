@@ -1,4 +1,9 @@
+import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/flowter_core.dart';
+import 'package:flowter_core/template/template.dart';
+import 'package:flowter_core/widgets/blur/blur.dart';
+import 'package:flowter_core/widgets/child_size_detector/child_size_detector.dart';
+import 'package:flowter_core/widgets/public_listener/public_listener.dart';
 import 'package:flutter/material.dart';
 import '../../_trash/show_transparent_page.dart';
 

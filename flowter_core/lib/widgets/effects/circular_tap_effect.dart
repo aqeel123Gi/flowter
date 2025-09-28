@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flowter_core/flowter_core.dart';
+import 'package:flowter_core/widgets/child_size_detector/child_size_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

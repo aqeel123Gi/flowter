@@ -1,5 +1,6 @@
 library direct_future_builder;
 
+import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flowter_core/flowter_core.dart';
 part 'controller.dart';

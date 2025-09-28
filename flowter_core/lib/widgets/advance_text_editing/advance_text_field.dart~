@@ -1,10 +1,5 @@
 library advanced_input_text;
 
-import 'package:flowter_core/extensions/extensions.dart';
-import 'package:flowter_core/functions/exception_message_parser.dart';
-import 'package:flowter_core/widgets/animated_transform_switcher/animated_transform_switcher.dart';
-import 'package:flowter_core/widgets/effects/circular_tap_effect.dart';
-import 'package:flowter_core/widgets/sd_icon/sd_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flowter_core/flowter_core.dart';

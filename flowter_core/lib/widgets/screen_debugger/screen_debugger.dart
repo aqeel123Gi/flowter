@@ -1,3 +1,6 @@
+import 'package:flowter_core/classes/edges_coordinates.dart';
+import 'package:flowter_core/extensions/extensions.dart';
+import 'package:flowter_core/functions/post_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
