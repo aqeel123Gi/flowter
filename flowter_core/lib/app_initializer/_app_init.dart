@@ -26,7 +26,7 @@ Future<void> appInit(AppCustomization environment)async{
 
   // Notifications Settings
   if(environment.notificationSettings != null && !Platform.isWindows) {
-    await Notifications.initialize(notificationSettings: environment.notificationSettings!);
+    Notifications.initialize(notificationSettings: environment.notificationSettings!);
   }
 
 

@@ -170,10 +170,6 @@ flutter_lints
 3.1
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-4.0.0/
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-4.0.0/lib/
-flutter_nfc_kit
-3.5
-file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_nfc_kit-3.6.0/
-file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_nfc_kit-3.6.0/lib/
 flutter_plugin_android_lifecycle
 3.5
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.23/
@@ -326,10 +322,6 @@ meta
 2.12
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.16.0/
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.16.0/lib/
-ndef
-2.12
-file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/ndef-0.3.4/
-file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/ndef-0.3.4/lib/
 nm
 2.12
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/nm-0.5.0/
@@ -586,10 +578,6 @@ yaml
 2.19
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.2/
 file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.2/lib/
-nfc_manager
-2.18
-file:///D:/Projects/flowter/assets/nfc_manager/
-file:///D:/Projects/flowter/assets/nfc_manager/lib/
 flowter_core
 3.5
 file:///D:/Projects/flowter/flowter_core/
