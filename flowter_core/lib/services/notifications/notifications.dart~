@@ -1,5 +1,4 @@
-export 'package:firebase_core/firebase_core.dart';
-export 'package:firebase_messaging/firebase_messaging.dart';
+library notifications;
 
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,11 +11,7 @@ import '../../functions/functions.dart';
 
 part 'notifications_settings.dart';
 
-
-
 class Notifications{
-
-
 
   static String? _firebaseMessagingAppToken;
   static String? get firebaseMessagingAppToken => _firebaseMessagingAppToken;
