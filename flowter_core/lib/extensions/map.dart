@@ -285,7 +285,7 @@ extension MapFunctions<K, V> on Map<K, V> {
 
 
 
-  K getNextKey(K key, {bool loop = false, bool endStop = false}){
+  K getNextKeyOf(K key, {bool loop = false, bool endStop = false}){
 
     if(loop&&endStop){
       throw Exception("You can't loop and end stop at the same time.");
@@ -306,7 +306,7 @@ extension MapFunctions<K, V> on Map<K, V> {
 
 
 
-  K getPreviousKey(K key, {bool loop = false, bool endStop = false}){
+  K getPreviousKeyOf(K key, {bool loop = false, bool endStop = false}){
 
     if(loop&&endStop){
       throw Exception("You can't loop and end stop at the same time.");
