@@ -285,49 +285,6 @@ extension MapFunctions<K, V> on Map<K, V> {
 
 
 
-  K getNextKey(K key, {bool loop = false, bool endStop = false}){
-
-    if(loop&&endStop){
-      throw Exception("You can't loop and end stop at the same time.");
-    }
-
-    int currentIndex = keys.toList().indexOf(key);
-    if(currentIndex == keys.length - 1){
-      if(loop){
-        return keys.toList()[0];
-      }else if(endStop){
-        return key;
-      }else{
-        throw Exception("There is no next key.");
-      }
-    }
-    return keys.toList()[currentIndex + 1];
-  }
-
-
-
-  K getPreviousKey(K key, {bool loop = false, bool endStop = false}){
-
-    if(loop&&endStop){
-      throw Exception("You can't loop and end stop at the same time.");
-    }
-
-    int currentIndex = keys.toList().indexOf(key);
-    if(currentIndex == 0){
-      if(loop){
-        return keys.toList()[keys.length - 1];
-      }else if(endStop){
-        return key;
-      }else{
-        throw Exception("There is no previous key.");
-      }
-    }
-    return keys.toList()[currentIndex - 1];
-
-  }
-
-
-
 
 
 }
