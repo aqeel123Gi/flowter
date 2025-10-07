@@ -22,8 +22,6 @@ class _AppBaseWidgetState extends State<_AppBaseWidget>{
   @override
   void initState() {
 
-    AppFramework.updateState = () => setState((){});
-
     TemplateController.addListenerOnPageSetAsHome((page) => UiKeyController.oneLayer([]));
     TemplateController.addListenerOnPagePushed((page) => UiKeyController.pushLayer([]));
     TemplateController.addListenerOnPagePop((page) => UiKeyController.popLayer());
