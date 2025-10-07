@@ -2,21 +2,22 @@ part of 'app_initializer.dart';
 
 
 
-class AppBaseWidget extends StatefulWidget{
-  const AppBaseWidget({
-    super.key,
+class _AppBaseWidget extends StatefulWidget{
+
+
+  const _AppBaseWidget({
     required this.appCustomization,
   });
 
   final AppCustomization appCustomization;
 
   @override
-  State<AppBaseWidget> createState() => _AppBaseWidgetState();
+  State<_AppBaseWidget> createState() => _AppBaseWidgetState();
 
 }
 
 
-class _AppBaseWidgetState extends State<AppBaseWidget>{
+class _AppBaseWidgetState extends State<_AppBaseWidget>{
 
   @override
   void initState() {
@@ -27,24 +28,6 @@ class _AppBaseWidgetState extends State<AppBaseWidget>{
 
     TemplateController.initialize(widget.appCustomization.templateCustomization);
 
-    addPostFrameCallback(() async {
-
-
-      // loopExecution(
-      //     function:(){
-      //       try {
-      //         ShorebirdController.patchUpdate();
-      //       } catch (e) {
-      //         DebuggerConsole.setPinnedLine(
-      //             "PATCH UPDATE", "ERROR: ${parseErrorMessage(e)}",
-      //             color: Colors.red);
-      //       }
-      //     },
-      //     stopOn: () => false,
-      //     breakDuration: const Duration(minutes: 5)
-      // );
-    });
-
     BrightnessController.addListener((){
       setState((){});
     });
@@ -53,9 +36,8 @@ class _AppBaseWidgetState extends State<AppBaseWidget>{
       setState((){});
     });
 
-
-
     super.initState();
+
   }
 
 

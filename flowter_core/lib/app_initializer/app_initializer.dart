@@ -68,6 +68,7 @@ part '_base_widget.dart';
 ///
 class AppFramework {
   static late AppCustomization appCustomization;
+  static late void Function() updateState;
 
   static void appInitializer({
     required AppCustomization customization,
@@ -83,7 +84,7 @@ class AppFramework {
 
       await onAppInitialized?.call(customization);
 
-      runApp(AppBaseWidget(appCustomization: appCustomization));
+      runApp(_AppBaseWidget(appCustomization: appCustomization));
     }, (Object e, StackTrace s) {
       if (customization.onErrorThrown != null) {
         customization.onErrorThrown!(e, s);
