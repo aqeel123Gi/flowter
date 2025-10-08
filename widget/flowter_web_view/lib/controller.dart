@@ -1,7 +1,7 @@
 part of 'flowter_web_view.dart';
 
 
-class CrossWebViewController extends WidgetController<CrossWebView> {
+class CrossWebViewController extends WidgetController<FlowterWebView> {
 
 
   late InAppWebViewController inAppWebViewController;

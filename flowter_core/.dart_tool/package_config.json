@@ -411,9 +411,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+      "rootUri": "file:///C:/Users/CarChip/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.3"
     },
     {
       "name": "http_parser",
