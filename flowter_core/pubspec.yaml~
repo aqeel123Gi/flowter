@@ -1,6 +1,6 @@
 name: flowter_core
 description: "A comprehensive Flutter framework package providing UI widgets, extensions, utilities, controllers, and I/O capabilities for rapid app development with advanced features like NFC, Bluetooth, serial communication, and device management."
-version: 0.0.10
+version: 0.0.9
 publish_to: none
 
 environment:
@@ -22,7 +22,7 @@ dependencies:
 
 
 
-  http: 1.2.2
+  http: ^0.13.6
 
   sqflite: ^2.2.4+1
   sqflite_common_ffi:
