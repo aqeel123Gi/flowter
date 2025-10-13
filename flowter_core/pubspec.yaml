@@ -22,7 +22,7 @@ dependencies:
 
 
 
-  http: ^0.13.6
+  http: 1.2.2
 
   sqflite: ^2.2.4+1
   sqflite_common_ffi:

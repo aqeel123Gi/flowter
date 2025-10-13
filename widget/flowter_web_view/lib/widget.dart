@@ -1,6 +1,6 @@
 part of 'flowter_web_view.dart';
 
-class CrossWebView extends StatefulWidget{
+class FlowterWebView extends StatefulWidget{
 
 
   static bool get supportedPlatform{
@@ -16,11 +16,12 @@ class CrossWebView extends StatefulWidget{
   }
 
 
-  const CrossWebView({
+  const FlowterWebView({
     super.key,
     this.headers = const {},
     required this.startUrl,
     this.onUrlChanged,
+
 
   });
 
@@ -29,10 +30,10 @@ class CrossWebView extends StatefulWidget{
   final void Function(String url)? onUrlChanged;
 
   @override
-  State<CrossWebView> createState() => _CrossWebViewState();
+  State<FlowterWebView> createState() => _FlowterWebViewState();
 }
 
-class _CrossWebViewState extends State<CrossWebView> {
+class _FlowterWebViewState extends State<FlowterWebView> {
 
   final CrossWebViewController _controller = CrossWebViewController();
 
