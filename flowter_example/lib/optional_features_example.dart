@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flowter/flowter.dart';
+import 'package:flowter_core/flowter_core.dart';
 
 /// Example showing how to use optional Flowter features
 class OptionalFeaturesExample extends StatefulWidget {

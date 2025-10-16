@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flowter/flowter.dart';
+import 'package:flowter_core/flowter_core.dart';
 
 /// Example showing advanced Flowter usage patterns
 class AdvancedUsageExample extends StatefulWidget {

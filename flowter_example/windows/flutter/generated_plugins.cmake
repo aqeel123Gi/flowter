@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   connectivity_plus
   firebase_core
-  flutter_inappwebview_windows
   flutter_libserialport
   geolocator_windows
   permission_handler_windows

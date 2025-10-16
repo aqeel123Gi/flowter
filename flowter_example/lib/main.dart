@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flowter/flowter.dart';
+import 'package:flowter_core/flowter_core.dart';
 import 'features_demo.dart';
 import 'optional_features_example.dart';
 import 'advanced_usage_example.dart';

@@ -1,5 +1,7 @@
+import 'package:flowter_core/widgets/advance_text_editing/advance_text_field.dart';
+import 'package:flowter_core/widgets/sd_icon/sd_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter/flowter.dart';
+import 'package:flowter_core/flowter_core.dart';
 
 /// Example showing AdvancedTextField widget usage
 class AdvancedTextFieldExample extends StatefulWidget {

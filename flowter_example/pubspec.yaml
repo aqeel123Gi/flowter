@@ -1,4 +1,4 @@
-name: empty_app
+name: flowter_example
 description: "Empty example project demonstrating basic Flowter usage"
 version: 1.0.0+1
 publish_to: 'none'
@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   
   # Flowter core package
-  flowter:
-    path: ../../
+  flowter_core:
+    path: ../flowter_core
 
 dev_dependencies:
   flutter_test:
