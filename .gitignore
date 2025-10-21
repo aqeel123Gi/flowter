@@ -1,3 +1,12 @@
 flowter_core/.dart_tool/package_config.json
 /flowter_core/.dart_tool
 flowter_core/pubspec.lock
+/examples/empty_app/.dart_tool
+/examples/empty_app/.idea
+/examples/empty_app/build
+examples/empty_app/android/local.properties
+/examples/empty_app/windows/flutter/ephemeral
+/examples/empty_app/linux/flutter/ephemeral
+/examples/empty_app/ios/Flutter/ephemeral
+/examples/empty_app/macos/Flutter/ephemeral
+examples/empty_app/.flutter-plugins-dependencies
