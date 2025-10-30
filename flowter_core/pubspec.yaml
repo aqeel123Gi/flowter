@@ -28,7 +28,7 @@ dependencies:
   sqflite_common_ffi:
 
 
-  flutter_libserialport: 0.6.0
+#  flutter_libserialport: 0.6.0
   serial_port_win32: ^2.1.12
 
 
