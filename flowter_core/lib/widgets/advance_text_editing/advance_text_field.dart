@@ -20,6 +20,7 @@ class AdvancedTextField extends StatefulWidget {
     this.editable = true,
     this.hintText = "",
     this.title,
+    this.focusNode,
     required this.textStyle,
     required this.hintTextStyle,
     required this.height,
@@ -57,6 +58,7 @@ class AdvancedTextField extends StatefulWidget {
   final bool editable;
   final String hintText;
   final String? title;
+  final FocusNode? focusNode;
   final TextInputType textInputType;
   final int lines;
   final TextStyle textStyle;
@@ -102,11 +104,15 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
   bool _obscured = false;
   bool _waiting = false;
   bool _errorOnValidation = false;
+  final GlobalKey<State<UiKey>> _obscureButtonKey = GlobalKey();
+  final FocusNode _focusNode = FocusNode();
 
   final GlobalKey<State<UiKey>> _uiKey = GlobalKey();
 
+  FocusNode get focusNode => widget.focusNode ?? _focusNode;
+
   void _requestFocus() {
-    _focusNode.requestFocus();
+    focusNode.requestFocus();
   }
 
   Future<bool?> _validateText() async {
@@ -224,9 +230,6 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
     super.initState();
   }
 
-  final GlobalKey<State<UiKey>> _obscureButtonKey = GlobalKey();
-  final FocusNode _focusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -266,7 +269,7 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
                                 }
                               },
                               child: TextField(
-                                  focusNode: _focusNode,
+                                  focusNode: focusNode,
                                   enabled: widget.editable,
                                   style: widget.textStyle,
                                   textAlign: widget.valueTextAlign,
