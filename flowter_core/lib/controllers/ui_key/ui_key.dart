@@ -13,7 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flowter_core/controllers/this_device/this_device.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 import '../../widgets/screen_debugger/screen_debugger.dart';
 import '../dictionary/dictionary.dart';

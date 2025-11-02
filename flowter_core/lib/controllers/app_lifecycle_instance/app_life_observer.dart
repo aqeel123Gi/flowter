@@ -1,7 +1,6 @@
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class AppLifecycleObserver {
   static late _LifecycleObserverInstance _instance;

@@ -14,7 +14,6 @@ import 'package:flowter_core/controllers/auth/auth.dart';
 import 'package:flowter_core/controllers/brightness_mode/brightness_mode.dart';
 import 'package:flowter_core/controllers/dev_stage/dev_stage.dart';
 import 'package:flowter_core/controllers/dictionary/dictionary.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'dart:io';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';

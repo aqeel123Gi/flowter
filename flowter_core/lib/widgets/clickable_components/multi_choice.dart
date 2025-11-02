@@ -1,7 +1,6 @@
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/widgets/effects/zooming_click_effect.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 import '../../controllers/global_future/global_future.dart';
 import '../../controllers/ui_key/ui_key.dart';
 import '../buttons/full_stacked_button.dart';

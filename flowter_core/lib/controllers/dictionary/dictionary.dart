@@ -5,7 +5,6 @@ import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/io/memory/memory.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'package:spreadsheet_decoder/spreadsheet_decoder.dart';
 import '../../functions/transform_map.dart';
 

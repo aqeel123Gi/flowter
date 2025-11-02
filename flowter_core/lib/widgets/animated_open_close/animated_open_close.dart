@@ -1,7 +1,6 @@
 import 'package:flowter_core/functions/post_state.dart';
 import 'package:flowter_core/widgets/child_size_detector/child_size_detector.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class AnimatedOpenClose extends StatefulWidget {
   const AnimatedOpenClose(

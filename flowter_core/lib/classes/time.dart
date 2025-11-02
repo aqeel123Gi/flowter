@@ -1,5 +1,4 @@
 import 'package:flowter_core/extensions/extensions.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'package:flowter_core/functions/functions.dart';
 import '../controllers/dictionary/dictionary.dart';
 

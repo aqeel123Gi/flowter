@@ -6,7 +6,6 @@ import 'package:flowter_core/widgets/button/button.dart';
 import 'package:flowter_core/widgets/child_size_detector/child_size_detector.dart';
 import 'package:flowter_core/widgets/sd_icon/sd_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class TextAlert extends StatefulWidget {
   static late void Function(

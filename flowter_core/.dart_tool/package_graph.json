@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "flowter_core",
-      "version": "0.0.10",
+      "version": "0.0.11",
       "dependencies": [
         "audioplayers",
         "audioplayers_windows",
@@ -25,6 +25,7 @@
         "http",
         "image",
         "just_audio",
+        "libserialport_plus",
         "package_info_plus",
         "permission_handler",
         "serial_port_win32",
@@ -260,6 +261,14 @@
         "collection",
         "ffi",
         "win32"
+      ]
+    },
+    {
+      "name": "libserialport_plus",
+      "version": "0.0.12",
+      "dependencies": [
+        "equatable",
+        "ffi"
       ]
     },
     {
@@ -849,6 +858,14 @@
         "screen_retriever_macos",
         "screen_retriever_platform_interface",
         "screen_retriever_windows"
+      ]
+    },
+    {
+      "name": "equatable",
+      "version": "2.0.7",
+      "dependencies": [
+        "collection",
+        "meta"
       ]
     },
     {

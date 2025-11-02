@@ -2,8 +2,7 @@
 // import 'package:hive/hive.dart';
 // import 'package:tahdir/assets/animated_transform.dart';
 // import 'package:tahdir/assets/edges_coordinates.dart';
-// import 'package:flowter_core/flowter_core.dart';
-// import 'package:tahdir/assets/window_size.dart';
+// // import 'package:tahdir/assets/window_size.dart';
 // import 'package:tahdir/custom/styles/values.dart';
 // import '../../../instructions.dart';
 // import '../../_controller.dart';

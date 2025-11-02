@@ -1,7 +1,6 @@
 import 'package:flowter_core/template/template.dart';
 import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'controller.dart';
 
 TemplateData xTD() => TemplateData(

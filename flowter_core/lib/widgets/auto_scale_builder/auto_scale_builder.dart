@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 part '_controller.dart';
 
 class AutoScaleBuilder extends StatefulWidget {

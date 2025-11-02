@@ -8,7 +8,6 @@ import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flowter_core/flowter_core.dart';
 import '../controllers/ui_key/ui_key.dart';
 
 part 'data.dart';

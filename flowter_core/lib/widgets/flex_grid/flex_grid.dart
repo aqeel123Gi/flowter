@@ -1,6 +1,5 @@
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class FlexGrid extends StatelessWidget {
   const FlexGrid({super.key, required this.flexes, required this.children});

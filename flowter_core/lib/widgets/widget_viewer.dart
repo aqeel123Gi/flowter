@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flowter_core/classes/edges_coordinates.dart';
 import 'package:flowter_core/classes/transform_data/transform_data.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'package:flowter_core/functions/post_state.dart';
 import 'package:flowter_core/template/template.dart';
 import 'package:flutter/material.dart';

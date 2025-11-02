@@ -1,6 +1,5 @@
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class ExpandedGrid extends StatelessWidget {
   const ExpandedGrid({super.key, required this.children});

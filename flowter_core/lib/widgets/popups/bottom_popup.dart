@@ -1,5 +1,4 @@
 import 'package:flowter_core/extensions/extensions.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'package:flowter_core/template/template.dart';
 import 'package:flowter_core/widgets/blur/blur.dart';
 import 'package:flowter_core/widgets/child_size_detector/child_size_detector.dart';

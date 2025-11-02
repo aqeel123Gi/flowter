@@ -1,7 +1,6 @@
 import 'package:flowter_core/widgets/interactive_tabs/interactive_tabs.dart';
 import 'package:flowter_core/widgets/sd_icon/sd_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class ButtonData<T> {
   ButtonData({

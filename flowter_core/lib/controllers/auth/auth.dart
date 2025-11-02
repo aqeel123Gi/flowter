@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/functions/functions.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class AbstractAppAuth {
   AbstractAppAuth fromMemoryAsMap(Map<String, dynamic> json) {

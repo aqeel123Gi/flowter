@@ -1,4 +1,3 @@
-import 'package:flowter_core/flowter_core.dart';
 import 'package:flowter_core/template/template.dart';
 
 class OnOff {
@@ -48,15 +47,12 @@ class OnOff {
     }
   }
 
-
-
   final Set<void Function(bool value)> _onChangedListeners = {};
-  void addOnChangedListener(void Function(bool value) listener){
+  void addOnChangedListener(void Function(bool value) listener) {
     _onChangedListeners.add(listener);
   }
-  void removeOnChangedListener(void Function(bool value) listener){
+
+  void removeOnChangedListener(void Function(bool value) listener) {
     _onChangedListeners.remove(listener);
   }
-
-
 }

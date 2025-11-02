@@ -2,7 +2,6 @@ library advanced_input_text;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 import '../../controllers/ui_key/ui_key.dart';
 

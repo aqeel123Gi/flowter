@@ -233,6 +233,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: "567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   fake_async:
     dependency: transitive
     description:
@@ -600,6 +608,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  libserialport_plus:
+    dependency: "direct main"
+    description:
+      name: libserialport_plus
+      sha256: d984d639de352a2e670e633f962df4b2460ecbaa4b2ad15013c36e6cd1de0067
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.12"
   lints:
     dependency: transitive
     description:

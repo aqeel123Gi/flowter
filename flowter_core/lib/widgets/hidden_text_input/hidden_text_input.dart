@@ -2,7 +2,6 @@ import 'package:flowter_core/controllers/ui_key/ui_key.dart';
 import 'package:flowter_core/widgets/screen_debugger/screen_debugger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flowter_core/flowter_core.dart';
 import '../../functions/functions.dart';
 
 class HiddenTextInputController {

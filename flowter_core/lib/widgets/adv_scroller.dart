@@ -1,6 +1,5 @@
 import 'package:flowter_core/functions/post_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 class AdvScrollerBuilder extends StatefulWidget {
   const AdvScrollerBuilder({

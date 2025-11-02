@@ -1,6 +1,5 @@
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flowter_core/flowter_core.dart';
 
 dynamic printStructure(dynamic data,
     {String base = "[ROOT]->", bool valuesTypes = false, String? title}) {
