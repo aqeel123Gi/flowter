@@ -12,3 +12,4 @@ examples/empty_app/android/local.properties
 examples/empty_app/.flutter-plugins-dependencies
 flowter_core/pubspec.yaml~
 /flowter_core/.dart_tool
+*~

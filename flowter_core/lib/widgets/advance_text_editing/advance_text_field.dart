@@ -5,12 +5,14 @@ import 'package:flowter_core/functions/exception_message_parser.dart';
 import 'package:flowter_core/widgets/animated_transform_switcher/animated_transform_switcher.dart';
 import 'package:flowter_core/widgets/effects/circular_tap_effect.dart';
 import 'package:flowter_core/widgets/sd_icon/sd_icon.dart';
+import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../controllers/ui_key/ui_key.dart';
 
 part 'controller.dart';
+part 'widget_controller.dart';
 part 'text_validation.dart';
 
 class AdvancedTextField extends StatefulWidget {
@@ -97,141 +99,20 @@ class AdvancedTextField extends StatefulWidget {
 }
 
 class _AdvancedTextFieldState extends State<AdvancedTextField> {
-  bool _inFocus = false;
-  String _nonValidatedMessage = "";
-  DateTime _changeDateTime =
-      DateTime.now().subtract(const Duration(seconds: 10));
-  bool _obscured = false;
-  bool _waiting = false;
-  bool _errorOnValidation = false;
-  final GlobalKey<State<UiKey>> _obscureButtonKey = GlobalKey();
-  final FocusNode _focusNode = FocusNode();
-
-  final GlobalKey<State<UiKey>> _uiKey = GlobalKey();
-
-  FocusNode get focusNode => widget.focusNode ?? _focusNode;
-
-  void _requestFocus() {
-    focusNode.requestFocus();
-  }
-
-  Future<bool?> _validateText() async {
-    if (widget.textValidations.isEmpty) {
-      widget.controller.validated = true;
-      return true;
-    }
-    if (_waiting == true) {
-      return null;
-    }
-
-    if (!mounted) {
-      return null;
-    }
-
-    setState(() {
-      _errorOnValidation = false;
-      widget.controller.validated = false;
-      if (widget.onValidateChanged != null) {
-        widget.onValidateChanged!(widget.controller.validated);
-      }
-      _nonValidatedMessage = "";
-      widget.controller.validationMessage = _nonValidatedMessage;
-      _waiting = true;
-    });
-
-    for (TextValidation validation in widget.textValidations) {
-      bool validated = validation.validate(widget.controller.textEditing.text);
-      if (!validated) {
-        setState(() {
-          _nonValidatedMessage =
-              validation.onNotValidatedMessage(widget.title.toString());
-          widget.controller.validationMessage = _nonValidatedMessage;
-          _waiting = false;
-        });
-        return false;
-      }
-    }
-
-    for (FutureTextValidation validation in widget.futureTextValidations) {
-      bool validated;
-
-      try {
-        validated =
-            await validation.validate(widget.controller.textEditing.text);
-      } catch (e) {
-        setState(() {
-          _errorOnValidation = true;
-          _nonValidatedMessage = parseErrorMessage(e as Exception);
-          widget.controller.validationMessage = _nonValidatedMessage;
-          _waiting = false;
-        });
-        return false;
-      }
-
-      if (!validated) {
-        setState(() {
-          widget.controller.validationMessage = _nonValidatedMessage;
-          _waiting = false;
-        });
-        return false;
-      }
-    }
-
-    setState(() {
-      widget.controller.validated = true;
-      if (widget.onValidateChanged != null) {
-        widget.onValidateChanged!(widget.controller.validated);
-      }
-      _nonValidatedMessage = "";
-      widget.controller.validationMessage = _nonValidatedMessage;
-      _waiting = false;
-    });
-
-    if (widget.onValidatedFuture != null) {
-      setState(() {
-        _waiting = true;
-      });
-      try {
-        await widget.onValidatedFuture!(widget.controller.textEditing.text);
-      } catch (e) {
-        setState(() {
-          _errorOnValidation = true;
-          _nonValidatedMessage = parseErrorMessage(e as Exception);
-          widget.controller.validationMessage = _nonValidatedMessage;
-          _waiting = false;
-        });
-        return false;
-      }
-      setState(() {
-        _waiting = false;
-      });
-    }
-
-    return true;
-  }
-
-  @override
-  void initState() {
-    _obscured = widget.obscure;
-    if (widget.textValidations.isEmpty) {
-      widget.controller.validated = true;
-    }
-
-    widget.controller.requestFocus = _requestFocus;
-
-    widget.controller.validate = _validateText;
-    widget.controller.changeText = (text, validate) {
-      widget.controller.textEditing.text = text;
-      if (validate) {
-        _validateText();
-      }
-    };
-
-    super.initState();
-  }
+  final AdvancedTextFieldWidgetController _widgetController =
+      AdvancedTextFieldWidgetController();
 
   @override
   Widget build(BuildContext context) {
+    return WidgetControllerBuilder<AdvancedTextFieldWidgetController>(
+      widget: widget,
+      controller: _widgetController,
+      builder: (context, c) => _buildContent(context, c),
+    );
+  }
+
+  Widget _buildContent(
+      BuildContext context, AdvancedTextFieldWidgetController c) {
     return Column(children: [
       Center(
           child: Listener(
@@ -245,256 +126,188 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
           duration: const Duration(milliseconds: 500),
           clipBehavior: Clip.antiAlias,
           height: widget.height,
-          decoration: _inFocus ? widget.decorationOnFocus : widget.decoration,
+          decoration: c.inFocus ? widget.decorationOnFocus : widget.decoration,
           child: Row(
             children: [
-              if (widget.headingIcon != null)
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16.0),
-                  child: widget.headingIcon!,
-                ),
+              _headingIcon,
               Expanded(
                 child: LayoutBuilder(
-                  builder: (_, c) => Stack(children: [
-                    Center(
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Focus(
-                              onFocusChange: (inFocus) {
-                                setState(() {
-                                  _inFocus = inFocus;
-                                });
-                                if (!_inFocus) {
-                                  _validateText();
-                                }
-                              },
-                              child: TextField(
-                                  focusNode: focusNode,
-                                  enabled: widget.editable,
-                                  style: widget.textStyle,
-                                  textAlign: widget.valueTextAlign,
-                                  textDirection: widget.textDirection,
-                                  cursorColor: widget.cursorColor,
-                                  cursorWidth: 2,
-                                  obscureText: _obscured,
-                                  keyboardType: widget.textInputType,
-                                  onChanged: (text) async {
-                                    int startSelection = widget
-                                        .controller.textEditing.selection.start;
-
-                                    // Chars conversion
-                                    List<String> textChars =
-                                        text.characters.toList();
-                                    textChars.forIndexedEach((index, element) {
-                                      if (AdvancedTextFieldController
-                                          ._globalCharConversion
-                                          .containsKey(element)) {
-                                        textChars[index] =
-                                            AdvancedTextFieldController
-                                                    ._globalCharConversion[
-                                                element]!;
-                                      }
-                                    });
-                                    text = textChars.join();
-                                    widget.controller.textEditing.text = text;
-                                    widget.controller.textEditing.selection =
-                                        TextSelection(
-                                            baseOffset: startSelection,
-                                            extentOffset: startSelection);
-
-                                    // Remove not allowed characters
-                                    if (widget.allowedCharacters != null) {
-                                      int startSelection = widget.controller
-                                          .textEditing.selection.start;
-                                      String tmp = "";
-                                      int erased = 0;
-                                      for (var c in text.characters) {
-                                        if (widget.allowedCharacters!
-                                            .contains(c)) {
-                                          tmp += c;
-                                        } else {
-                                          erased++;
-                                        }
-                                      }
-                                      if (text.length != tmp.length) {
-                                        widget.controller.textEditing.text =
-                                            tmp;
-                                        widget.controller.textEditing
-                                                .selection =
-                                            TextSelection(
-                                                baseOffset:
-                                                    startSelection - erased,
-                                                extentOffset:
-                                                    startSelection - erased);
-                                      }
-                                    }
-
-                                    // Additional user defined
-                                    if (widget.onChanged != null) {
-                                      widget.onChanged!(text);
-                                    }
-
-                                    if (widget.validateAfterChangeDuration !=
-                                        null) {
-                                      _changeDateTime = DateTime.now();
-                                      await Future.delayed(
-                                          widget.validateAfterChangeDuration!);
-                                      if (DateTime.now()
-                                              .difference(_changeDateTime)
-                                              .inMilliseconds >=
-                                          widget.validateAfterChangeDuration!
-                                              .inMilliseconds) {
-                                        _validateText();
-                                      }
-                                    }
-
-                                    if (mounted) {
-                                      setState(() {});
-                                    }
-                                  },
-                                  controller: widget.controller.textEditing,
-                                  maxLines: widget.lines,
-                                  decoration: InputDecoration(
-                                    filled: false,
-                                    fillColor: Colors.transparent,
-                                    focusColor: widget.cursorColor,
-                                    hoverColor: Colors.transparent,
-                                    border: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    focusedErrorBorder: InputBorder.none,
-                                  )))),
-                    ),
-                    widget.hideHintTextOnTyping
-                        ? Center(
-                            child: AnimatedOpacity(
-                                opacity:
-                                    widget.controller.textEditing.text.isEmpty
-                                        ? 1
-                                        : 0,
-                                duration: const Duration(seconds: 1),
-                                curve: Curves.easeOutCirc,
-                                child: IgnorePointer(
-                                    child: Center(
-                                        child: Text(widget.hintText,
-                                            style: widget.hintTextStyle,
-                                            textAlign: widget.hintTextAlign)))),
-                          )
-                        : AnimatedPositionedDirectional(
-                            start: 0,
-                            end: widget.controller.textEditing.text.isEmpty
-                                ? 0
-                                : c.maxWidth * (2 / 3),
-                            top: 0,
-                            bottom: 0,
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeOutCirc,
-                            child: IgnorePointer(
-                                child: Center(
-                                    child: Text(widget.hintText,
-                                        style: widget.hintTextStyle,
-                                        textAlign: widget.hintTextAlign)))),
-                    PositionedDirectional(
-                        top: 0,
-                        bottom: 0,
-                        end: 3,
-                        child: Center(
-                            child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: AnimatedTransformingSwitcher(
-                                    switcher: _waiting
-                                        ? 1
-                                        : _errorOnValidation
-                                            ? 2
-                                            : 0,
-                                    duration: const Duration(milliseconds: 200),
-                                    builder: (context, switcherKey) => _waiting
-                                        ? SizedBox(
-                                            height: 16,
-                                            width: 16,
-                                            child: CircularProgressIndicator(
-                                                color: widget.waitingColor,
-                                                strokeWidth: 3))
-                                        : _errorOnValidation
-                                            ? Center(
-                                                child: CircularTapEffect(
-                                                    color: widget.waitingColor,
-                                                    onPressed: () {
-                                                      _validateText();
-                                                    },
-                                                    child: const Icon(
-                                                        Icons.refresh)))
-                                            : const SizedBox())))),
-                    widget.obscure
-                        ? Positioned.directional(
-                            top: 0,
-                            bottom: 0,
-                            end: 6,
-                            textDirection: widget.textDirection,
-                            child: CircularTapEffect(
-                                uiKey: _obscureButtonKey,
-                                keyActions: {
-                                  LogicalKeyboardKey.arrowRight: () {
-                                    UiKeyController.changeFocusedGlobalKey(
-                                        _uiKey);
-                                  }
-                                },
-                                color: widget.waitingColor
-                                    .withOpacityMultiply(0.3),
-                                onPressed: () {
-                                  setState(() {
-                                    _obscured = !_obscured;
-                                  });
-                                },
-                                child: AnimatedTransformingSwitcher(
-                                    switcher: _obscured,
-                                    duration: const Duration(milliseconds: 200),
-                                    builder: (context, switcherKey) =>
-                                        (_obscured
-                                                ? widget.noObscureTextIcon
-                                                : widget.obscureTextIcon)
-                                            .withParams(
-                                                size: 24,
-                                                color: widget.waitingColor))))
-                        : const SizedBox(),
-                    // PositionedDirectional(
-                    //     top: -2,
-                    //     start: 3,
-                    //     child: AnimatedOpacity(
-                    //         opacity: widget.controller.textEditing.text==""?0:1,
-                    //         duration: const Duration(milliseconds: 300),
-                    //         child:Padding(
-                    //             padding: const EdgeInsets.symmetric(horizontal:5),
-                    //             child:Text(widget.hintText,style: widget.hintTextStyle))))
+                  builder: (_, constraints) => Stack(children: [
+                    _textField(constraints),
+                    _hintText(constraints),
+                    _waitingIndicator,
                   ]),
                 ),
               ),
+              _obscureButton,
             ],
           ),
         ),
       )),
       const SizedBox(height: 3),
-      Visibility(
+      _validationMessage
+    ]);
+  }
+
+  Widget _textField(BoxConstraints constraints) {
+    return Center(
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Focus(
+              onFocusChange: (inFocus) {
+                _widgetController.inFocus = inFocus;
+                _widgetController.updateState();
+                if (!_widgetController.inFocus) {
+                  _widgetController.validateText();
+                }
+              },
+              child: TextField(
+                  focusNode: _widgetController.effectiveFocusNode,
+                  enabled: widget.editable,
+                  style: widget.textStyle,
+                  textAlign: widget.valueTextAlign,
+                  textDirection: widget.textDirection,
+                  cursorColor: widget.cursorColor,
+                  cursorWidth: 2,
+                  obscureText: _widgetController.obscured,
+                  keyboardType: widget.textInputType,
+                  onChanged: _widgetController.onTextChanged,
+                  controller: widget.controller.textEditing,
+                  maxLines: widget.lines,
+                  decoration: InputDecoration(
+                    filled: false,
+                    fillColor: Colors.transparent,
+                    focusColor: widget.cursorColor,
+                    hoverColor: Colors.transparent,
+                    border: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                  )))),
+    );
+  }
+
+  Widget _hintText(BoxConstraints constraints) {
+    return widget.hideHintTextOnTyping
+        ? Center(
+            child: AnimatedOpacity(
+                opacity: widget.controller.textEditing.text.isEmpty ? 1 : 0,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeOutCirc,
+                child: IgnorePointer(
+                    child: Center(
+                        child: Text(widget.hintText,
+                            style: widget.hintTextStyle,
+                            textAlign: widget.hintTextAlign)))),
+          )
+        : AnimatedPositionedDirectional(
+            start: 0,
+            end: widget.controller.textEditing.text.isEmpty
+                ? 0
+                : constraints.maxWidth * (2 / 3),
+            top: 0,
+            bottom: 0,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOutCirc,
+            child: IgnorePointer(
+                child: Center(
+                    child: Text(widget.hintText,
+                        style: widget.hintTextStyle,
+                        textAlign: widget.hintTextAlign))));
+  }
+
+  Widget get _waitingIndicator {
+    return PositionedDirectional(
+        top: 0,
+        bottom: 0,
+        end: 3,
+        child: Center(
+            child: SizedBox(
+                height: 30,
+                width: 30,
+                child: AnimatedTransformingSwitcher(
+                    switcher: _widgetController.waiting
+                        ? 1
+                        : _widgetController.errorOnValidation
+                            ? 2
+                            : 0,
+                    duration: const Duration(milliseconds: 200),
+                    builder: (context, switcherKey) => _widgetController.waiting
+                        ? SizedBox(
+                            height: 16,
+                            width: 16,
+                            child: CircularProgressIndicator(
+                                color: widget.waitingColor, strokeWidth: 3))
+                        : _widgetController.errorOnValidation
+                            ? Center(
+                                child: CircularTapEffect(
+                                    color: widget.waitingColor,
+                                    onPressed: () {
+                                      _widgetController.validateText();
+                                    },
+                                    child: const Icon(Icons.refresh)))
+                            : const SizedBox()))));
+  }
+
+  Widget get _obscureButton {
+    return widget.obscure
+        ? Positioned.directional(
+            top: 0,
+            bottom: 0,
+            end: 6,
+            textDirection: widget.textDirection,
+            child: CircularTapEffect(
+                uiKey: _widgetController.obscureButtonKey,
+                keyActions: {
+                  LogicalKeyboardKey.arrowRight: () {
+                    UiKeyController.changeFocusedGlobalKey(
+                        _widgetController.uiKey);
+                  }
+                },
+                color: widget.waitingColor.withOpacityMultiply(0.3),
+                onPressed: () {
+                  _widgetController.obscured = !_widgetController.obscured;
+                  _widgetController.updateState();
+                },
+                child: AnimatedTransformingSwitcher(
+                    switcher: _widgetController.obscured,
+                    duration: const Duration(milliseconds: 200),
+                    builder: (context, switcherKey) =>
+                        (_widgetController.obscured
+                                ? widget.noObscureTextIcon
+                                : widget.obscureTextIcon)
+                            .withParams(size: 24, color: widget.waitingColor))))
+        : const SizedBox();
+  }
+
+  Widget get _headingIcon {
+    if (widget.headingIcon != null) {
+      return Padding(
+        padding: const EdgeInsetsDirectional.only(start: 16.0),
+        child: widget.headingIcon!,
+      );
+    }
+    return const SizedBox.shrink();
+  }
+
+  Widget get _validationMessage {
+    return Visibility(
         visible: widget.visibleValidationMessage,
         child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: AnimatedTransformingSwitcher(
-            switcher: _nonValidatedMessage,
-            duration: const Duration(milliseconds: 500),
-            builder: (context, switcherKey) => Center(
-              child: Text(_nonValidatedMessage,
-                  style: TextStyle(
-                      fontSize: widget.nonValidatedTextMessageFontSize,
-                      color: widget.nonValidatedTextMessageColor),
-                  textAlign: TextAlign.center,
-                  textDirection: widget.nonValidatedTextMessageDirection),
-            ),
-          ),
-        ),
-      )
-    ]);
+            padding: const EdgeInsets.all(5),
+            child: AnimatedTransformingSwitcher(
+                switcher: _widgetController.nonValidatedMessage,
+                duration: const Duration(milliseconds: 500),
+                builder: (context, switcherKey) => Center(
+                      child: Text(_widgetController.nonValidatedMessage,
+                          style: TextStyle(
+                              fontSize: widget.nonValidatedTextMessageFontSize,
+                              color: widget.nonValidatedTextMessageColor),
+                          textAlign: TextAlign.center,
+                          textDirection:
+                              widget.nonValidatedTextMessageDirection),
+                    ))));
   }
 }
