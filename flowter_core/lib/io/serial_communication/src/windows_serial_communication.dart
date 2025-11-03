@@ -43,7 +43,8 @@ class WinSerialCommunication implements BaseSerialCommunication {
     startListening(portPath, onRead);
   }
 
-  startListening(String portPath, void Function(Uint8List data) process) {
+  @override
+  void startListening(String portPath, void Function(Uint8List data) process) {
     timers[portPath] =
         Timer.periodic(const Duration(milliseconds: 100), (_) async {
       try {
@@ -64,7 +65,8 @@ class WinSerialCommunication implements BaseSerialCommunication {
     });
   }
 
-  stopListening(String portPath) {
+  @override
+  void stopListening(String portPath) {
     timers[portPath]?.cancel();
     timers.remove(portPath);
     if (openPorts.containsKey(portPath)) {

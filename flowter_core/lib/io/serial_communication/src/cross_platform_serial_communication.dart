@@ -49,4 +49,16 @@ class CrossPlatformSerialCommunication implements BaseSerialCommunication {
 
     _functions[portPath] = onRead;
   }
+
+  @override
+  void startListening(String portPath, void Function(Uint8List data) process) {
+    // For cross-platform, listening is handled automatically in openPort
+    _functions[portPath] = process;
+  }
+
+  @override
+  void stopListening(String portPath) {
+    // For cross-platform, listening is handled automatically
+    _functions.remove(portPath);
+  }
 }

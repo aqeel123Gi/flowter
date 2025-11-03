@@ -31,4 +31,13 @@ class SerialCommunication {
       {int? baudRate}) async {
     return _impl.openPort(portPath, onRead, baudRate: baudRate);
   }
+
+  static void startListening(
+      String portPath, void Function(Uint8List data) process) {
+    _impl.startListening(portPath, process);
+  }
+
+  static void stopListening(String portPath) {
+    _impl.stopListening(portPath);
+  }
 }

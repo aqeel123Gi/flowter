@@ -9,4 +9,6 @@ abstract class BaseSerialCommunication {
   void stop(String portPath);
   Future<void> openPort(String portPath, void Function(Uint8List data) onRead,
       {int? baudRate});
+  void startListening(String portPath, void Function(Uint8List data) process);
+  void stopListening(String portPath);
 }
