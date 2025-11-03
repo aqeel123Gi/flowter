@@ -57,7 +57,7 @@ class _AutoFocusHiddenTextInputState extends State<AutoFocusHiddenTextInput> {
 
   bool _handleKeyEvent(KeyEvent event) {
     if (widget.ignoreFocusOn != null && widget.ignoreFocusOn!()) {
-      return true;
+      return false;
     }
 
     if (event is KeyDownEvent) {
