@@ -1,14 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'src/base_serial_communication.dart';
+import 'src/android_serial_communication.dart' as android;
 import 'src/cross_platform_serial_communication.dart' as cross_platform;
 import 'src/windows_serial_communication.dart' as windows;
 
 class SerialCommunication {
   // Delegate to the appropriate implementation based on platform
-  static final BaseSerialCommunication _impl = Platform.isWindows
-      ? windows.WinSerialCommunication()
-      : cross_platform.CrossPlatformSerialCommunication();
+  static final BaseSerialCommunication _impl = Platform.isAndroid
+      ? android.AndroidSerialCommunication()
+      : Platform.isWindows
+          ? windows.WinSerialCommunication()
+          : cross_platform.CrossPlatformSerialCommunication();
 
   static Map<String, dynamic> get readers => _impl.readers;
   static Map<String, void Function(Uint8List data)> get functions =>
@@ -18,7 +21,7 @@ class SerialCommunication {
     return _impl.initialize();
   }
 
-  static List<String> getAvailablePorts() {
+  static Future<List<String>> getAvailablePorts() async {
     return _impl.getAvailablePorts();
   }
 

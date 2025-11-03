@@ -17,7 +17,7 @@ class CrossPlatformSerialCommunication implements BaseSerialCommunication {
   Future<void> initialize() async {}
 
   @override
-  List<String> getAvailablePorts() {
+  Future<List<String>> getAvailablePorts() async {
     return SerialPort.getAvailablePorts();
   }
 

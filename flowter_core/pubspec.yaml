@@ -28,6 +28,7 @@ dependencies:
   sqflite_common_ffi:
 
 
+  usb_serial: 0.5.2
   libserialport_plus: 0.0.12
   serial_port_win32: ^2.1.12
 

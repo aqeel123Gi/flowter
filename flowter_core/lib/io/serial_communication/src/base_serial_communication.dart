@@ -5,7 +5,7 @@ abstract class BaseSerialCommunication {
   Map<String, void Function(Uint8List data)> get functions;
 
   Future<void> initialize();
-  List<String> getAvailablePorts();
+  Future<List<String>> getAvailablePorts();
   void stop(String portPath);
   Future<void> openPort(String portPath, {int? baudRate});
   void startListening(String portPath, void Function(Uint8List data) process);
