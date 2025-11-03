@@ -27,8 +27,7 @@ class CrossPlatformSerialCommunication implements BaseSerialCommunication {
   }
 
   @override
-  Future<void> openPort(String portPath, void Function(Uint8List data) onRead,
-      {int? baudRate}) async {
+  Future<void> openPort(String portPath, {int? baudRate}) async {
     if (!_readers.containsKey(portPath)) {
       SerialPortReader reader = SerialPortReader(SerialPort(portPath));
       // reader.port.config.baudRate = 57600;
@@ -46,13 +45,12 @@ class CrossPlatformSerialCommunication implements BaseSerialCommunication {
         }
       });
     }
-
-    _functions[portPath] = onRead;
   }
 
   @override
   void startListening(String portPath, void Function(Uint8List data) process) {
-    // For cross-platform, listening is handled automatically in openPort
+    // For cross-platform, the stream listener is set up in openPort
+    // We just need to register the callback function
     _functions[portPath] = process;
   }
 

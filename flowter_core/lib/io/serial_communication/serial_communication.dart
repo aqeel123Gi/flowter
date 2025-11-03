@@ -26,10 +26,8 @@ class SerialCommunication {
     _impl.stop(portPath);
   }
 
-  static Future<void> openPort(
-      String portPath, void Function(Uint8List data) onRead,
-      {int? baudRate}) async {
-    return _impl.openPort(portPath, onRead, baudRate: baudRate);
+  static Future<void> openPort(String portPath, {int? baudRate}) async {
+    return _impl.openPort(portPath, baudRate: baudRate);
   }
 
   static void startListening(

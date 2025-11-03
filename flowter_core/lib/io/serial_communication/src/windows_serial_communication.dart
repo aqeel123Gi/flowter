@@ -30,21 +30,21 @@ class WinSerialCommunication implements BaseSerialCommunication {
   }
 
   @override
-  Future<void> openPort(String portPath, void Function(Uint8List data) onRead,
-      {int? baudRate}) async {
+  Future<void> openPort(String portPath, {int? baudRate}) async {
     if (!openPorts.containsKey(portPath)) {
       SerialPort port = SerialPort(portPath, BaudRate: baudRate ?? 57600);
       if (port.isOpened) port.close();
       port.open();
       openPorts[portPath] = port;
     }
-
-    callbackFunctions[portPath] = onRead;
-    startListening(portPath, onRead);
   }
 
   @override
   void startListening(String portPath, void Function(Uint8List data) process) {
+    callbackFunctions[portPath] = process;
+    if (timers.containsKey(portPath)) {
+      timers[portPath]?.cancel();
+    }
     timers[portPath] =
         Timer.periodic(const Duration(milliseconds: 100), (_) async {
       try {
@@ -69,6 +69,7 @@ class WinSerialCommunication implements BaseSerialCommunication {
   void stopListening(String portPath) {
     timers[portPath]?.cancel();
     timers.remove(portPath);
+    callbackFunctions.remove(portPath);
     if (openPorts.containsKey(portPath)) {
       openPorts[portPath]!.close();
       openPorts.remove(portPath);
