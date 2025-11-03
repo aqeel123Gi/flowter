@@ -1,41 +1,34 @@
-import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
-import 'package:libserialport_plus/libserialport_plus.dart';
+import 'src/base_serial_communication.dart';
+import 'src/cross_platform_serial_communication.dart' as cross_platform;
+import 'src/windows_serial_communication.dart' as windows;
 
 class SerialCommunication {
-  static Map<String, SerialPortReader> readers = {};
-  static Map<String, void Function(Uint8List data)> functions = {};
+  // Delegate to the appropriate implementation based on platform
+  static final BaseSerialCommunication _impl = Platform.isWindows
+      ? windows.WinSerialCommunication()
+      : cross_platform.CrossPlatformSerialCommunication();
 
-  static initialize() async {}
+  static Map<String, dynamic> get readers => _impl.readers;
+  static Map<String, void Function(Uint8List data)> get functions =>
+      _impl.functions;
 
-  static List<String> getAvailablePorts() {
-    return SerialPort.getAvailablePorts();
+  static Future<void> initialize() async {
+    return _impl.initialize();
   }
 
-  static void stop(String portPath) async {
-    functions.remove(portPath);
+  static List<String> getAvailablePorts() {
+    return _impl.getAvailablePorts();
+  }
+
+  static void stop(String portPath) {
+    _impl.stop(portPath);
   }
 
   static Future<void> openPort(
-      String portPath, void Function(Uint8List data) onRead) async {
-    if (!readers.containsKey(portPath)) {
-      SerialPortReader reader = SerialPortReader(SerialPort(portPath));
-      // reader.port.config.baudRate = 57600;
-      // reader.port.config.bits = 8;
-      // reader.port.config.stopBits = 1;
-      // reader.port.config.parity = SerialPortParity.none;
-
-      SerialPort port = SerialPort(portPath);
-      port.open();
-
-      readers[portPath] = reader;
-      readers[portPath]!.stream.listen((data) {
-        if (functions.containsKey(portPath)) {
-          functions[portPath]!(data);
-        }
-      });
-    }
-
-    functions[portPath] = onRead;
+      String portPath, void Function(Uint8List data) onRead,
+      {int? baudRate}) async {
+    return _impl.openPort(portPath, onRead, baudRate: baudRate);
   }
 }

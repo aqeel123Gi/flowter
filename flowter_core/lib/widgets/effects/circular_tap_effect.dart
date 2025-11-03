@@ -9,16 +9,17 @@ class CircularTapEffect extends StatefulWidget {
   @override
   createState() => _CircularTapEffectState();
 
-  const CircularTapEffect(
-      {super.key,
-      this.uiKey,
-      this.keyActions = const {},
-      required this.child,
-      this.onLongPressedWithinDuration,
-      required this.color,
-      this.ratioOfChildSize = 1.5,
-      this.onPressed,
-      this.fixed = false});
+  const CircularTapEffect({
+    super.key,
+    this.uiKey,
+    this.keyActions = const {},
+    required this.child,
+    this.onLongPressedWithinDuration,
+    required this.color,
+    this.ratioOfChildSize = 1.5,
+    this.onPressed,
+    this.fixed = false
+  });
 
   final bool fixed;
   final GlobalKey<State<UiKey>>? uiKey;
