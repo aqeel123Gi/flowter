@@ -4,26 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../functions/functions.dart';
 
-class HiddenTextInputController {
-  void Function()? _updateState;
-  bool Function()? _focusingOn;
 
-  void focusingOn(bool Function() on) {
-    _focusingOn = on;
-    if (_updateState != null) {
-      _updateState!();
-    }
-  }
-}
-
-class HiddenTextInput extends StatefulWidget {
-  const HiddenTextInput(
+class AutoFocusHiddenTextInput extends StatefulWidget {
+  const AutoFocusHiddenTextInput(
       {super.key,
       this.eraseOnSubmitted = false,
       this.keyboardType = TextInputType.none,
       this.onSubmitted,
       this.submitWhenTextChangesTo,
-      this.controller,
+      this.ignoreFocusOn,
       this.submittable,
       required this.child});
 
@@ -32,21 +21,19 @@ class HiddenTextInput extends StatefulWidget {
   final bool Function(String)? submitWhenTextChangesTo;
   final bool eraseOnSubmitted;
   final TextInputType keyboardType;
-  final HiddenTextInputController? controller;
+  final bool Function()? ignoreFocusOn;
   final bool Function(String text)? submittable;
 
   @override
-  State<HiddenTextInput> createState() => _HiddenTextInputState();
+  State<AutoFocusHiddenTextInput> createState() => _AutoFocusHiddenTextInputState();
 }
 
-class _HiddenTextInputState extends State<HiddenTextInput> {
+class _AutoFocusHiddenTextInputState extends State<AutoFocusHiddenTextInput> {
   final FocusNode _node = FocusNode();
   final TextEditingController _controller = TextEditingController();
 
   void _focus() {
-    if (widget.controller == null ||
-        widget.controller!._focusingOn == null ||
-        widget.controller!._focusingOn!()) {
+    if (widget.ignoreFocusOn == null || !widget.ignoreFocusOn!()) {
       SystemChannels.textInput.invokeMethod('TextInput.hide');
       _node.requestFocus();
     }
@@ -55,12 +42,6 @@ class _HiddenTextInputState extends State<HiddenTextInput> {
   @override
   void initState() {
     HardwareKeyboard.instance.addHandler(_handleKeyEvent);
-
-    if (widget.controller != null) {
-      widget.controller!._updateState = () {
-        setState(() {});
-      };
-    }
     loopExecution(
         function: _focus,
         stopOn: () => !mounted,
