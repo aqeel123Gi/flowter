@@ -8,7 +8,6 @@ import 'package:flowter_core/widgets/sd_icon/sd_icon.dart';
 import 'package:flowter_core/widgets/widget_controller/widget_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../controllers/ui_key/ui_key.dart';
 
 part 'controller.dart';
@@ -112,7 +111,7 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
   }
 
   Widget _buildContent(
-      BuildContext context, AdvancedTextFieldWidgetController c) {
+      BuildContext context, AdvancedTextFieldWidgetController controller) {
     return Column(children: [
       Center(
           child: Listener(
@@ -126,7 +125,8 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
           duration: const Duration(milliseconds: 500),
           clipBehavior: Clip.antiAlias,
           height: widget.height,
-          decoration: c.inFocus ? widget.decorationOnFocus : widget.decoration,
+          decoration:
+              controller.inFocus ? widget.decorationOnFocus : widget.decoration,
           child: Row(
             children: [
               _headingIcon,

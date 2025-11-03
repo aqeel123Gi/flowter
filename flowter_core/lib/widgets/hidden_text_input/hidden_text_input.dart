@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../functions/functions.dart';
 
-
 class AutoFocusHiddenTextInput extends StatefulWidget {
   const AutoFocusHiddenTextInput(
       {super.key,
@@ -25,7 +24,8 @@ class AutoFocusHiddenTextInput extends StatefulWidget {
   final bool Function(String text)? submittable;
 
   @override
-  State<AutoFocusHiddenTextInput> createState() => _AutoFocusHiddenTextInputState();
+  State<AutoFocusHiddenTextInput> createState() =>
+      _AutoFocusHiddenTextInputState();
 }
 
 class _AutoFocusHiddenTextInputState extends State<AutoFocusHiddenTextInput> {
@@ -56,6 +56,10 @@ class _AutoFocusHiddenTextInputState extends State<AutoFocusHiddenTextInput> {
   }
 
   bool _handleKeyEvent(KeyEvent event) {
+    if (widget.ignoreFocusOn != null && widget.ignoreFocusOn!()) {
+      return true;
+    }
+
     if (event is KeyDownEvent) {
       if (event.logicalKey == LogicalKeyboardKey.enter) {
         _submit(_controller.text);
