@@ -1,3 +1,4 @@
+import 'package:flowter_example/python_example.dart';
 import 'package:flutter/material.dart';
 import 'package:flowter_core/flowter_core.dart';
 import 'features_demo.dart';
@@ -122,6 +123,19 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               icon: const Icon(Icons.code),
               label: const Text('Advanced Usage Guide'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PythonExample(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.code),
+              label: const Text('Python Example'),
             ),
             const SizedBox(height: 10),
             ElevatedButton.icon(

@@ -15,6 +15,9 @@ dependencies:
   flowter_core:
     path: ../flowter_core
 
+  flowter_python:
+    path: ../io/flowter_python
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

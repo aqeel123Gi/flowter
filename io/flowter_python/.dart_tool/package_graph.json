@@ -1,16 +1,16 @@
 {
   "roots": [
-    "flowter_bluetooth"
+    "flowter_python"
   ],
   "packages": [
     {
-      "name": "flowter_bluetooth",
+      "name": "flowter_python",
       "version": "0.0.2",
       "dependencies": [
         "flowter_core",
         "flutter",
-        "flutter_blue_plus",
-        "win_ble"
+        "flutter_python_bridge",
+        "py_engine_desktop"
       ],
       "devDependencies": [
         "flutter_test"
@@ -35,23 +35,33 @@
       ]
     },
     {
-      "name": "win_ble",
-      "version": "1.1.1",
+      "name": "py_engine_desktop",
+      "version": "1.1.0",
       "dependencies": [
+        "archive",
         "flutter",
-        "path_provider"
+        "path",
+        "path_provider",
+        "plugin_platform_interface"
       ]
     },
     {
-      "name": "flutter_blue_plus",
-      "version": "1.34.4",
+      "name": "flutter_python_bridge",
+      "version": "0.2.0",
       "dependencies": [
-        "flutter"
+        "chaquopy",
+        "ffi",
+        "flutter",
+        "http",
+        "image_picker",
+        "path",
+        "path_provider",
+        "process_run"
       ]
     },
     {
       "name": "flowter_core",
-      "version": "0.0.7",
+      "version": "0.0.11",
       "dependencies": [
         "audioplayers",
         "audioplayers_windows",
@@ -62,8 +72,6 @@
         "firebase_core",
         "firebase_messaging",
         "flutter",
-        "flutter_libserialport",
-        "flutter_nfc_kit",
         "flutter_svg",
         "geolocator",
         "google_api_availability",
@@ -73,13 +81,14 @@
         "http",
         "image",
         "just_audio",
-        "nfc_manager",
+        "libserialport_plus",
         "package_info_plus",
         "permission_handler",
         "serial_port_win32",
         "spreadsheet_decoder",
         "sqflite",
         "sqflite_common_ffi",
+        "usb_serial",
         "window_manager"
       ]
     },
@@ -190,6 +199,71 @@
         "path_provider_platform_interface",
         "path_provider_windows"
       ]
+    },
+    {
+      "name": "archive",
+      "version": "3.6.1",
+      "dependencies": [
+        "crypto",
+        "path"
+      ]
+    },
+    {
+      "name": "plugin_platform_interface",
+      "version": "2.1.8",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "image_picker",
+      "version": "1.2.0",
+      "dependencies": [
+        "flutter",
+        "image_picker_android",
+        "image_picker_for_web",
+        "image_picker_ios",
+        "image_picker_linux",
+        "image_picker_macos",
+        "image_picker_platform_interface",
+        "image_picker_windows"
+      ]
+    },
+    {
+      "name": "process_run",
+      "version": "1.2.4",
+      "dependencies": [
+        "args",
+        "collection",
+        "meta",
+        "path",
+        "pub_semver",
+        "string_scanner",
+        "synchronized",
+        "yaml"
+      ]
+    },
+    {
+      "name": "chaquopy",
+      "version": "0.0.20",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
+      "name": "http",
+      "version": "1.3.0",
+      "dependencies": [
+        "async",
+        "http_parser",
+        "meta",
+        "web"
+      ]
+    },
+    {
+      "name": "ffi",
+      "version": "2.1.4",
+      "dependencies": []
     },
     {
       "name": "fast_image_resizer",
@@ -379,30 +453,20 @@
       ]
     },
     {
-      "name": "flutter_libserialport",
-      "version": "0.6.0",
+      "name": "libserialport_plus",
+      "version": "0.0.12",
       "dependencies": [
-        "flutter",
-        "libserialport"
+        "equatable",
+        "ffi"
       ]
     },
     {
-      "name": "nfc_manager",
-      "version": "3.5.1",
+      "name": "usb_serial",
+      "version": "0.5.2",
       "dependencies": [
+        "async",
+        "collection",
         "flutter"
-      ]
-    },
-    {
-      "name": "flutter_nfc_kit",
-      "version": "3.6.0",
-      "dependencies": [
-        "convert",
-        "flutter",
-        "flutter_web_plugins",
-        "json_annotation",
-        "logging",
-        "ndef"
       ]
     },
     {
@@ -426,15 +490,6 @@
         "sqflite_common",
         "sqflite_darwin",
         "sqflite_platform_interface"
-      ]
-    },
-    {
-      "name": "http",
-      "version": "0.13.6",
-      "dependencies": [
-        "async",
-        "http_parser",
-        "meta"
       ]
     },
     {
@@ -462,7 +517,7 @@
     },
     {
       "name": "firebase_messaging",
-      "version": "15.2.10",
+      "version": "15.1.6",
       "dependencies": [
         "firebase_core",
         "firebase_core_platform_interface",
@@ -474,7 +529,7 @@
     },
     {
       "name": "firebase_core",
-      "version": "3.15.2",
+      "version": "3.8.1",
       "dependencies": [
         "firebase_core_platform_interface",
         "firebase_core_web",
@@ -514,6 +569,17 @@
         "leak_tracker",
         "matcher",
         "meta"
+      ]
+    },
+    {
+      "name": "leak_tracker",
+      "version": "11.0.2",
+      "dependencies": [
+        "clock",
+        "collection",
+        "meta",
+        "path",
+        "vm_service"
       ]
     },
     {
@@ -592,6 +658,122 @@
       ]
     },
     {
+      "name": "crypto",
+      "version": "3.0.6",
+      "dependencies": [
+        "typed_data"
+      ]
+    },
+    {
+      "name": "image_picker_windows",
+      "version": "0.2.2",
+      "dependencies": [
+        "file_selector_platform_interface",
+        "file_selector_windows",
+        "flutter",
+        "image_picker_platform_interface"
+      ]
+    },
+    {
+      "name": "image_picker_platform_interface",
+      "version": "2.11.1",
+      "dependencies": [
+        "cross_file",
+        "flutter",
+        "http",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "image_picker_macos",
+      "version": "0.2.2+1",
+      "dependencies": [
+        "file_selector_macos",
+        "file_selector_platform_interface",
+        "flutter",
+        "image_picker_platform_interface"
+      ]
+    },
+    {
+      "name": "image_picker_linux",
+      "version": "0.2.2",
+      "dependencies": [
+        "file_selector_linux",
+        "file_selector_platform_interface",
+        "flutter",
+        "image_picker_platform_interface"
+      ]
+    },
+    {
+      "name": "image_picker_ios",
+      "version": "0.8.13+1",
+      "dependencies": [
+        "flutter",
+        "image_picker_platform_interface"
+      ]
+    },
+    {
+      "name": "image_picker_for_web",
+      "version": "3.1.0",
+      "dependencies": [
+        "flutter",
+        "flutter_web_plugins",
+        "image_picker_platform_interface",
+        "mime",
+        "web"
+      ]
+    },
+    {
+      "name": "image_picker_android",
+      "version": "0.8.13+7",
+      "dependencies": [
+        "flutter",
+        "flutter_plugin_android_lifecycle",
+        "image_picker_platform_interface"
+      ]
+    },
+    {
+      "name": "synchronized",
+      "version": "3.4.0",
+      "dependencies": []
+    },
+    {
+      "name": "pub_semver",
+      "version": "2.2.0",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "args",
+      "version": "2.7.0",
+      "dependencies": []
+    },
+    {
+      "name": "yaml",
+      "version": "3.1.3",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner"
+      ]
+    },
+    {
+      "name": "web",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
+      "name": "http_parser",
+      "version": "4.1.2",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner",
+        "typed_data"
+      ]
+    },
+    {
       "name": "xml",
       "version": "6.6.1",
       "dependencies": [
@@ -601,24 +783,11 @@
       ]
     },
     {
-      "name": "archive",
-      "version": "3.6.1",
-      "dependencies": [
-        "crypto",
-        "path"
-      ]
-    },
-    {
       "name": "win32",
       "version": "5.14.0",
       "dependencies": [
         "ffi"
       ]
-    },
-    {
-      "name": "web",
-      "version": "1.1.1",
-      "dependencies": []
     },
     {
       "name": "package_info_plus_platform_interface",
@@ -635,11 +804,6 @@
       "dependencies": [
         "flutter"
       ]
-    },
-    {
-      "name": "ffi",
-      "version": "2.1.4",
-      "dependencies": []
     },
     {
       "name": "win32_registry",
@@ -664,13 +828,6 @@
         "flutter",
         "meta",
         "plugin_platform_interface"
-      ]
-    },
-    {
-      "name": "crypto",
-      "version": "3.0.6",
-      "dependencies": [
-        "typed_data"
       ]
     },
     {
@@ -726,11 +883,6 @@
         "meta",
         "plugin_platform_interface"
       ]
-    },
-    {
-      "name": "synchronized",
-      "version": "3.4.0",
-      "dependencies": []
     },
     {
       "name": "audioplayers_web",
@@ -927,36 +1079,10 @@
       ]
     },
     {
-      "name": "libserialport",
-      "version": "0.3.0+1",
+      "name": "equatable",
+      "version": "2.0.7",
       "dependencies": [
-        "dylib",
-        "ffi"
-      ]
-    },
-    {
-      "name": "logging",
-      "version": "1.3.0",
-      "dependencies": []
-    },
-    {
-      "name": "convert",
-      "version": "3.1.2",
-      "dependencies": [
-        "typed_data"
-      ]
-    },
-    {
-      "name": "ndef",
-      "version": "0.3.4",
-      "dependencies": [
-        "uuid"
-      ]
-    },
-    {
-      "name": "json_annotation",
-      "version": "4.9.0",
-      "dependencies": [
+        "collection",
         "meta"
       ]
     },
@@ -1014,16 +1140,6 @@
       ]
     },
     {
-      "name": "http_parser",
-      "version": "4.1.2",
-      "dependencies": [
-        "collection",
-        "source_span",
-        "string_scanner",
-        "typed_data"
-      ]
-    },
-    {
       "name": "nm",
       "version": "0.5.0",
       "dependencies": [
@@ -1066,7 +1182,7 @@
     },
     {
       "name": "firebase_messaging_web",
-      "version": "3.10.10",
+      "version": "3.9.5",
       "dependencies": [
         "_flutterfire_internals",
         "firebase_core",
@@ -1080,7 +1196,7 @@
     },
     {
       "name": "firebase_messaging_platform_interface",
-      "version": "4.6.10",
+      "version": "4.5.49",
       "dependencies": [
         "_flutterfire_internals",
         "firebase_core",
@@ -1091,7 +1207,7 @@
     },
     {
       "name": "firebase_core_platform_interface",
-      "version": "6.0.1",
+      "version": "5.4.2",
       "dependencies": [
         "collection",
         "flutter",
@@ -1102,7 +1218,7 @@
     },
     {
       "name": "firebase_core_web",
-      "version": "2.24.1",
+      "version": "2.24.0",
       "dependencies": [
         "firebase_core_platform_interface",
         "flutter",
@@ -1112,11 +1228,9 @@
       ]
     },
     {
-      "name": "plugin_platform_interface",
-      "version": "2.1.8",
-      "dependencies": [
-        "meta"
-      ]
+      "name": "vm_service",
+      "version": "15.0.0",
+      "dependencies": []
     },
     {
       "name": "platform",
@@ -1132,18 +1246,75 @@
       ]
     },
     {
+      "name": "typed_data",
+      "version": "1.4.0",
+      "dependencies": [
+        "collection"
+      ]
+    },
+    {
+      "name": "file_selector_windows",
+      "version": "0.9.3+4",
+      "dependencies": [
+        "cross_file",
+        "file_selector_platform_interface",
+        "flutter"
+      ]
+    },
+    {
+      "name": "file_selector_platform_interface",
+      "version": "2.6.2",
+      "dependencies": [
+        "cross_file",
+        "flutter",
+        "http",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "cross_file",
+      "version": "0.3.5",
+      "dependencies": [
+        "meta",
+        "web"
+      ]
+    },
+    {
+      "name": "file_selector_macos",
+      "version": "0.9.4+5",
+      "dependencies": [
+        "cross_file",
+        "file_selector_platform_interface",
+        "flutter"
+      ]
+    },
+    {
+      "name": "file_selector_linux",
+      "version": "0.9.3+2",
+      "dependencies": [
+        "cross_file",
+        "file_selector_platform_interface",
+        "flutter"
+      ]
+    },
+    {
+      "name": "mime",
+      "version": "2.0.0",
+      "dependencies": []
+    },
+    {
+      "name": "flutter_plugin_android_lifecycle",
+      "version": "2.0.30",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
       "name": "petitparser",
       "version": "7.0.1",
       "dependencies": [
         "collection",
         "meta"
-      ]
-    },
-    {
-      "name": "typed_data",
-      "version": "1.4.0",
-      "dependencies": [
-        "collection"
       ]
     },
     {
@@ -1175,13 +1346,6 @@
       "dependencies": [
         "meta",
         "web"
-      ]
-    },
-    {
-      "name": "flutter_plugin_android_lifecycle",
-      "version": "2.0.30",
-      "dependencies": [
-        "flutter"
       ]
     },
     {
@@ -1218,15 +1382,6 @@
       ]
     },
     {
-      "name": "dylib",
-      "version": "0.3.3",
-      "dependencies": [
-        "meta",
-        "path",
-        "platform"
-      ]
-    },
-    {
       "name": "dbus",
       "version": "0.7.11",
       "dependencies": [
@@ -1245,13 +1400,8 @@
       ]
     },
     {
-      "name": "args",
-      "version": "2.7.0",
-      "dependencies": []
-    },
-    {
       "name": "_flutterfire_internals",
-      "version": "1.3.59",
+      "version": "1.3.47",
       "dependencies": [
         "collection",
         "firebase_core",
@@ -1269,27 +1419,18 @@
       ]
     },
     {
+      "name": "json_annotation",
+      "version": "4.9.0",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
       "name": "csslib",
       "version": "1.0.2",
       "dependencies": [
         "source_span"
       ]
-    },
-    {
-      "name": "leak_tracker",
-      "version": "11.0.2",
-      "dependencies": [
-        "clock",
-        "collection",
-        "meta",
-        "path",
-        "vm_service"
-      ]
-    },
-    {
-      "name": "vm_service",
-      "version": "15.0.0",
-      "dependencies": []
     }
   ],
   "configVersion": 1
