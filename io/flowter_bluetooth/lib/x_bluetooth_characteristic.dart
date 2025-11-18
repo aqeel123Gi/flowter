@@ -23,6 +23,20 @@ class XBluetoothCharacteristic{
   }
 
 
+  get getUuid{
+    switch(Platform.operatingSystem){
+      case "android":
+      case "ios":
+      case "macos":
+        return characteristic.uuid.str;
+      case "windows":
+        return characteristic2.uuid;
+      default:
+        throw Exception("Unsupported platform: ${Platform.operatingSystem}");
+    }
+  }
+
+
 
 
 
