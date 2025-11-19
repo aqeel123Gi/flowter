@@ -2,7 +2,6 @@ library io_bluetooth;
 
 import 'dart:async';
 import 'dart:io';
-import 'package:flowter_core/enums/enums.dart';
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/functions/functions.dart';
 import 'package:flutter/foundation.dart';
@@ -11,18 +10,18 @@ import 'package:geolocator/geolocator.dart';
 import 'package:win_ble/win_ble.dart';
 import 'package:hive/hive.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flowter_core/flowter_core.dart';
 import 'package:win_ble/win_file.dart';
+
 
 part '_android_ios_macos.dart';
 part '_windows.dart';
-
 part 'saved_device.dart';
-
 part '_x_bluetooth_adapter_state.dart';
 part 'x_bluetooth_characteristic.dart';
 part 'x_bluetooth_device.dart';
 part 'x_bluetooth_service.dart';
+part 'bluetooth_scanning_requirements.dart';
+part 'flowter_bluetooth_pairing_controller.dart';
 
 class FlowterBluetooth {
   static bool _initialized = false;
@@ -144,7 +143,7 @@ class FlowterBluetooth {
       case "android":
       case "ios":
       case "macos":
-        return _IOBluetoothAndroidIosMacos.paired;
+        return _IOBluetoothAndroidIosMacos.connectedDevices;
       case "windows":
         throw Exception("Unsupported platform: ${Platform.operatingSystem}");
       default:
@@ -152,14 +151,16 @@ class FlowterBluetooth {
     }
   }
 
-  static List<String> get pairedIds {
+  static List<String> get connectedDevicesIds {
     switch (Platform.operatingSystem) {
       case "android":
       case "ios":
       case "macos":
-        return _IOBluetoothAndroidIosMacos.paired.map((e) => e.id).toList();
+        return _IOBluetoothAndroidIosMacos.connectedDevices
+            .map((e) => e.id)
+            .toList();
       case "windows":
-        return _IOBluetoothWindows.pairedIds;
+        return _IOBluetoothWindows.connectedDevicesIds;
       default:
         throw Exception("Unsupported platform: ${Platform.operatingSystem}");
     }
@@ -241,172 +242,5 @@ class FlowterBluetooth {
   //
   //
 
-  static bool _pausedAutoConnection = false;
-  static bool _stopAutoConnection = true;
-
-  static late List<SavedDevice> _savedDevicesForAutoConnectionList;
-  static List<SavedDevice> get savedDevicesForAutoConnectionList =>
-      _savedDevicesForAutoConnectionList.copy;
-
-  static Map<SavedDevice, bool> get getSavedDevicesStates {
-    Map<SavedDevice, bool> map = {};
-    for (SavedDevice savedDevice in _savedDevicesForAutoConnectionList) {
-      map[savedDevice] = isSavedDeviceConnected(savedDevice);
-    }
-    return map;
-  }
-
-  static Future<void> renameSavedDevice(
-      SavedDevice savedDevice, String newName) async {
-    savedDevice.name = newName;
-    await _saveDevices();
-  }
-
-  static Future<void> startAutoConnection(
-      {void Function(SavedDevice savedDevice, XBluetoothDevice connectedDevice)?
-          onConnected}) async {
-    _stopAutoConnection = false;
-    await _getDevices();
-    loopExecution(
-        function: () async => await _autoConnect(onConnected),
-        stopOn: () => _stopAutoConnection,
-        breakDuration: const Duration(seconds: 5));
-  }
-
-  static Future<void> _autoConnect(
-      [void Function(SavedDevice savedDevice, XBluetoothDevice connectedDevice)?
-          onConnected]) async {
-    //print("AutoConnect: Saved Devices: ${_savedDevicesForAutoConnectionList.length}");
-    if (_savedDevicesForAutoConnectionList.isNotEmpty &&
-        !_pausedAutoConnection &&
-        adapterState == XBluetoothAdapterState.on) {
-      // Get not connected Devices :
-      List<SavedDevice> notConnectedDevices =
-          (await _savedDevicesForAutoConnectionList
-                  .whereAsync((savedDevice) async {
-        if (isSavedDeviceConnected(savedDevice)) {
-          return false;
-        }
-        return true;
-      }))
-              .toList();
-      // Try Connect devices :
-      for (SavedDevice savedDevice in notConnectedDevices) {
-        List<XBluetoothDevice> devices = await scan(seconds: 2);
-        if (devices.isNotEmpty) {
-          XBluetoothDevice? device =
-              devices.tryFirstWhere((element) => element.id == savedDevice.id);
-          if (device != null && await connect(device) && onConnected != null) {
-            onConnected(notConnectedDevices.first, device);
-          }
-        }
-      }
-    }
-  }
-
-  static bool isSavedDeviceConnected(SavedDevice savedDevice) =>
-      pairedIds.any((id) => id == savedDevice.id);
-
-  static void resumeAutoConnection() {
-    _pausedAutoConnection = false;
-  }
-
-  static void pauseAutoConnection() {
-    _pausedAutoConnection = true;
-  }
-
-  static void stopAutoConnection() {
-    _stopAutoConnection = true;
-  }
-
-  static Future<bool> connectAndAddToAutoConnectionList(
-      XBluetoothDevice device, String name) async {
-    if (await connect(device)) {
-      _savedDevicesForAutoConnectionList
-          .add(SavedDevice(id: device.id, name: name, type: DeviceType.uhf));
-      await _saveDevices();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  static Future<void> disconnectAllSavedDevicesAndRemoveFromAutoConnectionList()async{
-    List<SavedDevice> devices = savedDevicesForAutoConnectionList;
-    for (SavedDevice savedDevice in devices) {
-      await disconnectAndRemoveFromAutoConnectionList(savedDevice);
-    }
-  }
-
-
-  static Future<bool> disconnectAndRemoveFromAutoConnectionList(SavedDevice savedDevice)async{
-    if(!isSavedDeviceConnected(savedDevice) || await disconnect(pairedIds.firstWhere((id) => id == savedDevice.id))){
-      _savedDevicesForAutoConnectionList.remove(savedDevice);
-      await _saveDevices();
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  // TODO: Check why exists:
-  static Future<void> removeFromAutoConnectionList(
-      String deviceID, BluetoothDevice device) async {
-    _savedDevicesForAutoConnectionList
-        .removeWhere((savedDevice) => savedDevice.id == (deviceID));
-    await _saveDevices();
-  }
-
-  static Future<void> _saveDevices() async {
-    Box box = await Hive.openBox("io_bluetooth");
-    List data = [];
-    for (var e in _savedDevicesForAutoConnectionList) {
-      data.add(e.toMap());
-    }
-    await box.put("auto_connection_list", data);
-  }
-
-  static Future<void> _getDevices() async {
-    Box box = await Hive.openBox("io_bluetooth");
-    List data = par(box.get("auto_connection_list")) ?? [];
-    _savedDevicesForAutoConnectionList = [];
-    for (var e in data) {
-      _savedDevicesForAutoConnectionList.add(SavedDevice.fromMap(e));
-    }
-  }
-}
-
-class BluetoothScanningRequirements {
-  BluetoothScanningRequirements._({
-    // required this.hasNearDevicesAccessPermission,
-    required this.hasLocationAccessPermission,
-    required this.isBluetoothAuthorized,
-    required this.isBluetoothOn,
-    required this.isLocationOn,
-  });
-
-  // late final bool hasNearDevicesAccessPermission;
-  late final bool hasLocationAccessPermission;
-  late final bool isBluetoothAuthorized;
-  late final bool isBluetoothOn;
-  late final bool isLocationOn;
-
-  static Future<BluetoothScanningRequirements> _check() async {
-    return BluetoothScanningRequirements._(
-      hasLocationAccessPermission: (await Geolocator.checkPermission()).on(
-        (permission) {
-          return permission != LocationPermission.denied && permission != LocationPermission.deniedForever;
-        }
-      ),
-      isBluetoothAuthorized: FlowterBluetooth.authorizedScanningAndConnection,
-      isBluetoothOn: FlowterBluetooth.adapterState == XBluetoothAdapterState.on,
-      isLocationOn: await Geolocator.isLocationServiceEnabled(),
-    );
-  }
-
-  bool get completed =>
-      hasLocationAccessPermission &&
-      isBluetoothAuthorized &&
-      isBluetoothOn &&
-      isLocationOn;
+  
 }

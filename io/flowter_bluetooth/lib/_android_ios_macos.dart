@@ -1,37 +1,27 @@
 part of 'flowter_bluetooth.dart';
 
 class _IOBluetoothAndroidIosMacos {
+  static Future<void> initialize(
+      {bool globalListenFromAllNotifiers = false}) async {
+    FlowterBluetooth._globalListenFromAllNotifiers =
+        globalListenFromAllNotifiers;
 
-
-  static Future<void> initialize({bool globalListenFromAllNotifiers = false}) async {
-    FlowterBluetooth._globalListenFromAllNotifiers = globalListenFromAllNotifiers;
-
-    FlowterBluetooth._adapter = fromFlutterBluePlusPackage(FlutterBluePlus.adapterStateNow);
+    FlowterBluetooth._adapter =
+        fromFlutterBluePlusPackage(FlutterBluePlus.adapterStateNow);
 
     await FlowterBluetooth._setCurrentAuth();
 
     FlutterBluePlus.adapterState.listen((BluetoothAdapterState state) {
       FlowterBluetooth._adapter = fromFlutterBluePlusPackage(state);
-      for (var element in FlowterBluetooth._bluetoothStateListeners){
+      for (var element in FlowterBluetooth._bluetoothStateListeners) {
         element(FlowterBluetooth._adapter);
       }
     });
-
   }
-
-
-
-
-
 
   static Future<void> turnOn() async {
     await FlutterBluePlus.turnOn();
   }
-
-
-
-
-
 
   static Future<void> requestPermissionsForScanningAndConnection() async {
     if (!await Permission.bluetoothScan.isGranted) {
@@ -58,12 +48,8 @@ class _IOBluetoothAndroidIosMacos {
     FlowterBluetooth._auth = true;
   }
 
-
-
-
-
-
-  static Future<List<XBluetoothDevice>> scan({required int seconds, bool filterSavedDevices = false}) async {
+  static Future<List<XBluetoothDevice>> scan(
+      {required int seconds, bool filterSavedDevices = false}) async {
     if (!FlowterBluetooth._auth) {
       throw Exception("No Auth");
     }
@@ -74,13 +60,15 @@ class _IOBluetoothAndroidIosMacos {
 
     FlowterBluetooth._isScanning = true;
 
-    StreamSubscription<List<ScanResult>> subscription = FlutterBluePlus.onScanResults.listen((results) {
+    StreamSubscription<List<ScanResult>> subscription =
+        FlutterBluePlus.onScanResults.listen((results) {
       for (ScanResult r in results) {
         devices.add(XBluetoothDevice.fromFlutterBluePlusPackage(r.device));
       }
     });
 
-    await FlutterBluePlus.startScan(timeout: Duration(seconds: seconds),androidUsesFineLocation: true);
+    await FlutterBluePlus.startScan(
+        timeout: Duration(seconds: seconds), androidUsesFineLocation: true);
     await Future.delayed(Duration(seconds: seconds));
 
     await FlutterBluePlus.stopScan();
@@ -88,22 +76,20 @@ class _IOBluetoothAndroidIosMacos {
 
     devices = devices.where((e) => e.name != "").toList();
     devices = devices.filterElementsByRepeatedValueIn((e) => e.id);
-    if(filterSavedDevices){
-      devices = devices.where((e1) => !FlowterBluetooth.savedDevicesForAutoConnectionList.whereHas((e2) => e1.id == e2.id)).toList();
+    if (filterSavedDevices) {
+      devices = devices
+          .where((e1) => !FlowterBluetoothPairingController.savedDevicesForAutoConnectionList
+              .whereHas((e2) => e1.id == e2.id))
+          .toList();
     }
     FlowterBluetooth._isScanning = false;
 
     return devices;
   }
 
-
-
-
-
-
-  static List<XBluetoothDevice> get paired {
-    return FlutterBluePlus.connectedDevices.map((e) => XBluetoothDevice.fromFlutterBluePlusPackage(e)).toList();
+  static List<XBluetoothDevice> get connectedDevices {
+    return FlutterBluePlus.connectedDevices
+        .map((e) => XBluetoothDevice.fromFlutterBluePlusPackage(e))
+        .toList();
   }
-
-
 }

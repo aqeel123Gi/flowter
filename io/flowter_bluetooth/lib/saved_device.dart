@@ -1,26 +1,21 @@
 part of 'flowter_bluetooth.dart';
 
-
-class SavedDevice{
+class BluePairedDevice {
   String id;
   String name;
-  DeviceType type;
-  SavedDevice({required this.id,required this.name, required this.type});
+  BluePairedDevice({required this.id, required this.name});
 
-
-  Map<String,String> toMap(){
+  Map<String, String> toMap() {
     return {
-      "id":id,
-      "name":name,
-      "type":type.name,
+      "id": id,
+      "name": name,
     };
   }
 
-  static SavedDevice fromMap(dynamic map){
-    return SavedDevice(
+  static BluePairedDevice fromMap(dynamic map) {
+    return BluePairedDevice(
       id: map["id"]!,
       name: map["name"]!,
-      type: DeviceType.values.byName(map["type"]!),
     );
   }
 }

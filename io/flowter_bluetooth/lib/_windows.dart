@@ -23,9 +23,9 @@ class _IOBluetoothWindows {
 
     WinBle.connectionStream.listen((event) {
       if(event['connected'] == true){
-        _pairedIds.add(event['device']);
+        _connectedDevicesIds.add(event['device']);
       }else{
-        _pairedIds.remove(event['device']);
+        _connectedDevicesIds.remove(event['device']);
       }
     });
 
@@ -97,7 +97,7 @@ class _IOBluetoothWindows {
     devices = devices.where((e) => e.name != "").toList();
     devices = devices.filterElementsByRepeatedValueIn((e) => e.id);
     if(filterSavedDevices){
-      devices = devices.where((e1) => !FlowterBluetooth.savedDevicesForAutoConnectionList.whereHas((e2) => e1.id == e2.id)).toList();
+      devices = devices.where((e1) => !FlowterBluetoothPairingController.savedDevicesForAutoConnectionList.whereHas((e2) => e1.id == e2.id)).toList();
     }
     FlowterBluetooth._isScanning = false;
 
@@ -107,8 +107,8 @@ class _IOBluetoothWindows {
 
 
 
-  static final List<String> _pairedIds = [];
-  static List<String> get pairedIds => _pairedIds;
+  static final List<String> _connectedDevicesIds = [];
+  static List<String> get connectedDevicesIds => _connectedDevicesIds.copy;
 
 
 }
