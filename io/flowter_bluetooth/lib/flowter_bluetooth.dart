@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flowter_core/extensions/extensions.dart';
 import 'package:flowter_core/functions/functions.dart';
+import 'package:flowter_core/widgets/screen_debugger/screen_debugger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
@@ -123,33 +124,33 @@ class FlowterBluetooth {
   }
 
   static Future<List<XBluetoothDevice>> scan(
-      {required int seconds, bool filterSavedDevices = false}) async {
+      {required int seconds}) async {
     switch (Platform.operatingSystem) {
       case "android":
       case "ios":
       case "macos":
         return await _IOBluetoothAndroidIosMacos.scan(
-            seconds: seconds, filterSavedDevices: filterSavedDevices);
+            seconds: seconds);
       case "windows":
         return await _IOBluetoothWindows.scan(
-            seconds: seconds, filterSavedDevices: filterSavedDevices);
+            seconds: seconds);
       default:
         throw Exception("Unsupported platform: ${Platform.operatingSystem}");
     }
   }
 
-  static List<XBluetoothDevice> get paired {
-    switch (Platform.operatingSystem) {
-      case "android":
-      case "ios":
-      case "macos":
-        return _IOBluetoothAndroidIosMacos.connectedDevices;
-      case "windows":
-        throw Exception("Unsupported platform: ${Platform.operatingSystem}");
-      default:
-        throw Exception("Unsupported platform: ${Platform.operatingSystem}");
-    }
-  }
+  // static List<XBluetoothDevice> get paired {
+  //   switch (Platform.operatingSystem) {
+  //     case "android":
+  //     case "ios":
+  //     case "macos":
+  //       return _IOBluetoothAndroidIosMacos.connectedDevices;
+  //     case "windows":
+  //       throw Exception("Unsupported platform: ${Platform.operatingSystem}");
+  //     default:
+  //       throw Exception("Unsupported platform: ${Platform.operatingSystem}");
+  //   }
+  // }
 
   static List<String> get connectedDevicesIds {
     switch (Platform.operatingSystem) {

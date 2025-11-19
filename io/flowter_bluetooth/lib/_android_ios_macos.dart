@@ -49,7 +49,7 @@ class _IOBluetoothAndroidIosMacos {
   }
 
   static Future<List<XBluetoothDevice>> scan(
-      {required int seconds, bool filterSavedDevices = false}) async {
+      {required int seconds}) async {
     if (!FlowterBluetooth._auth) {
       throw Exception("No Auth");
     }
@@ -76,12 +76,12 @@ class _IOBluetoothAndroidIosMacos {
 
     devices = devices.where((e) => e.name != "").toList();
     devices = devices.filterElementsByRepeatedValueIn((e) => e.id);
-    if (filterSavedDevices) {
-      devices = devices
-          .where((e1) => !FlowterBluetoothPairingController.savedDevicesForAutoConnectionList
-              .whereHas((e2) => e1.id == e2.id))
-          .toList();
-    }
+    // if (filterSavedDevices) {
+    //   devices = devices
+    //       .where((e1) => !FlowterBluetoothPairingController.savedDevicesForAutoConnectionList
+    //           .whereHas((e2) => e1.id == e2.id))
+    //       .toList();
+    // }
     FlowterBluetooth._isScanning = false;
 
     return devices;

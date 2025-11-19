@@ -79,38 +79,49 @@ class FlowterBluetoothPairingController {
 
   /// Auto connect the paired devices.
   static Future<void> _autoConnect() async {
-    if (_savedDevicesForAutoConnectionList.isNotEmpty && FlowterBluetooth.adapterState == XBluetoothAdapterState.on) {
+    DebuggerConsole.addLine('Auto Connection');
 
+    if (_savedDevicesForAutoConnectionList.isNotEmpty &&
+        FlowterBluetooth.adapterState == XBluetoothAdapterState.on) {
       // Get scanned devices
       List<XBluetoothDevice> scannedDevices =
           await FlowterBluetooth.scan(seconds: 2);
+
+      DebuggerConsole.addLine(
+          'Scanned Devices: ${scannedDevices.map((e) => e.id).join(', ')}');
 
       await _tryConnectNotConnectedPairedDevices(scannedDevices);
       await _checkDisconnectedPreConnectedDevices();
     }
   }
 
-
   /// Try connect not connected paired devices.
   static Future<void> _tryConnectNotConnectedPairedDevices(
       List<XBluetoothDevice> scannedDevices) async {
+    DebuggerConsole.addLine('Try Connect Not Connected Paired Devices');
     for (BluePairedDevice notConnectedDevice in getNotConnectedPairedDevices) {
+      DebuggerConsole.addLine('Not Connected Device: ${notConnectedDevice.id}');
+
       XBluetoothDevice? device = scannedDevices
           .tryFirstWhere((element) => element.id == notConnectedDevice.id);
       if (device != null && await FlowterBluetooth.connect(device)) {
+        DebuggerConsole.addLine('Connected Device: ${device.id}');
         _preConnectedDevices.add(device);
         _onConnected?.call(notConnectedDevice, device);
-      }
+      } else {}
+      DebuggerConsole.addLine('Not Connected Device: ${notConnectedDevice.id}');
     }
   }
-
 
   /// Try disconnect pre connected devices.
   static Future<void> _checkDisconnectedPreConnectedDevices() async {
     for (XBluetoothDevice device in _preConnectedDevices.copy) {
       if (!FlowterBluetooth.connectedDevicesIds.any((id) => id == device.id)) {
+        DebuggerConsole.addLine('Disconnected Device: ${device.id}');
         _preConnectedDevices.remove(device);
-        _onDisconnected?.call(_savedDevicesForAutoConnectionList.tryFirstWhere((element) => element.id == device.id)!);
+        DebuggerConsole.addLine('Removed Device: ${device.id}');
+        _onDisconnected?.call(_savedDevicesForAutoConnectionList
+            .tryFirstWhere((element) => element.id == device.id)!);
       }
     }
   }
