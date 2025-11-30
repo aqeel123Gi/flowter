@@ -253,32 +253,25 @@ class _AdvancedTextFieldState extends State<AdvancedTextField> {
 
   Widget get _obscureButton {
     return widget.obscure
-        ? Positioned.directional(
-            top: 0,
-            bottom: 0,
-            end: 6,
-            textDirection: widget.textDirection,
-            child: CircularTapEffect(
-                uiKey: _widgetController.obscureButtonKey,
-                keyActions: {
-                  LogicalKeyboardKey.arrowRight: () {
-                    UiKeyController.changeFocusedGlobalKey(
-                        _widgetController.uiKey);
-                  }
-                },
-                color: widget.waitingColor.withOpacityMultiply(0.3),
-                onPressed: () {
-                  _widgetController.obscured = !_widgetController.obscured;
-                  _widgetController.updateState();
-                },
-                child: AnimatedTransformingSwitcher(
-                    switcher: _widgetController.obscured,
-                    duration: const Duration(milliseconds: 200),
-                    builder: (context, switcherKey) =>
-                        (_widgetController.obscured
-                                ? widget.noObscureTextIcon
-                                : widget.obscureTextIcon)
-                            .withParams(size: 24, color: widget.waitingColor))))
+        ? CircularTapEffect(
+            uiKey: _widgetController.obscureButtonKey,
+            keyActions: {
+              LogicalKeyboardKey.arrowRight: () {
+                UiKeyController.changeFocusedGlobalKey(_widgetController.uiKey);
+              }
+            },
+            color: widget.waitingColor.withOpacityMultiply(0.3),
+            onPressed: () {
+              _widgetController.obscured = !_widgetController.obscured;
+              _widgetController.updateState();
+            },
+            child: AnimatedTransformingSwitcher(
+                switcher: _widgetController.obscured,
+                duration: const Duration(milliseconds: 200),
+                builder: (context, switcherKey) => (_widgetController.obscured
+                        ? widget.noObscureTextIcon
+                        : widget.obscureTextIcon)
+                    .withParams(size: 24, color: widget.waitingColor)))
         : const SizedBox();
   }
 
