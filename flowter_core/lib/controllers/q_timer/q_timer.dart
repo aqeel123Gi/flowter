@@ -9,11 +9,10 @@ class QTimer {
 
     if (_points.containsKey(key)) {
       final duration = now.difference(_points[key]!);
-      log('Duration for "$key": ${duration.inMilliseconds} ms');
+      print('Duration for "$key": ${duration.inMilliseconds} ms');
       _points.remove(key); // Remove the point after calculating the duration
     } else {
       _points[key] = now;
-      log('Point "$key" recorded at $now');
     }
   }
 }

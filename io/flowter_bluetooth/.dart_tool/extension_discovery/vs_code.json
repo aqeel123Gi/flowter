@@ -1,1 +1,1 @@
-{"version":2,"entries":[{"package":"flowter_core","rootUri":"../../../flowter_core/","packageUri":"lib/"},{"package":"nfc_manager","rootUri":"../../../assets/nfc_manager/","packageUri":"lib/"},{"package":"flowter_bluetooth","rootUri":"../","packageUri":"lib/"}]}
+{"version":2,"entries":[{"package":"flowter_core","rootUri":"../../../flowter_core/","packageUri":"lib/"},{"package":"flowter_bluetooth","rootUri":"../","packageUri":"lib/"}]}
