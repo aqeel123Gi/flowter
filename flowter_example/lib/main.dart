@@ -5,6 +5,7 @@ import 'features_demo.dart';
 import 'optional_features_example.dart';
 import 'advanced_usage_example.dart';
 import 'advanced_textfield_example.dart';
+import 'api_example.dart';
 
 void main() {
   runApp(const MyApp());
@@ -124,19 +125,19 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.code),
               label: const Text('Advanced Usage Guide'),
             ),
-            const SizedBox(height: 10),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PythonExample(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.code),
-              label: const Text('Python Example'),
-            ),
+            // const SizedBox(height: 10),
+            // ElevatedButton.icon(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const PythonExample(),
+            //       ),
+            //     );
+            //   },
+            //   icon: const Icon(Icons.code),
+            //   label: const Text('Python Example'),
+            // ),
             const SizedBox(height: 10),
             ElevatedButton.icon(
               onPressed: () {
@@ -149,6 +150,19 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               icon: const Icon(Icons.text_fields),
               label: const Text('AdvancedTextField Examples'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ApiExample(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.api),
+              label: const Text('API Example'),
             ),
           ],
         ),

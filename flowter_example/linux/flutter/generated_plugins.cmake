@@ -4,8 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
-  file_selector_linux
-  py_engine_desktop
   screen_retriever_linux
   window_manager
 )
