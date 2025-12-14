@@ -1,37 +1,30 @@
 part of 'api.dart';
 
-class API {
-  String get baseURL => _baseURL;
+class ApiController {
+  final String? Function()? getToken;
 
-  late String? Function()? _getToken;
+  final String? Function()? getAcceptLanguage;
 
-  late String? Function()? _getAcceptLanguage;
+  final String? Function()? getUserType;
 
-  late String? Function()? _getUserType;
+  final String baseURL;
 
-  late List<int> exceptionOnResponseCodes;
+  final Map<String, String Function()> additionalHeaders;
 
-  late String _baseURL;
+  final Map<int, dynamic Function(dynamic data)>
+      overridenResponseProcessesByCodes;
 
-  late Map<String, String Function()> _additionalHeaders;
+  final int? apiDefaultVersion;
 
-  static late int _apiDefaultVersion;
-
-  API({
-    required String baseURL,
-    int apiDefaultVersion = 1,
-    String? Function()? getToken,
-    String? Function()? getAcceptLanguage,
-    String? Function()? getUserType,
-    Map<String, String Function()> additionalHeaders = const {},
-  }) {
-    _baseURL = baseURL;
-    _apiDefaultVersion = apiDefaultVersion;
-    _getToken = getToken;
-    _getAcceptLanguage = getAcceptLanguage;
-    _getUserType = getUserType;
-    _additionalHeaders = additionalHeaders;
-  }
+  ApiController({
+    required this.baseURL,
+    this.apiDefaultVersion,
+    this.getToken,
+    this.getAcceptLanguage,
+    this.getUserType,
+    this.additionalHeaders = const {},
+    this.overridenResponseProcessesByCodes = const {},
+  });
 
   final List<
       void Function(String path, HttpRequestType type,
@@ -92,7 +85,7 @@ class API {
       throw NoConnectionException();
     }
 
-    version ??= _apiDefaultVersion;
+    version ??= apiDefaultVersion;
 
     try {
       Map<String, String> modifiedHeaders = {
@@ -101,22 +94,22 @@ class API {
       }..addAll(headers);
 
       modifiedHeaders.addAll(
-          _additionalHeaders.map((key, value) => MapEntry(key, value())));
+          additionalHeaders.map((key, value) => MapEntry(key, value())));
 
-      if (_getAcceptLanguage != null && _getAcceptLanguage!() != null) {
-        modifiedHeaders['Accept-Language'] = _getAcceptLanguage!()!;
+      if (getAcceptLanguage != null && getAcceptLanguage!() != null) {
+        modifiedHeaders['Accept-Language'] = getAcceptLanguage!()!;
       }
 
-      if (_getToken != null && _getToken!() != null) {
-        modifiedHeaders['Authorization'] = 'Bearer ${_getToken!()}';
+      if (getToken != null && getToken!() != null) {
+        modifiedHeaders['Authorization'] = 'Bearer ${getToken!()}';
       }
 
-      if (_getUserType != null && _getUserType!() != null) {
-        modifiedHeaders['User-Type'] = _getUserType!()!;
+      if (getUserType != null && getUserType!() != null) {
+        modifiedHeaders['User-Type'] = getUserType!()!;
       }
 
       for (var callback in _onRequestCallbacks) {
-        callback('$_baseURL/api/v$version/$path', type, modifiedHeaders, body);
+        callback('$baseURL/api/v$version/$path', type, modifiedHeaders, body);
       }
 
       if (kDebugMode && body != null) {
@@ -127,34 +120,34 @@ class API {
       switch (type) {
         case HttpRequestType.get:
           response = await get(
-            Uri.parse('$_baseURL/api/v$version/$path'),
+            Uri.parse('$baseURL/api/v$version/$path'),
             headers: modifiedHeaders,
           ).timeout(Duration(seconds: timeout));
           break;
         case HttpRequestType.post:
-          response = await post(Uri.parse('$_baseURL/api/v$version/$path'),
+          response = await post(Uri.parse('$baseURL/api/v$version/$path'),
                   headers: modifiedHeaders, body: json.encode(body))
               .timeout(Duration(seconds: timeout));
           break;
         case HttpRequestType.put:
-          response = await put(Uri.parse('$_baseURL/api/v$version/$path'),
+          response = await put(Uri.parse('$baseURL/api/v$version/$path'),
                   headers: modifiedHeaders, body: json.encode(body))
               .timeout(Duration(seconds: timeout));
           break;
         case HttpRequestType.delete:
-          response = await delete(Uri.parse('$_baseURL/api/v$version/$path'),
+          response = await delete(Uri.parse('$baseURL/api/v$version/$path'),
                   headers: modifiedHeaders, body: json.encode(body))
               .timeout(Duration(seconds: timeout));
           break;
         case HttpRequestType.patch:
-          response = await patch(Uri.parse('$_baseURL/api/v$version/$path'),
+          response = await patch(Uri.parse('$baseURL/api/v$version/$path'),
                   headers: modifiedHeaders, body: json.encode(body))
               .timeout(Duration(seconds: timeout));
           break;
       }
 
       for (var callback in _onResponseCallbacks) {
-        callback('$_baseURL/api/v$version/$path', type,
+        callback('$baseURL/api/v$version/$path', type,
             response.statusCode.toString(), response.headers, body);
       }
 
@@ -167,7 +160,7 @@ class API {
         }
       }
 
-      return ApiResponse(response.statusCode,
+      return ApiResponse(this,response.statusCode,
           tryGet(() => json.decode(response.body), response.body));
     } catch (e) {
       if (e is TimeoutException ||
@@ -195,7 +188,7 @@ class API {
       throw NoConnectionException();
     }
 
-    version ??= _apiDefaultVersion;
+    version ??= apiDefaultVersion;
 
     try {
       Map<String, String> modifiedHeaders = {
@@ -204,27 +197,26 @@ class API {
       }..addAll(headers);
 
       modifiedHeaders.addAll(
-          _additionalHeaders.map((key, value) => MapEntry(key, value())));
+          additionalHeaders.map((key, value) => MapEntry(key, value())));
 
-      if (_getAcceptLanguage != null && _getAcceptLanguage!() != null) {
-        modifiedHeaders['Accept-Language'] = _getAcceptLanguage!()!;
+      if (getAcceptLanguage != null && getAcceptLanguage!() != null) {
+        modifiedHeaders['Accept-Language'] = getAcceptLanguage!()!;
       }
 
-      if (_getToken != null && _getToken!() != null) {
-        modifiedHeaders['Authorization'] = 'Bearer ${_getToken!()}';
+      if (getToken != null && getToken!() != null) {
+        modifiedHeaders['Authorization'] = 'Bearer ${getToken!()}';
       }
 
-      if (_getUserType != null && _getUserType!() != null) {
-        modifiedHeaders['User-Type'] = _getUserType!()!;
+      if (getUserType != null && getUserType!() != null) {
+        modifiedHeaders['User-Type'] = getUserType!()!;
       }
 
       for (var callback in _onRequestCallbacks) {
-        callback(
-            '$_baseURL/api/v$version/$path', type, modifiedHeaders, fields);
+        callback('$baseURL/api/v$version/$path', type, modifiedHeaders, fields);
       }
 
       var request = MultipartRequest(
-          type.name.toUpperCase(), Uri.parse('$_baseURL/api/v$version/$path'));
+          type.name.toUpperCase(), Uri.parse('$baseURL/api/v$version/$path'));
 
       for (var header in modifiedHeaders.entries) {
         request.headers[header.key] = header.value;
@@ -248,11 +240,11 @@ class API {
       String responseBody = await response.stream.bytesToString();
 
       for (var callback in _onResponseCallbacks) {
-        callback('$_baseURL/api/v$version/$path', type,
+        callback('$baseURL/api/v$version/$path', type,
             response.statusCode.toString(), response.headers, responseBody);
       }
 
-      return ApiResponse(response.statusCode,
+      return ApiResponse(this,response.statusCode,
           tryGet(() => json.decode(responseBody), responseBody));
     } catch (e) {
       if (e is TimeoutException ||

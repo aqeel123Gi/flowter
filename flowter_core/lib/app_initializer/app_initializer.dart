@@ -45,7 +45,7 @@ part '_base_widget.dart';
 /// Some internal Libraries initialized or used, you can go to their documentations to know more about
 /// them:
 /// - [AdvancedTextField]
-/// - [API]
+/// - [ApiController]
 /// - [AppLifecycleObserver]
 /// - [AuthController]
 /// - [BrightnessController]

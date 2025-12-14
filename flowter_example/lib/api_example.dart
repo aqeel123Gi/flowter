@@ -14,7 +14,7 @@ class ApiExample extends StatefulWidget {
 }
 
 class _ApiExampleState extends State<ApiExample> {
-  API? _api;
+  ApiController? _api;
   bool _isInitialized = false;
   bool _isLoading = false;
   String _responseText = '';
@@ -50,7 +50,7 @@ class _ApiExampleState extends State<ApiExample> {
   }
 
   Future<void> _checkConnectivity() async {
-    final hasConnection = await API.hasConnectivity();
+    final hasConnection = await ApiController.hasConnectivity();
     setState(() {
       _hasConnectivity = hasConnection;
     });
@@ -58,7 +58,7 @@ class _ApiExampleState extends State<ApiExample> {
 
   void _initializeApi() {
     try {
-      _api = API(
+      _api = ApiController(
         baseURL: _baseUrlController.text.trim(),
         apiDefaultVersion: 1,
         getToken: _tokenController.text.trim().isEmpty
