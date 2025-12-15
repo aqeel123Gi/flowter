@@ -10,7 +10,6 @@ Future<void> appInit(AppCustomization environment)async{
 
   await Hive.initFlutter(environment.filesDir);
 
-
   await DevStageController.initialize();
 
 

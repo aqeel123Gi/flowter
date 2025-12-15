@@ -1,7 +1,7 @@
 part of 'api.dart';
 
 class ApiController {
-  final String? Function()? getToken;
+  final String? Function()? getBearerToken;
 
   final String? Function()? getAcceptLanguage;
 
@@ -19,43 +19,43 @@ class ApiController {
   ApiController({
     required this.baseURL,
     this.apiDefaultVersion,
-    this.getToken,
+    this.getBearerToken,
     this.getAcceptLanguage,
     this.getUserType,
     this.additionalHeaders = const {},
     this.overridenResponseProcessesByCodes = const {},
   });
 
-  final List<
+  static final Set<
       void Function(String path, HttpRequestType type,
-          Map<String, String> headers, dynamic body)> _onRequestCallbacks = [];
+          Map<String, String> headers, dynamic body)> _onRequestCallbacks = {};
 
-  void addOnRequestCallback(
+  static void addOnRequestCallback(
       void Function(String path, HttpRequestType type,
               Map<String, String> headers, dynamic body)
           callback) {
     _onRequestCallbacks.add(callback);
   }
 
-  void removeOnRequestCallback(
+  static void removeOnRequestCallback(
       void Function(String path, HttpRequestType type,
               Map<String, String> headers, dynamic body)
           callback) {
     _onRequestCallbacks.remove(callback);
   }
 
-  final List<
+  static final Set<
       void Function(String path, HttpRequestType type, String code,
-          Map<String, String> headers, dynamic body)> _onResponseCallbacks = [];
+          Map<String, String> headers, dynamic body)> _onResponseCallbacks = {};
 
-  void addOnResponseCallback(
+  static void addOnResponseCallback(
       void Function(String path, HttpRequestType type, String code,
               Map<String, String> headers, dynamic body)
           callback) {
     _onResponseCallbacks.add(callback);
   }
 
-  void removeOnResponseCallback(
+  static void removeOnResponseCallback(
       void Function(String path, HttpRequestType type, String code,
               Map<String, String> headers, dynamic body)
           callback) {
@@ -100,8 +100,8 @@ class ApiController {
         modifiedHeaders['Accept-Language'] = getAcceptLanguage!()!;
       }
 
-      if (getToken != null && getToken!() != null) {
-        modifiedHeaders['Authorization'] = 'Bearer ${getToken!()}';
+      if (getBearerToken != null && getBearerToken!() != null) {
+        modifiedHeaders['Authorization'] = 'Bearer ${getBearerToken!()}';
       }
 
       if (getUserType != null && getUserType!() != null) {
@@ -160,7 +160,7 @@ class ApiController {
         }
       }
 
-      return ApiResponse(this,response.statusCode,
+      return ApiResponse(this, response.statusCode,
           tryGet(() => json.decode(response.body), response.body));
     } catch (e) {
       if (e is TimeoutException ||
@@ -203,8 +203,8 @@ class ApiController {
         modifiedHeaders['Accept-Language'] = getAcceptLanguage!()!;
       }
 
-      if (getToken != null && getToken!() != null) {
-        modifiedHeaders['Authorization'] = 'Bearer ${getToken!()}';
+      if (getBearerToken != null && getBearerToken!() != null) {
+        modifiedHeaders['Authorization'] = 'Bearer ${getBearerToken!()}';
       }
 
       if (getUserType != null && getUserType!() != null) {
@@ -244,7 +244,7 @@ class ApiController {
             response.statusCode.toString(), response.headers, responseBody);
       }
 
-      return ApiResponse(this,response.statusCode,
+      return ApiResponse(this, response.statusCode,
           tryGet(() => json.decode(responseBody), responseBody));
     } catch (e) {
       if (e is TimeoutException ||

@@ -61,14 +61,14 @@ class _ApiExampleState extends State<ApiExample> {
       _api = ApiController(
         baseURL: _baseUrlController.text.trim(),
         apiDefaultVersion: 1,
-        getToken: _tokenController.text.trim().isEmpty
+        getBearerToken: _tokenController.text.trim().isEmpty
             ? null
             : () => _tokenController.text.trim(),
         getAcceptLanguage: () => 'en-US',
       );
 
       // Add request callback for logging
-      _api!.addOnRequestCallback((path, type, headers, body) {
+      ApiController.addOnRequestCallback((path, type, headers, body) {
         if (mounted) {
           setState(() {
             _responseText = 'Request: ${type.name.toUpperCase()} $path\n';
@@ -81,7 +81,7 @@ class _ApiExampleState extends State<ApiExample> {
       });
 
       // Add response callback for logging
-      _api!.addOnResponseCallback((path, type, code, headers, body) {
+      ApiController.addOnResponseCallback((path, type, code, headers, body) {
         if (mounted) {
           setState(() {
             _responseText += '\nResponse Code: $code\n';

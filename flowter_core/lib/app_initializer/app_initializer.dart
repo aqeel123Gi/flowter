@@ -66,6 +66,7 @@ part '_base_widget.dart';
 ///
 ///
 class AppFramework {
+  
   static late AppCustomization appCustomization;
   static late void Function() updateState;
 
