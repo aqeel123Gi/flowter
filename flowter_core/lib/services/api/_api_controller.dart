@@ -80,6 +80,8 @@ class ApiController {
     int timeout = 60,
     dynamic virtualBody,
     List<String>? keysToFilter,
+    bool printRequestBody = false,
+    bool printResponseBody = false,
   }) async {
     if (!await hasConnectivity()) {
       throw NoConnectionException();
@@ -112,7 +114,7 @@ class ApiController {
         callback('$baseURL/api/v$version/$path', type, modifiedHeaders, body);
       }
 
-      if (kDebugMode && body != null) {
+      if (kDebugMode && printRequestBody && body != null) {
         printStructure(body, title: 'REQUEST BODY');
       }
 
@@ -151,7 +153,7 @@ class ApiController {
             response.statusCode.toString(), response.headers, body);
       }
 
-      if (kDebugMode) {
+      if (kDebugMode && printResponseBody) {
         dynamic body = tryGet(() => json.decode(response.body));
         if (body != null) {
           printStructure(body, title: 'RESPONSE BODY');
