@@ -14,8 +14,9 @@ dependencies:
   # Flowter core package
   flowter_core:
     path: ../flowter_core
+  spreadsheet_decoder:
+      path: ../io/spreadsheet_decoder
 
-  spreadsheet_decoder: ^2.3.0
   archive: ^4.0.1
 
   # flowter_python:
@@ -26,9 +27,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
 
-dependency_overrides:
-  spreadsheet_decoder:
-    path: ../io/spreadsheet_decoder
+# dependency_overrides:
+  
 
 flutter:
   uses-material-design: true

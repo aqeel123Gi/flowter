@@ -78,6 +78,14 @@
       ]
     },
     {
+      "name": "spreadsheet_decoder",
+      "version": "2.3.0+1",
+      "dependencies": [
+        "archive",
+        "xml"
+      ]
+    },
+    {
       "name": "fast_image_resizer",
       "version": "0.0.2",
       "dependencies": [
@@ -86,7 +94,7 @@
     },
     {
       "name": "image",
-      "version": "4.3.0",
+      "version": "4.7.2",
       "dependencies": [
         "archive",
         "meta",
@@ -173,14 +181,6 @@
         "path_provider",
         "synchronized",
         "uuid"
-      ]
-    },
-    {
-      "name": "spreadsheet_decoder",
-      "version": "2.3.0",
-      "dependencies": [
-        "archive",
-        "xml"
       ]
     },
     {
@@ -527,10 +527,11 @@
     },
     {
       "name": "archive",
-      "version": "3.6.1",
+      "version": "4.0.7",
       "dependencies": [
         "crypto",
-        "path"
+        "path",
+        "posix"
       ]
     },
     {
@@ -1139,6 +1140,17 @@
       ]
     },
     {
+      "name": "leak_tracker",
+      "version": "11.0.2",
+      "dependencies": [
+        "clock",
+        "collection",
+        "meta",
+        "path",
+        "vm_service"
+      ]
+    },
+    {
       "name": "term_glyph",
       "version": "1.2.2",
       "dependencies": []
@@ -1163,6 +1175,15 @@
       "version": "6.0.2",
       "dependencies": [
         "meta"
+      ]
+    },
+    {
+      "name": "posix",
+      "version": "6.0.3",
+      "dependencies": [
+        "ffi",
+        "meta",
+        "path"
       ]
     },
     {
@@ -1336,6 +1357,11 @@
       ]
     },
     {
+      "name": "vm_service",
+      "version": "15.0.0",
+      "dependencies": []
+    },
+    {
       "name": "xdg_directories",
       "version": "1.1.0",
       "dependencies": [
@@ -1364,22 +1390,6 @@
       "dependencies": [
         "source_span"
       ]
-    },
-    {
-      "name": "leak_tracker",
-      "version": "11.0.2",
-      "dependencies": [
-        "clock",
-        "collection",
-        "meta",
-        "path",
-        "vm_service"
-      ]
-    },
-    {
-      "name": "vm_service",
-      "version": "15.0.0",
-      "dependencies": []
     }
   ],
   "configVersion": 1

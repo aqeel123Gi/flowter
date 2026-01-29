@@ -21,7 +21,7 @@
     },
     {
       "name": "archive",
-      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/archive-3.6.1",
+      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/archive-4.0.7",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -417,9 +417,9 @@
     },
     {
       "name": "image",
-      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/image-4.3.0",
+      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/image-4.7.2",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "3.0"
     },
     {
       "name": "json_annotation",
@@ -626,6 +626,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "posix",
+      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/posix-6.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "pub_semver",
       "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/pub_semver-2.1.4",
       "packageUri": "lib/",
@@ -705,7 +711,7 @@
     },
     {
       "name": "spreadsheet_decoder",
-      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/spreadsheet_decoder-2.3.0",
+      "rootUri": "../../io/spreadsheet_decoder",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
