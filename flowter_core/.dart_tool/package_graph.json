@@ -351,7 +351,7 @@
     },
     {
       "name": "firebase_core",
-      "version": "3.8.1",
+      "version": "3.15.0",
       "dependencies": [
         "firebase_core_platform_interface",
         "firebase_core_web",
@@ -1010,7 +1010,7 @@
     },
     {
       "name": "firebase_core_platform_interface",
-      "version": "5.3.1",
+      "version": "5.4.2",
       "dependencies": [
         "collection",
         "flutter",
@@ -1021,7 +1021,7 @@
     },
     {
       "name": "firebase_core_web",
-      "version": "2.18.2",
+      "version": "2.24.0",
       "dependencies": [
         "firebase_core_platform_interface",
         "flutter",
