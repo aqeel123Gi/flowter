@@ -103,7 +103,7 @@
     },
     {
       "name": "meta",
-      "version": "1.16.0",
+      "version": "1.17.0",
       "dependencies": []
     },
     {
@@ -165,7 +165,7 @@
     },
     {
       "name": "test_api",
-      "version": "0.7.6",
+      "version": "0.7.7",
       "dependencies": [
         "async",
         "boolean_selector",
@@ -191,19 +191,18 @@
       ]
     },
     {
+      "name": "spreadsheet_decoder",
+      "version": "2.3.0+1",
+      "dependencies": [
+        "archive",
+        "xml"
+      ]
+    },
+    {
       "name": "fast_image_resizer",
       "version": "0.0.2",
       "dependencies": [
         "flutter"
-      ]
-    },
-    {
-      "name": "image",
-      "version": "4.3.0",
-      "dependencies": [
-        "archive",
-        "meta",
-        "xml"
       ]
     },
     {
@@ -286,14 +285,6 @@
         "path_provider",
         "synchronized",
         "uuid"
-      ]
-    },
-    {
-      "name": "spreadsheet_decoder",
-      "version": "2.3.0",
-      "dependencies": [
-        "archive",
-        "xml"
       ]
     },
     {
@@ -507,6 +498,17 @@
       ]
     },
     {
+      "name": "leak_tracker",
+      "version": "11.0.2",
+      "dependencies": [
+        "clock",
+        "collection",
+        "meta",
+        "path",
+        "vm_service"
+      ]
+    },
+    {
       "name": "term_glyph",
       "version": "1.2.2",
       "dependencies": []
@@ -588,14 +590,6 @@
         "collection",
         "meta",
         "petitparser"
-      ]
-    },
-    {
-      "name": "archive",
-      "version": "3.6.1",
-      "dependencies": [
-        "crypto",
-        "path"
       ]
     },
     {
@@ -1076,6 +1070,11 @@
       ]
     },
     {
+      "name": "vm_service",
+      "version": "15.0.0",
+      "dependencies": []
+    },
+    {
       "name": "plugin_platform_interface",
       "version": "2.1.8",
       "dependencies": [
@@ -1238,20 +1237,31 @@
       ]
     },
     {
-      "name": "leak_tracker",
-      "version": "11.0.2",
+      "name": "archive",
+      "version": "4.0.7",
       "dependencies": [
-        "clock",
-        "collection",
-        "meta",
+        "crypto",
         "path",
-        "vm_service"
+        "posix"
       ]
     },
     {
-      "name": "vm_service",
-      "version": "15.0.0",
-      "dependencies": []
+      "name": "posix",
+      "version": "6.0.3",
+      "dependencies": [
+        "ffi",
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "image",
+      "version": "4.7.2",
+      "dependencies": [
+        "archive",
+        "meta",
+        "xml"
+      ]
     }
   ],
   "configVersion": 1

@@ -14,7 +14,7 @@ dependencies:
   flowter_core:
     path: ../../flowter_core
 
-  flutter_inappwebview: 6.1.5
+  flutter_inappwebview: 5.8.0
   webview_flutter: 4.8.0
 
 dev_dependencies:

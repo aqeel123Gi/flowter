@@ -495,9 +495,9 @@
     },
     {
       "name": "meta",
-      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.16.0",
+      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.17.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.5"
     },
     {
       "name": "nm",
@@ -801,7 +801,7 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.6",
+      "rootUri": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.7",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
@@ -909,8 +909,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.9.2",
+  "generatorVersion": "3.10.8",
   "flutterRoot": "file:///D:/src/flutter",
-  "flutterVersion": "3.35.4",
+  "flutterVersion": "3.38.9",
   "pubCache": "file:///C:/Users/aqeee/AppData/Local/Pub/Cache"
 }
