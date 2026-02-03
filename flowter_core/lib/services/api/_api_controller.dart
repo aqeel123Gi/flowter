@@ -63,12 +63,16 @@ class ApiController {
   }
 
   static Future<bool> hasConnectivity() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    return connectivityResult.anyContainsIn([
-      ConnectivityResult.mobile,
-      ConnectivityResult.wifi,
-      ConnectivityResult.ethernet
-    ]);
+    try {
+      final interfaces = await NetworkInterface.list(
+        includeLoopback: false,
+        type: InternetAddressType.any,
+      );
+
+      return interfaces.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<ApiResponse> request({

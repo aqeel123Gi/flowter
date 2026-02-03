@@ -8,7 +8,6 @@
       "version": "0.0.11",
       "dependencies": [
         "color_filter_extension",
-        "connectivity_plus",
         "device_info_plus",
         "fast_image_resizer",
         "firebase_core",
@@ -282,19 +281,6 @@
         "async",
         "http_parser",
         "meta",
-        "web"
-      ]
-    },
-    {
-      "name": "connectivity_plus",
-      "version": "7.0.0",
-      "dependencies": [
-        "collection",
-        "connectivity_plus_platform_interface",
-        "flutter",
-        "flutter_web_plugins",
-        "meta",
-        "nm",
         "web"
       ]
     },
@@ -870,22 +856,6 @@
       ]
     },
     {
-      "name": "nm",
-      "version": "0.5.0",
-      "dependencies": [
-        "dbus"
-      ]
-    },
-    {
-      "name": "connectivity_plus_platform_interface",
-      "version": "2.0.1",
-      "dependencies": [
-        "flutter",
-        "meta",
-        "plugin_platform_interface"
-      ]
-    },
-    {
       "name": "vector_graphics_compiler",
       "version": "1.1.10+1",
       "dependencies": [
@@ -1248,16 +1218,6 @@
       "name": "platform",
       "version": "3.1.6",
       "dependencies": []
-    },
-    {
-      "name": "dbus",
-      "version": "0.7.10",
-      "dependencies": [
-        "args",
-        "ffi",
-        "meta",
-        "xml"
-      ]
     },
     {
       "name": "path_parsing",

@@ -10,7 +10,6 @@ import 'package:flowter_core/functions/functions.dart';
 import 'package:flowter_core/functions/print_structure.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 
 part '_api_response.dart';
 part '_api_controller.dart';
