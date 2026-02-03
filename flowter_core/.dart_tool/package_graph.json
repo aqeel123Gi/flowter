@@ -8,7 +8,6 @@
       "version": "0.0.11",
       "dependencies": [
         "audioplayers",
-        "audioplayers_windows",
         "color_filter_extension",
         "connectivity_plus",
         "device_info_plus",
@@ -157,16 +156,8 @@
       ]
     },
     {
-      "name": "audioplayers_windows",
-      "version": "4.0.0",
-      "dependencies": [
-        "audioplayers_platform_interface",
-        "flutter"
-      ]
-    },
-    {
       "name": "audioplayers",
-      "version": "6.1.0",
+      "version": "6.5.1",
       "dependencies": [
         "audioplayers_android",
         "audioplayers_darwin",
@@ -663,23 +654,21 @@
       ]
     },
     {
-      "name": "audioplayers_platform_interface",
-      "version": "7.0.0",
-      "dependencies": [
-        "collection",
-        "flutter",
-        "meta",
-        "plugin_platform_interface"
-      ]
-    },
-    {
       "name": "synchronized",
       "version": "3.3.0+3",
       "dependencies": []
     },
     {
+      "name": "audioplayers_windows",
+      "version": "4.2.1",
+      "dependencies": [
+        "audioplayers_platform_interface",
+        "flutter"
+      ]
+    },
+    {
       "name": "audioplayers_web",
-      "version": "5.0.1",
+      "version": "5.1.1",
       "dependencies": [
         "audioplayers_platform_interface",
         "flutter",
@@ -688,8 +677,18 @@
       ]
     },
     {
+      "name": "audioplayers_platform_interface",
+      "version": "7.1.1",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "meta",
+        "plugin_platform_interface"
+      ]
+    },
+    {
       "name": "audioplayers_linux",
-      "version": "4.0.0",
+      "version": "4.2.1",
       "dependencies": [
         "audioplayers_platform_interface",
         "flutter"
@@ -697,7 +696,7 @@
     },
     {
       "name": "audioplayers_darwin",
-      "version": "6.0.0",
+      "version": "6.3.0",
       "dependencies": [
         "audioplayers_platform_interface",
         "flutter"
@@ -705,7 +704,7 @@
     },
     {
       "name": "audioplayers_android",
-      "version": "5.0.0",
+      "version": "5.2.1",
       "dependencies": [
         "audioplayers_platform_interface",
         "flutter"

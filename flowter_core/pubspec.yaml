@@ -51,8 +51,7 @@ dependencies:
   google_maps_flutter: ^2.3.1
 
   # Audio
-  audioplayers: ^6.0.0
-  audioplayers_windows: ^4.0.0
+  audioplayers: ^6.5.1
   just_audio: ^0.9.39
 
   # Image Filter
