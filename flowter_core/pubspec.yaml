@@ -51,6 +51,7 @@ dependencies:
   just_audio: ^0.9.39
   just_audio_windows: ^0.2.2
   just_audio_media_kit: ^2.1.0
+  media_kit_libs_windows_audio: ^1.0.9
 
   # Image Filter
   color_filter_extension: ^0.0.2
