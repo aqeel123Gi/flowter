@@ -1,8 +1,18 @@
+import 'dart:io';
 import 'package:just_audio/just_audio.dart';
+import "package:windows_audio/windows_audio.dart";
 
 final AudioPlayer _audioPlayer = AudioPlayer();
 
 Future<void> playAudioFromAssets(String path, {int? seconds}) async {
+
+  if (Platform.isWindows) {
+    final Player = WindowsAudio();
+    Player.load("assets/audio/filename");
+    await Player.play();
+    return;
+  }
+
   // `setAsset` can return null if the duration is unknown (e.g. some formats,
   // or if the asset could not be loaded). We must *not* force-unwrap it.
   final Duration? duration = await _audioPlayer.setAsset('assets/$path');
