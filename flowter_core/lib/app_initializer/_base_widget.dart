@@ -23,6 +23,7 @@ class _AppBaseWidgetState extends State<_AppBaseWidget>{
   void initState() {
 
     AppFramework.updateState = () => setState((){});
+    TemplateController.onRootRebuild = AppFramework.updateState;
 
     TemplateController.addListenerOnPageSetAsHome((page) => UiKeyController.oneLayer([]));
     TemplateController.addListenerOnPagePushed((page) => UiKeyController.pushLayer([]));

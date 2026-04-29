@@ -15,7 +15,7 @@ dependencies:
   firebase_messaging: ^16.1.1
 
 
-  flutter_svg: 2.0.8
+  flutter_svg: 2.0.9
 
 
 

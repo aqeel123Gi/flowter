@@ -14,6 +14,9 @@ class TemplateController {
   static List<void Function(TemplateData page)> listenersOnPagePop = [];
   static List<void Function(TemplateData page)> listenersOnPageSetAsHome = [];
 
+  /// Wired by the app shell (e.g. [AppFramework.updateState]) so [builder] runs
+  /// after [pages] changes inside async work (delayed push, in-place template updates).
+  static void Function()? onRootRebuild;
 
   static late TemplateCustomization _customization;
 
@@ -71,6 +74,7 @@ class TemplateController {
   static void updateCurrentTemplateData(TemplateData Function(TemplateData currentTemplateData) newTemplateData){
     pages.last = newTemplateData(pages.last);
     WidgetController.updateStates();
+    onRootRebuild?.call();
   }
 
 
@@ -129,6 +133,7 @@ class TemplateController {
       pages.add(pendingNextPage!);
       pendingNextPage = null;
       WidgetController.updateStates();
+      onRootRebuild?.call();
     });
     for(var listener in listenersOnPagePushed){
       listener(page);
